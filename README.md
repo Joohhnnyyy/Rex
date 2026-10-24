@@ -73,6 +73,7 @@ Open `http://localhost:3000`, press and hold the mic, and say: *"Kal 4 baje Shan
 | [DEBUGGING.md](DEBUGGING.md) | When something breaks |
 | [DECISIONS.md](DECISIONS.md) · [DECISION_LOG.md](DECISION_LOG.md) | Why things are the way they are |
 | [HANDOFF.md](HANDOFF.md) | End-of-day handoff between Johny and Shanky |
+| [docs/team/SHANKY_PHASE2.md](docs/team/SHANKY_PHASE2.md) | Shanky's Phase 2 work package (MCPs + workflow tests) and its checker |
 | [AGENTS.md](AGENTS.md) · [CLAUDE.md](CLAUDE.md) | Instructions for AI coding agents |
 
 ## Contest rules we must respect

@@ -17,6 +17,15 @@ Tomorrow: T-…
 
 ---
 
+## 2026-10-25 — Johny → Shanky (Phase 2 hand-over)
+
+Shanky owns the rest of Phase 2: Calendar (T-22), Slack + Notion (T-23), eval set (T-27), live workflow tests (T-28), completion gate (T-29).
+Read: `docs/team/SHANKY_PHASE2.md`. Track: `uv run python scripts/check_phase2.py` → `docs/team/PHASE2_STATUS.md` (baseline 0/26).
+Ready for you: gateway + tiers + approvals, location server example, `rex_agent.testing.rex_session()` and a passing live test template.
+Johny next: Google OAuth client into `.env` (External, test users = both), Twilio Account SID + number, Connections page (T-25).
+
+---
+
 ## 2026-10-24 (late) — Claude for Johny (Phase 02 part 1)
 
 Done: MCP gateway with tiers + approvals (T-20/21), voice approvals (T-26), location tools on OpenStreetMap (T-24), dashboard Actions timeline with Approve/Deny (T-25 partial). 83 tests green. Services running on Johny's Mac (API :8000, web :3000, agent).
