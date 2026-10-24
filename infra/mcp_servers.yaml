@@ -1,0 +1,14 @@
+# Runtime MCP servers Rex can use. ${VARS} come from the environment (.env).
+# Tiers: R = read, W = write (reversible), A = act on others / irreversible -> needs the user's "yes".
+servers:
+  location:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.location"]
+    default_tier: R
+
+  # Phase 2 next (enable when credentials are in .env):
+  # calendar:   Google Workspace MCP  — calendar.create_event W, delete_event A
+  # slack:      zencoderai/slack-mcp-server — post_message A
+  # notion:     Notion MCP — default W
+
+allowlists:
+  rex: [location]

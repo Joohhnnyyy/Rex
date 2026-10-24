@@ -1,0 +1,299 @@
+{"type": "entity", "name": "Rex", "entityType": "Project", "observations": ["goal: multilingual voice operator on Gnani STT/TTS", "deadline: 2026-11-10 23:59 IST"]}
+{"type": "entity", "name": "Johny", "entityType": "Person", "observations": ["role: voice, telephony, desktop, frontend"]}
+{"type": "entity", "name": "Shanky", "entityType": "Person", "observations": ["role: orchestrator, MCP tools, backend, coder"]}
+{"type": "relation", "from": "Johny", "to": "Rex", "relationType": "member_of"}
+{"type": "relation", "from": "Shanky", "to": "Rex", "relationType": "member_of"}
+{"type": "entity", "name": "Phase 0", "entityType": "Phase", "observations": ["title: Setup + accounts", "window: 2026-10-24..2026-10-25", "gate: G0: both run make dev"]}
+{"type": "relation", "from": "Phase 0", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 1", "entityType": "Phase", "observations": ["title: Voice loop + supervisor", "window: 2026-10-25..2026-10-27", "gate: G1: Hindi answer < 2 s"]}
+{"type": "relation", "from": "Phase 1", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 2", "entityType": "Phase", "observations": ["title: Core tools + dashboard v1", "window: 2026-10-28..2026-10-31", "gate: G2: demo steps 1+3; scope freeze"]}
+{"type": "relation", "from": "Phase 2", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 3", "entityType": "Phase", "observations": ["title: Caller + Meeting", "window: 2026-11-01..2026-11-04", "gate: G3: demo steps 1-3"]}
+{"type": "relation", "from": "Phase 3", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 4", "entityType": "Phase", "observations": ["title: Coder + Screen + Browser", "window: 2026-11-03..2026-11-06", "gate: G4: demo step 4"]}
+{"type": "relation", "from": "Phase 4", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 5", "entityType": "Phase", "observations": ["title: Safety, polish, languages, evals", "window: 2026-11-05..2026-11-07", "gate: G5: demo 10/10"]}
+{"type": "relation", "from": "Phase 5", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Phase 6", "entityType": "Phase", "observations": ["title: Demo, post, submit", "window: 2026-11-08..2026-11-10", "gate: Submitted by 10 Nov 23:59 IST"]}
+{"type": "relation", "from": "Phase 6", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Backend API", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Backend API", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Browser", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Browser", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Coder", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Coder", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Demo", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Demo", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Desktop companion", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Desktop companion", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Evals", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Evals", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Infra", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Infra", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "LLM router", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "LLM router", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "MCP gateway", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "MCP gateway", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Meeting pipeline", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Meeting pipeline", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Repo", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Repo", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Shared schemas", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Shared schemas", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Specialists", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Specialists", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Supervisor", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Supervisor", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Telephony", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Telephony", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Voice loop", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Voice loop", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "Web dashboard", "entityType": "Component", "observations": []}
+{"type": "relation", "from": "Web dashboard", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "T-01", "entityType": "Task", "observations": ["title: Monorepo scaffold, lint, CI", "status: done", "note: uv workspace + ruff + pytest; Makefile/CI/pre-commit are templates in setup/ (copy once)", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-01", "to": "Phase 0", "relationType": "part_of"}
+{"type": "relation", "from": "T-01", "to": "Repo", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-01", "relationType": "owns"}
+{"type": "entity", "name": "T-02", "entityType": "Task", "observations": ["title: Accounts and API keys (Gnani, LiveKit, Twilio, Google, Slack, Notion, GitHub, Gemini, Mistral)", "status: in_progress", "started: 2026-10-24 (Johny)", "note: keys in .env: Gnani, Gemini, Mistral, Groq, Twilio API key pair (2026-10-24)", "note: still missing: Twilio Account SID (AC…) + number, LiveKit, Google OAuth, Slack, Notion, GitHub", "note: LiveKit Cloud project keys added (2026-10-24)"]}
+{"type": "relation", "from": "T-02", "to": "Phase 0", "relationType": "part_of"}
+{"type": "relation", "from": "T-02", "to": "Repo", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-02", "relationType": "owns"}
+{"type": "entity", "name": "T-03", "entityType": "Task", "observations": ["title: docker-compose: postgres, redis, vexa, langfuse", "status: in_progress", "note: infra/docker-compose.yml (pgvector pg16 + redis 7) validated with compose config; run make infra-up on a laptop"]}
+{"type": "relation", "from": "T-03", "to": "Phase 0", "relationType": "part_of"}
+{"type": "relation", "from": "T-03", "to": "Infra", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-03", "relationType": "owns"}
+{"type": "relation", "from": "T-03", "to": "T-01", "relationType": "depends_on"}
+{"type": "entity", "name": "T-04", "entityType": "Task", "observations": ["title: Project graph + claude-mem setup", "status: in_progress", "started: 2026-10-24 (Johny)"]}
+{"type": "relation", "from": "T-04", "to": "Phase 0", "relationType": "part_of"}
+{"type": "relation", "from": "T-04", "to": "Repo", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-04", "relationType": "owns"}
+{"type": "entity", "name": "T-05", "entityType": "Task", "observations": ["title: Agree shared schemas", "status: done", "note: rex_shared.schemas — ActionEvent, ApprovalRequest, CallOutcome, Minutes, Turn; 5 tests", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-05", "to": "Phase 0", "relationType": "part_of"}
+{"type": "relation", "from": "T-05", "to": "Shared schemas", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-05", "relationType": "owns"}
+{"type": "relation", "from": "Shanky", "to": "T-05", "relationType": "owns"}
+{"type": "relation", "from": "T-05", "to": "T-01", "relationType": "depends_on"}
+{"type": "entity", "name": "T-10", "entityType": "Task", "observations": ["title: LiveKit worker with Gnani Prisma STT", "status: in_progress", "note: rex_agent built with gnani.STT (en-IN,hi-IN, transcribe); tests green; LIVE TEST PENDING on Mac", "note: 2026-10-24 first live run on Mac — worker registered (India South); fixed STT 1008 (hi-IN) and Gemini empty-contents greeting"]}
+{"type": "relation", "from": "T-10", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-10", "to": "Voice loop", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-10", "relationType": "owns"}
+{"type": "relation", "from": "T-10", "to": "T-02", "relationType": "depends_on"}
+{"type": "relation", "from": "T-10", "to": "T-05", "relationType": "depends_on"}
+{"type": "entity", "name": "T-11", "entityType": "Task", "observations": ["title: Gnani Timbre TTS adapter with barge-in", "status: in_progress", "note: gnani.TTS timbre-v2.5 SSE, interruptible via AgentSession; per-turn language switch; LIVE TEST PENDING"]}
+{"type": "relation", "from": "T-11", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-11", "to": "Voice loop", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-11", "relationType": "owns"}
+{"type": "relation", "from": "T-11", "to": "T-10", "relationType": "depends_on"}
+{"type": "entity", "name": "T-12", "entityType": "Task", "observations": ["title: VAD/turn tuning + latency metrics", "status: in_progress", "note: Silero VAD + multilingual turn detector (VAD fallback); metrics logged; tuning needs live run"]}
+{"type": "relation", "from": "T-12", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-12", "to": "Voice loop", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-12", "relationType": "owns"}
+{"type": "relation", "from": "T-12", "to": "T-11", "relationType": "depends_on"}
+{"type": "entity", "name": "T-13", "entityType": "Task", "observations": ["title: LLM router v1 (Gemini, Mistral, fallback)", "status: done", "note: OpenAI-compatible client, fallback on 429/5xx/timeout, key-skip; 11 tests; live check pending keys (scripts/llm_smoke.py)", "done: 2026-10-24", "note: Groq added as 2nd choice (D-020); 18 tests"]}
+{"type": "relation", "from": "T-13", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-13", "to": "LLM router", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-13", "relationType": "owns"}
+{"type": "relation", "from": "T-13", "to": "T-01", "relationType": "depends_on"}
+{"type": "entity", "name": "T-14", "entityType": "Task", "observations": ["title: Supervisor LangGraph v1 + fast ack", "status: done", "note: rex_agent.brain — Supervisor + 7-specialist registry, fast ack in user language, background jobs with report-back, delegate_task tool; 12 tests", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-14", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-14", "to": "Supervisor", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-14", "relationType": "owns"}
+{"type": "relation", "from": "T-14", "to": "T-13", "relationType": "depends_on"}
+{"type": "entity", "name": "T-15", "entityType": "Task", "observations": ["title: Web dashboard v0 (PTT + transcript)", "status: done", "note: apps/web Next.js 15 + LiveKit components: orb, visualiser, mic controls, live transcript with language chips, clear errors; tsc+eslint+build green; browser-tested up to LiveKit connect", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-15", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-15", "to": "Web dashboard", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-15", "relationType": "owns"}
+{"type": "relation", "from": "T-15", "to": "T-10", "relationType": "depends_on"}
+{"type": "entity", "name": "T-16", "entityType": "Task", "observations": ["title: API v0: auth, LiveKit token, sessions", "status: in_progress", "note: POST /v1/livekit/token done (3 tests); magic-link auth + sessions still to do", "note: token now dispatches the rex agent via roomConfig (4 tests)"]}
+{"type": "relation", "from": "T-16", "to": "Phase 1", "relationType": "part_of"}
+{"type": "relation", "from": "T-16", "to": "Backend API", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-16", "relationType": "owns"}
+{"type": "relation", "from": "T-16", "to": "T-03", "relationType": "depends_on"}
+{"type": "entity", "name": "T-20", "entityType": "Task", "observations": ["title: MCP gateway v1 + audit events", "status: done", "note: packages/mcp_gateway — registry yaml, allow-lists, tiers, retries, audit events, untrusted wrapping, stdio/http/in-process; 12 tests", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-20", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-20", "to": "MCP gateway", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-20", "relationType": "owns"}
+{"type": "relation", "from": "T-20", "to": "T-14", "relationType": "depends_on"}
+{"type": "relation", "from": "T-20", "to": "T-16", "relationType": "depends_on"}
+{"type": "entity", "name": "T-21", "entityType": "Task", "observations": ["title: Permission tiers + approval flow", "status: done", "note: Tier A returns NeedsApproval(action_id); approve/deny/expiry; approve_action & deny_action tools; dashboard RPC rex.decide", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-21", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-21", "to": "MCP gateway", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-21", "relationType": "owns"}
+{"type": "relation", "from": "T-21", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-22", "entityType": "Task", "observations": ["title: Google OAuth + Calendar specialist", "status: todo"]}
+{"type": "relation", "from": "T-22", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-22", "to": "Specialists", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-22", "relationType": "owns"}
+{"type": "relation", "from": "T-22", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-23", "entityType": "Task", "observations": ["title: Slack + Notion specialists", "status: todo"]}
+{"type": "relation", "from": "T-23", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-23", "to": "Specialists", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-23", "relationType": "owns"}
+{"type": "relation", "from": "T-23", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-24", "entityType": "Task", "observations": ["title: Maps tools: places, ETA, share pin", "status: done", "note: location MCP server on OpenStreetMap (find_place, travel_time, map_link) — no key; verified live from Mac (Koramangala→Indiranagar 5.7 km). Google Maps optional later (D-024)", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-24", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-24", "to": "Specialists", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-24", "relationType": "owns"}
+{"type": "relation", "from": "T-24", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-25", "entityType": "Task", "observations": ["title: Dashboard v1: timeline, approvals, connections", "status: in_progress", "note: Actions timeline with Approve/Deny done (text stream rex.timeline + RPC); connections page pending"]}
+{"type": "relation", "from": "T-25", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-25", "to": "Web dashboard", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-25", "relationType": "owns"}
+{"type": "relation", "from": "T-25", "to": "T-15", "relationType": "depends_on"}
+{"type": "relation", "from": "T-25", "to": "T-21", "relationType": "depends_on"}
+{"type": "entity", "name": "T-26", "entityType": "Task", "observations": ["title: Voice approvals (haan/nahi)", "status: done", "note: voice approvals via approve_action/deny_action tools + prompt rule", "done: 2026-10-24"]}
+{"type": "relation", "from": "T-26", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-26", "to": "Voice loop", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-26", "relationType": "owns"}
+{"type": "relation", "from": "T-26", "to": "T-21", "relationType": "depends_on"}
+{"type": "entity", "name": "T-27", "entityType": "Task", "observations": ["title: Eval set v1 (60 utterances)", "status: todo"]}
+{"type": "relation", "from": "T-27", "to": "Phase 2", "relationType": "part_of"}
+{"type": "relation", "from": "T-27", "to": "Evals", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-27", "relationType": "owns"}
+{"type": "relation", "from": "Shanky", "to": "T-27", "relationType": "owns"}
+{"type": "relation", "from": "T-27", "to": "T-14", "relationType": "depends_on"}
+{"type": "entity", "name": "T-30", "entityType": "Task", "observations": ["title: Twilio SIP trunk to LiveKit", "status: todo"]}
+{"type": "relation", "from": "T-30", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-30", "to": "Telephony", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-30", "relationType": "owns"}
+{"type": "relation", "from": "T-30", "to": "T-02", "relationType": "depends_on"}
+{"type": "entity", "name": "T-31", "entityType": "Task", "observations": ["title: Caller agent (8 kHz, disclosure, booking)", "status: todo"]}
+{"type": "relation", "from": "T-31", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-31", "to": "Telephony", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-31", "relationType": "owns"}
+{"type": "relation", "from": "T-31", "to": "T-30", "relationType": "depends_on"}
+{"type": "relation", "from": "T-31", "to": "T-11", "relationType": "depends_on"}
+{"type": "entity", "name": "T-32", "entityType": "Task", "observations": ["title: call_tool MCP server", "status: todo"]}
+{"type": "relation", "from": "T-32", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-32", "to": "Telephony", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-32", "relationType": "owns"}
+{"type": "relation", "from": "T-32", "to": "T-31", "relationType": "depends_on"}
+{"type": "relation", "from": "T-32", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-33", "entityType": "Task", "observations": ["title: Vexa setup + meeting.join", "status: todo"]}
+{"type": "relation", "from": "T-33", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-33", "to": "Meeting pipeline", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-33", "relationType": "owns"}
+{"type": "relation", "from": "T-33", "to": "T-03", "relationType": "depends_on"}
+{"type": "entity", "name": "T-34", "entityType": "Task", "observations": ["title: Gnani batch STT for recordings", "status: todo"]}
+{"type": "relation", "from": "T-34", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-34", "to": "Meeting pipeline", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-34", "relationType": "owns"}
+{"type": "relation", "from": "T-34", "to": "T-33", "relationType": "depends_on"}
+{"type": "entity", "name": "T-35", "entityType": "Task", "observations": ["title: Minutes generator to Notion + Slack", "status: todo"]}
+{"type": "relation", "from": "T-35", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "T-35", "to": "Meeting pipeline", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-35", "relationType": "owns"}
+{"type": "relation", "from": "T-35", "to": "T-34", "relationType": "depends_on"}
+{"type": "relation", "from": "T-35", "to": "T-23", "relationType": "depends_on"}
+{"type": "entity", "name": "T-40", "entityType": "Task", "observations": ["title: Docker sandbox runner", "status: todo"]}
+{"type": "relation", "from": "T-40", "to": "Phase 4", "relationType": "part_of"}
+{"type": "relation", "from": "T-40", "to": "Coder", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-40", "relationType": "owns"}
+{"type": "relation", "from": "T-40", "to": "T-03", "relationType": "depends_on"}
+{"type": "entity", "name": "T-41", "entityType": "Task", "observations": ["title: Coder specialist: patch, test, draft PR", "status: todo"]}
+{"type": "relation", "from": "T-41", "to": "Phase 4", "relationType": "part_of"}
+{"type": "relation", "from": "T-41", "to": "Coder", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-41", "relationType": "owns"}
+{"type": "relation", "from": "T-41", "to": "T-40", "relationType": "depends_on"}
+{"type": "relation", "from": "T-41", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-42", "entityType": "Task", "observations": ["title: Tauri desktop companion + hotkey PTT", "status: todo"]}
+{"type": "relation", "from": "T-42", "to": "Phase 4", "relationType": "part_of"}
+{"type": "relation", "from": "T-42", "to": "Desktop companion", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-42", "relationType": "owns"}
+{"type": "relation", "from": "T-42", "to": "T-15", "relationType": "depends_on"}
+{"type": "entity", "name": "T-43", "entityType": "Task", "observations": ["title: Screen capture + screen_tool bridge", "status: todo"]}
+{"type": "relation", "from": "T-43", "to": "Phase 4", "relationType": "part_of"}
+{"type": "relation", "from": "T-43", "to": "Desktop companion", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-43", "relationType": "owns"}
+{"type": "relation", "from": "T-43", "to": "T-42", "relationType": "depends_on"}
+{"type": "relation", "from": "T-43", "to": "T-20", "relationType": "depends_on"}
+{"type": "entity", "name": "T-44", "entityType": "Task", "observations": ["title: Playwright browser MCP with Tier A", "status: todo"]}
+{"type": "relation", "from": "T-44", "to": "Phase 4", "relationType": "part_of"}
+{"type": "relation", "from": "T-44", "to": "Browser", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-44", "relationType": "owns"}
+{"type": "relation", "from": "T-44", "to": "T-21", "relationType": "depends_on"}
+{"type": "entity", "name": "T-50", "entityType": "Task", "observations": ["title: Fallback STT/TTS for non-Gnani languages", "status: todo"]}
+{"type": "relation", "from": "T-50", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-50", "to": "Voice loop", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-50", "relationType": "owns"}
+{"type": "relation", "from": "T-50", "to": "T-12", "relationType": "depends_on"}
+{"type": "entity", "name": "T-51", "entityType": "Task", "observations": ["title: Undo for Tier W actions", "status: todo"]}
+{"type": "relation", "from": "T-51", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-51", "to": "MCP gateway", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-51", "relationType": "owns"}
+{"type": "relation", "from": "T-51", "to": "T-21", "relationType": "depends_on"}
+{"type": "entity", "name": "T-52", "entityType": "Task", "observations": ["title: Prompt-injection guard + tests", "status: todo"]}
+{"type": "relation", "from": "T-52", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-52", "to": "MCP gateway", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-52", "relationType": "owns"}
+{"type": "relation", "from": "T-52", "to": "T-21", "relationType": "depends_on"}
+{"type": "entity", "name": "T-53", "entityType": "Task", "observations": ["title: Dashboard polish + mobile", "status: todo"]}
+{"type": "relation", "from": "T-53", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-53", "to": "Web dashboard", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-53", "relationType": "owns"}
+{"type": "relation", "from": "T-53", "to": "T-25", "relationType": "depends_on"}
+{"type": "entity", "name": "T-54", "entityType": "Task", "observations": ["title: Eval run v2 + latency pass", "status: todo"]}
+{"type": "relation", "from": "T-54", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-54", "to": "Evals", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-54", "relationType": "owns"}
+{"type": "relation", "from": "Shanky", "to": "T-54", "relationType": "owns"}
+{"type": "relation", "from": "T-54", "to": "T-27", "relationType": "depends_on"}
+{"type": "entity", "name": "T-55", "entityType": "Task", "observations": ["title: Stretch pick (memory / briefing / Gmail)", "status: todo"]}
+{"type": "relation", "from": "T-55", "to": "Phase 5", "relationType": "part_of"}
+{"type": "relation", "from": "T-55", "to": "Specialists", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-55", "relationType": "owns"}
+{"type": "relation", "from": "T-55", "to": "T-54", "relationType": "depends_on"}
+{"type": "entity", "name": "T-60", "entityType": "Task", "observations": ["title: Record 60 s demo video", "status: todo"]}
+{"type": "relation", "from": "T-60", "to": "Phase 6", "relationType": "part_of"}
+{"type": "relation", "from": "T-60", "to": "Demo", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-60", "relationType": "owns"}
+{"type": "relation", "from": "T-60", "to": "T-54", "relationType": "depends_on"}
+{"type": "entity", "name": "T-61", "entityType": "Task", "observations": ["title: Written explanation + contributions", "status: todo"]}
+{"type": "relation", "from": "T-61", "to": "Phase 6", "relationType": "part_of"}
+{"type": "relation", "from": "T-61", "to": "Demo", "relationType": "builds"}
+{"type": "relation", "from": "Shanky", "to": "T-61", "relationType": "owns"}
+{"type": "relation", "from": "T-61", "to": "T-54", "relationType": "depends_on"}
+{"type": "entity", "name": "T-62", "entityType": "Task", "observations": ["title: Post on LinkedIn and X with tags", "status: todo"]}
+{"type": "relation", "from": "T-62", "to": "Phase 6", "relationType": "part_of"}
+{"type": "relation", "from": "T-62", "to": "Demo", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-62", "relationType": "owns"}
+{"type": "relation", "from": "Shanky", "to": "T-62", "relationType": "owns"}
+{"type": "relation", "from": "T-62", "to": "T-60", "relationType": "depends_on"}
+{"type": "entity", "name": "T-63", "entityType": "Task", "observations": ["title: Submit form with post links", "status: todo"]}
+{"type": "relation", "from": "T-63", "to": "Phase 6", "relationType": "part_of"}
+{"type": "relation", "from": "T-63", "to": "Demo", "relationType": "builds"}
+{"type": "relation", "from": "Johny", "to": "T-63", "relationType": "owns"}
+{"type": "relation", "from": "Shanky", "to": "T-63", "relationType": "owns"}
+{"type": "relation", "from": "T-63", "to": "T-61", "relationType": "depends_on"}
+{"type": "relation", "from": "T-63", "to": "T-62", "relationType": "depends_on"}
+{"type": "entity", "name": "D-003", "entityType": "Decision", "observations": ["summary: LiveKit Agents over Pipecat", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-003", "to": "Voice loop", "relationType": "affects"}
+{"type": "entity", "name": "D-005", "entityType": "Decision", "observations": ["summary: Gemini + Mistral + Codestral router on free tiers", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-005", "to": "LLM router", "relationType": "affects"}
+{"type": "entity", "name": "D-008", "entityType": "Decision", "observations": ["summary: Twilio trial via LiveKit SIP", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-008", "to": "Telephony", "relationType": "affects"}
+{"type": "entity", "name": "D-009", "entityType": "Decision", "observations": ["summary: Tauri desktop companion + Playwright browser", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-009", "to": "Desktop companion", "relationType": "affects"}
+{"type": "entity", "name": "D-011", "entityType": "Decision", "observations": ["summary: Gnani + faster-whisper fallback for other languages", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-011", "to": "Voice loop", "relationType": "affects"}
+{"type": "entity", "name": "D-016", "entityType": "Decision", "observations": ["summary: Permission tiers R/W/A in gateway", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-016", "to": "MCP gateway", "relationType": "affects"}
+{"type": "entity", "name": "D-017", "entityType": "Decision", "observations": ["summary: Progress tracked in MCP memory graph + claude-mem", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-017", "to": "Repo", "relationType": "affects"}
+{"type": "entity", "name": "R-01", "entityType": "Risk", "observations": ["title: Scope too wide", "mitigation: Scope freeze 31 Oct; cut list in roadmap", "status: open"]}
+{"type": "relation", "from": "R-01", "to": "Rex", "relationType": "threatens"}
+{"type": "entity", "name": "R-02", "entityType": "Risk", "observations": ["title: Twilio trial limits", "mitigation: Verify team phones; trial message accepted", "status: open"]}
+{"type": "relation", "from": "R-02", "to": "Rex", "relationType": "threatens"}
+{"type": "entity", "name": "R-03", "entityType": "Risk", "observations": ["title: Gnani STT finals only", "mitigation: Tight VAD + fast ack", "status: open"]}
+{"type": "relation", "from": "R-03", "to": "Rex", "relationType": "threatens"}
+{"type": "entity", "name": "R-04", "entityType": "Risk", "observations": ["title: Free-tier LLM rate limits", "mitigation: Router fallback chain", "status: open"]}
+{"type": "relation", "from": "R-04", "to": "Rex", "relationType": "threatens"}
+{"type": "entity", "name": "R-05", "entityType": "Risk", "observations": ["title: Meeting bot admission", "mitigation: Admit manually; synthetic recording fallback", "status: open"]}
+{"type": "relation", "from": "R-05", "to": "Rex", "relationType": "threatens"}
+{"type": "entity", "name": "D-019", "entityType": "Decision", "observations": ["summary: Product name Rex", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-019", "to": "Repo", "relationType": "affects"}
+{"type": "entity", "name": "D-021", "entityType": "Decision", "observations": ["summary: v1 supervisor uses LiveKit function tools + own Supervisor class instead of LangGraph", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-021", "to": "Supervisor", "relationType": "affects"}
+{"type": "entity", "name": "D-024", "entityType": "Decision", "observations": ["summary: Location tools on OpenStreetMap (Nominatim + OSRM), Google Maps optional later", "date: 2026-10-24"]}
+{"type": "relation", "from": "D-024", "to": "Specialists", "relationType": "affects"}

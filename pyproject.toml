@@ -1,0 +1,50 @@
+[project]
+name = "rex-workspace"
+version = "0.1.0"
+description = "Rex — multilingual voice operator (workspace root)"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.7",
+  "pyjwt>=2.9",
+  "rex-shared",
+  "rex-llm-router",
+  "rex-api",
+  "rex-agent",
+  "rex-mcp-gateway",
+  "rex-mcp-servers",
+]
+
+[tool.uv.workspace]
+members = ["packages/*", "apps/api", "apps/agent"]
+
+[tool.uv.sources]
+rex-shared = { workspace = true }
+rex-llm-router = { workspace = true }
+rex-api = { workspace = true }
+rex-agent = { workspace = true }
+rex-mcp-gateway = { workspace = true }
+rex-mcp-servers = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["packages", "apps"]
+asyncio_mode = "auto"
+addopts = "-q -p no:cacheprovider"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["E501", "E731"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["rex_shared", "rex_llm_router", "rex_api", "rex_agent", "rex_mcp_gateway", "rex_mcp_servers"]

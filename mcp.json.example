@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "project-graph": {
+      "command": "sh",
+      "args": [
+        "-c",
+        "MEMORY_FILE_PATH=\"$PWD/memory/project-graph.jsonl\" exec npx -y @modelcontextprotocol/server-memory"
+      ]
+    }
+  }
+}

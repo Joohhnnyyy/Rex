@@ -1,0 +1,56 @@
+# ---- Secrets (never commit) ----
+.env
+.env.*
+!.env.example
+!.env.local.example
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.local.example
+*.pem
+*.key
+*.p12
+credentials*.json
+client_secret*.json
+token*.json
+!**/tsconfig*.json
+service-account*.json
+.mcp.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# ---- Node / Next.js ----
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+
+# ---- Rust / Tauri ----
+target/
+
+# ---- Audio / recordings / local data ----
+*.wav
+*.mp3
+*.ogg
+recordings/
+
+# ---- OS / editors ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

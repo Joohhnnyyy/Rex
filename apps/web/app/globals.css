@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --text: #1b1b1f;
+  --muted: #6b6f76;
+  --accent: #e8772e;
+  --ok: #1f9d55;
+  --warn: #c98a00;
+  --danger: #d14343;
+  --lk-va-bar-bg: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111214;
+    --surface: #1a1c1f;
+    --text: #ececef;
+    --muted: #9a9ea6;
+    --accent: #f08a45;
+    --ok: #3bc07a;
+    --warn: #e3a72f;
+    --danger: #ef6262;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Noto Sans", "Noto Sans Devanagari", "Noto Sans Tamil", "Noto Sans Kannada",
+    "Noto Sans Bengali", system-ui, sans-serif;
+}
+
+.orb {
+  width: 120px;
+  height: 120px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #ffd2ad, var(--accent) 60%, #b4551a);
+  transition: transform 300ms ease, filter 300ms ease;
+}
+.orb-idle,
+.orb-disconnected,
+.orb-connecting,
+.orb-initializing {
+  filter: saturate(0.4);
+}
+.orb-listening {
+  animation: breathe 2.4s ease-in-out infinite;
+}
+.orb-thinking {
+  animation: spin 1.2s linear infinite;
+  filter: hue-rotate(-20deg);
+}
+.orb-speaking {
+  animation: pulse 0.6s ease-in-out infinite alternate;
+}
+@keyframes breathe {
+  50% { transform: scale(1.06); }
+}
+@keyframes pulse {
+  to { transform: scale(1.12); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.rex-bars {
+  --lk-fg: var(--accent);
+}
