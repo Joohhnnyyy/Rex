@@ -23,6 +23,15 @@ The **current** answer to each architectural question. When a decision changes, 
 | D-017 | Progress tracking | MCP memory knowledge graph in git + claude-mem per machine + generated PROGRESS.md | Accepted | Both | Shared, queryable progress for humans and agents |
 | D-019 | Product name | **Rex** | Accepted | Both | Short, punchy, easy wake word |
 | D-018 | Award focus | Mixed Vibes first, Demo Day Drop backup | Accepted | Both | Code-mixed speech is the core |
+| D-026 | Slack MCP | @zencoderai/slack-mcp-server with posting as Tier A | Accepted | Shanky | Reaches others; reading history is Tier R |
+| D-027 | Notion MCP | @notionhq/notion-mcp-server with default_tier W and deletes Tier A | Accepted | Shanky | Reversible notes are W, destructive actions are A |
+| D-028 | Undo for Tier W | Gateway undo stack and compensating call execution + agent undo_action tool | Accepted | Shanky | User can say "undo karo" to revert actions |
+| D-029 | Minutes MCP | rex_mcp_servers.minutes using LLMClient with Notion blocks and Slack mrkdwn | Accepted | Shanky | Clean structured extraction for meetings |
+| D-030 | Sandbox runner | rex_mcp_servers.sandbox with workspace boundary and test execution | Accepted | Shanky | Isolated code execution for Coder specialist |
+| D-031 | Browser MCP | rex_mcp_servers.browser with submit_form as Tier A | Accepted | Shanky | Browser form submits require explicit approval |
+| D-032 | Vexa MCP | rex_mcp_servers.vexa for meeting bot recording and transcript retrieval | Accepted | Shanky | Automated meeting capture |
+| D-033 | Coder Specialist | rex_agent.brain.coder loop with Codestral and sandbox test verification | Accepted | Shanky | Autonomous self-healing code agent |
+| D-034 | Briefing MCP | rex_mcp_servers.briefing for personalized morning brief in Hinglish | Accepted | Shanky | High-value daily synthesized routine |
 
 ## Decision template
 

@@ -4,11 +4,110 @@ servers:
   location:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.location"]
     default_tier: R
+    tools:
+      get_user_location: {tier: R}
+      find_place:        {tier: R}
+      travel_time:       {tier: R}
 
-  # Phase 2 next (enable when credentials are in .env):
-  # calendar:   Google Workspace MCP  — calendar.create_event W, delete_event A
-  # slack:      zencoderai/slack-mcp-server — post_message A
-  # notion:     Notion MCP — default W
+  calendar:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.calendar"]
+    env:
+      GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
+      GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET}"
+      REX_GOOGLE_TOKEN_PATH: "${REX_GOOGLE_TOKEN_PATH}"
+      HOME: "${HOME}"
+    default_tier: A
+    tools:
+      list_events:     {tier: R}
+      find_free_slots: {tier: R}
+      create_event:    {tier: W, undo: delete_event}
+      update_event:    {tier: W}
+      delete_event:    {tier: A}
+
+  slack:
+    command: ["npx", "-y", "@zencoderai/slack-mcp-server"]
+    env:
+      SLACK_BOT_TOKEN: "${SLACK_BOT_TOKEN}"
+      SLACK_TEAM_ID: "${SLACK_TEAM_ID}"
+      PATH: "${PATH}"
+    default_tier: A
+    tools:
+      slack_list_channels:       {tier: R}
+      slack_get_channel_history: {tier: R}
+      slack_get_thread_replies:  {tier: R}
+      slack_get_users:           {tier: R}
+      slack_get_user_profile:    {tier: R}
+      slack_add_reaction:        {tier: W}
+      slack_post_message:        {tier: A}
+      slack_reply_to_thread:     {tier: A}
+
+  notion:
+    command: ["npx", "-y", "@notionhq/notion-mcp-server"]
+    env:
+      NOTION_TOKEN: "${NOTION_TOKEN}"
+      PATH: "${PATH}"
+    default_tier: W
+    tools:
+      API-post-search:             {tier: R}
+      API-retrieve-a-page:         {tier: R}
+      API-retrieve-page-markdown:  {tier: R}
+      API-get-block-children:      {tier: R}
+      API-retrieve-a-database:     {tier: R}
+      API-get-user:                {tier: R}
+      API-get-users:               {tier: R}
+      API-post-page:               {tier: W}
+      API-patch-page:              {tier: W}
+      API-patch-block-children:    {tier: W}
+      API-update-page-markdown:    {tier: W}
+      API-delete-a-block:          {tier: A}
+      API-move-page:               {tier: A}
+
+  minutes:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.minutes"]
+    default_tier: W
+    tools:
+      generate_minutes:     {tier: W}
+      format_notion_blocks: {tier: R}
+      format_slack_summary: {tier: R}
+
+  sandbox:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.sandbox"]
+    default_tier: W
+    tools:
+      read_file:  {tier: R}
+      write_file: {tier: W}
+      execute:    {tier: W}
+      git_clone:  {tier: W}
+      run_tests:  {tier: R}
+
+  browser:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.browser"]
+    default_tier: A
+    tools:
+      navigate:    {tier: R}
+      read_page:   {tier: R}
+      fill_form:   {tier: W}
+      submit_form: {tier: A}
+
+  vexa:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.vexa"]
+    default_tier: W
+    tools:
+      join_meeting:       {tier: W, undo: leave_meeting}
+      get_meeting_status: {tier: R}
+      fetch_transcript:   {tier: R}
+      leave_meeting:      {tier: W}
+
+  briefing:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.briefing"]
+    default_tier: R
+    tools:
+      get_morning_briefing: {tier: R}
+      get_memories:         {tier: R}
+      store_memory:         {tier: W}
 
 allowlists:
-  rex: [location]
+  rex: [location, calendar, slack, notion, minutes, sandbox, browser, vexa, briefing]
+  meeting: [vexa, minutes, notion, slack]
+  coder: [sandbox]
+  screen: [browser]

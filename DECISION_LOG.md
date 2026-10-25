@@ -2,6 +2,18 @@
 
 Chronological record of every decision and change of mind. Never edit old entries — add a new one that supersedes. Format: `YYYY-MM-DD · ID · who · decision · reason`.
 
+## 2026-10-25
+
+- **D-034** · Shanky · Briefing & Memory MCP server (`rex_mcp_servers.briefing`) synthesizing daily schedule, open tasks, and travel times into Hinglish/English morning briefings.
+- **D-033** · Shanky · Coder Specialist executor (`rex_agent.brain.coder`) using Codestral to formulate code patches and self-heal test suites up to 3 retries in the sandbox.
+- **D-032** · Shanky · Vexa MCP server (`rex_mcp_servers.vexa`) and Meeting Specialist executor (`rex_agent.brain.meeting`) coordinating bot recording, transcript retrieval, and minutes publishing.
+- **D-031** · Shanky · Browser MCP server (`rex_mcp_servers.browser`) declaring `submit_form` as Tier A approval-gated tool · Web form submits alter external state and must not execute automatically.
+- **D-030** · Shanky · Sandbox runner (`rex_mcp_servers.sandbox`) with workspace boundary enforcement and multi-language test execution · Secure execution preventing host escape.
+- **D-029** · Shanky · Minutes MCP server (`rex_mcp_servers.minutes`) using `LLMClient` with structured JSON parsing and Notion/Slack formatting · Standardizes meeting pipeline extraction.
+- **D-028** · Shanky · Gateway undo architecture for Tier W actions (`Gateway.undo()`, `undo_action` voice tool, and `ActionEvent.undo` spec) · Enables users to say "undo karo" or "cancel that" to revert reversible actions.
+- **D-027** · Shanky · Notion MCP tools mapped from official `@notionhq/notion-mcp-server` (`API-post-search`, `API-retrieve-a-page`, `API-retrieve-a-database` R; `API-post-page`, `API-patch-page`, `API-patch-block-children` W; `API-delete-a-block`, `API-move-page` A; default_tier W) · Destructive actions require explicit confirmation, while notes and updates are reversible.
+- **D-026** · Shanky · Slack MCP tools mapped from `@zencoderai/slack-mcp-server` (`slack_list_channels`, `slack_get_channel_history`, `slack_get_thread_replies`, `slack_get_users`, `slack_get_user_profile` R; `slack_add_reaction` W; `slack_post_message`, `slack_reply_to_thread` A; default_tier A) · Reaching other people via post/reply is Tier A; reading history is Tier R.
+
 ## 2026-10-24
 
 - **D-024** · Shanky/Claude · Location tools use OpenStreetMap (Nominatim + OSRM, no key); Google Maps optional later · Works today without another account; estimates exclude live traffic.

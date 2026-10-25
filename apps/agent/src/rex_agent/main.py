@@ -35,6 +35,8 @@ from livekit.agents import (
 from livekit.plugins import silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
+from rex_agent.brain.coder import CoderSpecialist
+from rex_agent.brain.meeting import MeetingSpecialist
 from rex_agent.brain.specialists import REGISTRY, ExecResult
 from rex_agent.brain.supervisor import Supervisor
 from rex_agent.config import AgentConfig
@@ -60,7 +62,14 @@ class Rex(Agent):
         self._cfg = cfg
         self.gateway = gateway
         self._lang: str | None = "en-IN" if cfg.english_only else None
-        self.supervisor = Supervisor(say=self._say_now, report=self._report_back, executors={})
+        self.supervisor = Supervisor(
+            say=self._say_now,
+            report=self._report_back,
+            executors={
+                "coder": CoderSpecialist().run,
+                "meeting": MeetingSpecialist().run,
+            },
+        )
 
     async def _say_now(self, text: str) -> None:
         self.session.say(text)  # don't wait for playback; the tool call returns immediately
@@ -121,6 +130,22 @@ class Rex(Agent):
         except KeyError:
             pass
         return "Cancelled. Nothing was done."
+
+    @function_tool()
+    async def undo_action(self, context: RunContext, action_id: str = "") -> str:
+        """Undo the last reversible action (e.g. undo creating a calendar event, undo adding a note).
+        Call this when the user says 'undo', 'cancel that', 'revert that', 'undo karo'.
+
+        Args:
+            action_id: Optional specific action_id to undo. If empty, undos the last reversible action.
+        """
+        if self.gateway is None:
+            return "No tools are connected."
+        try:
+            out = await self.gateway.undo(action_id or None)
+            return out.text
+        except Exception as exc:
+            return f"Nothing could be undone: {exc}."
 
 
 def load_runtime_registry() -> Registry:

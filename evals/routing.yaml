@@ -1,0 +1,158 @@
+# Eval set v1 for Rex tool routing (60+ utterances)
+# Balanced across Calendar, Slack, Notion, Location, Multi-step, Small Talk, Approvals, and Hinglish.
+
+# --- Calendar (15 cases) ---
+- utterance: "Book a call with Johny tomorrow at 4 pm"
+  expect_tool: calendar__create_event
+- utterance: "What's on my calendar tomorrow?"
+  expect_tool: calendar__list_events
+- utterance: "When am I free on Monday afternoon for an hour?"
+  expect_tool: calendar__find_free_slots
+- utterance: "Schedule a sync with the frontend team on Friday at 11 am"
+  expect_tool: calendar__create_event
+- utterance: "List all my meetings for today"
+  expect_tool: calendar__list_events
+- utterance: "Find 45 minutes of free time this Wednesday"
+  expect_tool: calendar__find_free_slots
+- utterance: "Delete the demo sync event"
+  expect_tool: calendar__delete_event
+- utterance: "Cancel my 3 pm appointment"
+  expect_tool: calendar__delete_event
+- utterance: "Move my 2 pm meeting to 3 pm tomorrow"
+  expect_tool: calendar__update_event
+- utterance: "Reschedule the product review to Monday 10 am"
+  expect_tool: calendar__update_event
+- utterance: "Do I have any conflicts between 2 pm and 4 pm today?"
+  expect_tool: calendar__list_events
+- utterance: "Add Shanky to the 4 pm demo meeting"
+  expect_tool: calendar__update_event
+- utterance: "Set up a 15-minute quick chat tomorrow morning at 9:30"
+  expect_tool: calendar__create_event
+- utterance: "Show my schedule for next week"
+  expect_tool: calendar__list_events
+- utterance: "Check my free slots for tomorrow between 2 pm and 6 pm"
+  expect_tool: calendar__find_free_slots
+
+# --- Slack (12 cases) ---
+- utterance: "Post 'standup at 10' in #rex-test"
+  expect_tool: slack__slack_post_message
+- utterance: "What's new in #rex-test?"
+  expect_tool: slack__slack_get_channel_history
+- utterance: "List all available Slack channels"
+  expect_tool: slack__slack_list_channels
+- utterance: "Send a message to #general saying the deployment succeeded"
+  expect_tool: slack__slack_post_message
+- utterance: "Read the latest messages from #standup"
+  expect_tool: slack__slack_get_channel_history
+- utterance: "Post an update in #engineering: PR #42 is ready for review"
+  expect_tool: slack__slack_post_message
+- utterance: "Check recent chats in #announcements"
+  expect_tool: slack__slack_get_channel_history
+- utterance: "Reply in the thread with 'I will take care of this'"
+  expect_tool: slack__slack_reply_to_thread
+- utterance: "Add a thumbs up reaction to the last message"
+  expect_tool: slack__slack_add_reaction
+- utterance: "Who is in the workspace? Show users"
+  expect_tool: slack__slack_get_users
+- utterance: "Post a summary in #standup"
+  expect_tool: slack__slack_post_message
+- utterance: "Summarise the conversation in #rex-test"
+  expect_tool: slack__slack_get_channel_history
+
+# --- Notion (10 cases) ---
+- utterance: "Save a note in Notion: buy demo mic"
+  expect_tool: notion__API-post-page
+- utterance: "Find my Notion note about the demo mic"
+  expect_tool: notion__API-post-search
+- utterance: "Create a new page in Notion called Sprint 4 Retrospective"
+  expect_tool: notion__API-post-page
+- utterance: "Search my Notion workspace for meeting minutes"
+  expect_tool: notion__API-post-search
+- utterance: "Append notes to the demo page: speaker setup completed"
+  expect_tool: notion__API-patch-block-children
+- utterance: "Retrieve the Notion page for Project Rex"
+  expect_tool: notion__API-retrieve-a-page
+- utterance: "Search Notion for quarterly objectives"
+  expect_tool: notion__API-post-search
+- utterance: "Create a task page in Notion for documentation review"
+  expect_tool: notion__API-post-page
+- utterance: "Fetch the blocks in the team roadmap page"
+  expect_tool: notion__API-get-block-children
+- utterance: "Delete the scratch note block in Notion"
+  expect_tool: notion__API-delete-a-block
+
+# --- Location (8 cases) ---
+- utterance: "How long does it take to drive from Koramangala to Indiranagar?"
+  expect_tool: location__travel_time
+- utterance: "Find a dental clinic in HSR Layout"
+  expect_tool: location__find_place
+- utterance: "Get a map link for MG Road Metro Station"
+  expect_tool: location__map_link
+- utterance: "What is the driving time from Whitefield to Electronic City?"
+  expect_tool: location__travel_time
+- utterance: "Search for coffee shops near Indiranagar"
+  expect_tool: location__find_place
+- utterance: "Give me directions link for Bangalore Airport"
+  expect_tool: location__map_link
+- utterance: "How far is Church Street from Koramangala and how long will it take?"
+  expect_tool: location__travel_time
+- utterance: "Locate Apollo Hospital in Jayanagar"
+  expect_tool: location__find_place
+
+# --- Multi-step / Workflow initial tool (5 cases) ---
+- utterance: "Make today's standup notes in Notion and post the link in #rex-test"
+  expect_tool: notion__API-post-page
+- utterance: "How long from Koramangala to Indiranagar, and block that travel time before my 5 pm meeting"
+  expect_tool: location__travel_time
+- utterance: "Find my meeting minutes in Notion and share them in #rex-test"
+  expect_tool: notion__API-post-search
+- utterance: "Check when I'm free tomorrow and post the free times in #general"
+  expect_tool: calendar__find_free_slots
+- utterance: "Find a restaurant in Koramangala and add a dinner event at 8 pm"
+  expect_tool: location__find_place
+
+# --- No-tool Small Talk (5 cases) ---
+- utterance: "Hi Rex, how are you doing today?"
+  expect_tool: none
+- utterance: "Namaste Rex!"
+  expect_tool: none
+- utterance: "What can you do?"
+  expect_tool: none
+- utterance: "Who created you?"
+  expect_tool: none
+- utterance: "Thanks for your help, Rex."
+  expect_tool: none
+
+# --- Approvals / Denials (5 cases) ---
+- utterance: "Yes, go ahead and do it"
+  expect_tool: approve_action
+- utterance: "Haan, kar do"
+  expect_tool: approve_action
+- utterance: "No, please cancel that"
+  expect_tool: deny_action
+- utterance: "Nahi, ruko mat karo"
+  expect_tool: deny_action
+- utterance: "Yes, confirm the action"
+  expect_tool: approve_action
+
+# --- Hinglish Variations (10 cases) ---
+- utterance: "Kal 4 baje Johny ke saath meeting rakho"
+  expect_tool: calendar__create_event
+- utterance: "Kal mere calendar pe kya kya hai?"
+  expect_tool: calendar__list_events
+- utterance: "Monday dopahar ko main kab free hoon 1 ghante ke liye?"
+  expect_tool: calendar__find_free_slots
+- utterance: "#rex-test mein post karo: 'standup 10 baje shuru hoga'"
+  expect_tool: slack__slack_post_message
+- utterance: "#rex-test ke naye messages batao"
+  expect_tool: slack__slack_get_channel_history
+- utterance: "Notion mein note banao: buy demo mic"
+  expect_tool: notion__API-post-page
+- utterance: "Demo mic wala note Notion mein dhoondo"
+  expect_tool: notion__API-post-search
+- utterance: "Koramangala se Indiranagar kitna time lagega drive karne mein?"
+  expect_tool: location__travel_time
+- utterance: "HSR Layout mein koi dental clinic dhoondo"
+  expect_tool: location__find_place
+- utterance: "Aaj ke standup ke notes Notion mein daalo"
+  expect_tool: notion__API-post-page

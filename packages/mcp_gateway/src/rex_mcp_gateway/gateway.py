@@ -76,6 +76,19 @@ class PendingAction:
     event_ts: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
+_DESTRUCTIVE_KEYS = ("archived", "in_trash", "trash", "delete")
+
+
+def _is_destructive(args: dict[str, Any]) -> bool:
+    """True if args ask the tool to archive/trash/delete something (truthy flag, any nesting level one deep)."""
+    for k, v in args.items():
+        if k in _DESTRUCTIVE_KEYS and v not in (False, None, "", "false", 0):
+            return True
+        if isinstance(v, dict) and _is_destructive(v):
+            return True
+    return False
+
+
 def wrap_untrusted(source: str, text: str) -> str:
     return f'<untrusted_data source="{source}">\n{text}\n</untrusted_data>'
 
@@ -93,6 +106,8 @@ class Gateway:
         self._stack = AsyncExitStack()
         self._clients: dict[str, Client] = {}
         self._pending: dict[str, PendingAction] = {}
+        self._undo_history: dict[str, dict[str, Any]] = {}
+        self._undo_order: list[str] = []
 
     # ---------- connections ----------
     # MCP clients run on anyio task groups, so they must be opened and closed in the same task.
@@ -111,8 +126,8 @@ class Gateway:
                     raise ValueError("no transport configured")
                 self._clients[name] = await self._stack.enter_async_context(Client(target))
                 logger.info("connected MCP server %s", name)
-            except Exception:
-                logger.exception("could not connect MCP server %s (skipping)", name)
+            except Exception as exc:
+                logger.warning("could not connect MCP server %s (skipping): %s", name, exc)
         return self
 
     async def __aexit__(self, *exc: object) -> None:
@@ -168,6 +183,8 @@ class Gateway:
 
         summary = summary or f"{qualified_tool} {json.dumps(args, ensure_ascii=False)[:120]}"
         tier = self.registry.tier_for(server, tool)
+        if _is_destructive(args):
+            tier = "A"  # e.g. notion patch-page with archived/in_trash: a W tool must not delete without approval
         if tier == "A":
             action_id = uuid.uuid4().hex[:10]
             self._pending[action_id] = PendingAction(
@@ -192,30 +209,105 @@ class Gateway:
         p = self._pending.pop(action_id)
         await self._emit(p.tool, "A", "denied", p.summary, p.args, action_id=action_id)
 
+    async def undo(self, action_id: str | None = None) -> ToolOutcome:
+        """Reverse a previous Tier W action using its compensating undo tool."""
+        if action_id is not None:
+            if action_id not in self._undo_history:
+                raise KeyError(f"no undo available for action {action_id!r}")
+            key = action_id
+        else:
+            if not self._undo_order:
+                raise RuntimeError("Nothing to undo.")
+            key = self._undo_order[-1]
+
+        undo_spec = self._undo_history.pop(key)
+        if key in self._undo_order:
+            self._undo_order.remove(key)
+
+        undo_tool = undo_spec["tool"]
+        undo_args = undo_spec["args"]
+        server, _, tool = undo_tool.partition(".")
+
+        client = await self._client(server)
+        policy = self.registry.servers[server].policy(tool)
+        res = await asyncio.wait_for(client.call_tool(tool, undo_args), timeout=policy.timeout_s)
+        text = "\n".join(getattr(c, "text", "") for c in res.content if getattr(c, "text", None))
+
+        await self._emit(
+            tool=undo_tool,
+            tier="W",
+            status="undone",
+            summary=f"Reverted action via {undo_tool}",
+            args=undo_args,
+            result={"text": text[:500]},
+            action_id=key,
+        )
+        return ToolOutcome(ok=True, text=f"Undone: reverted {undo_tool}.", raw=res, action_id=key)
+
     async def _execute(
         self, qualified_tool: str, tier: Tier, args: dict[str, Any], summary: str, action_id: str | None = None
     ) -> ToolOutcome:
         server, _, tool = qualified_tool.partition(".")
         policy = self.registry.servers[server].policy(tool)
-        await self._emit(qualified_tool, tier, "started", summary, args, action_id=action_id)
+        call_id = action_id or uuid.uuid4().hex[:10]
+        await self._emit(qualified_tool, tier, "started", summary, args, action_id=call_id)
         last_err = ""
-        for attempt in range(2):  # one retry on exceptions / timeouts
+        # Retry only reads: a timed-out write may already have run, and repeating it would duplicate it.
+        for attempt in range(2 if tier == "R" else 1):
             try:
                 client = await self._client(server)
                 res = await asyncio.wait_for(client.call_tool(tool, args), timeout=policy.timeout_s)
                 text = "\n".join(getattr(c, "text", "") for c in res.content if getattr(c, "text", None))
                 if res.is_error:
-                    await self._emit(qualified_tool, tier, "failed", summary, args, result={"error": text})
-                    return ToolOutcome(ok=False, text=f"The tool failed: {text}", raw=res, action_id=action_id)
+                    await self._emit(
+                        qualified_tool, tier, "failed", summary, args, result={"error": text}, action_id=call_id
+                    )
+                    return ToolOutcome(ok=False, text=f"The tool failed: {text}", raw=res, action_id=call_id)
+
+                undo_spec = None
+                if policy.undo:
+                    undo_tool = f"{server}.{policy.undo}"
+                    undo_args: dict[str, Any] = {}
+                    parsed = None
+                    try:
+                        parsed = json.loads(text) if text else None
+                    except Exception:
+                        pass
+                    if isinstance(parsed, dict) and "id" in parsed:
+                        item_id = str(parsed["id"])
+                        if "delete_event" in policy.undo:
+                            undo_args = {"event_id": item_id}
+                        elif "delete" in policy.undo or "archive" in policy.undo:
+                            undo_args = {"event_id": item_id} if "event_id" in policy.undo else {"id": item_id}
+                        else:
+                            undo_args = {"id": item_id}
+                    elif "id" in args:
+                        undo_args = {"id": str(args["id"])}
+                    elif "event_id" in args:
+                        undo_args = {"event_id": str(args["event_id"])}
+
+                    if undo_args:
+                        undo_spec = {"tool": undo_tool, "args": undo_args}
+                        self._undo_history[call_id] = undo_spec
+                        self._undo_order.append(call_id)
+
                 await self._emit(
-                    qualified_tool, tier, "succeeded", summary, args, result={"text": text[:500]}, action_id=action_id
+                    qualified_tool,
+                    tier,
+                    "succeeded",
+                    summary,
+                    args,
+                    result={"text": text[:500]},
+                    action_id=call_id,
+                    undo=undo_spec,
+                    undo_available=bool(undo_spec),
                 )
-                return ToolOutcome(ok=True, text=wrap_untrusted(qualified_tool, text), raw=res, action_id=action_id)
+                return ToolOutcome(ok=True, text=wrap_untrusted(qualified_tool, text), raw=res, action_id=call_id)
             except (TimeoutError, ConnectionError, OSError, ToolDenied) as exc:
                 last_err = f"{type(exc).__name__}: {exc}"
                 logger.warning("tool %s attempt %d failed: %s", qualified_tool, attempt + 1, last_err)
-        await self._emit(qualified_tool, tier, "failed", summary, args, result={"error": last_err})
-        return ToolOutcome(ok=False, text=f"The tool failed: {last_err}", action_id=action_id)
+        await self._emit(qualified_tool, tier, "failed", summary, args, result={"error": last_err}, action_id=call_id)
+        return ToolOutcome(ok=False, text=f"The tool failed: {last_err}", action_id=call_id)
 
     async def _emit(
         self,
@@ -226,6 +318,8 @@ class Gateway:
         args: dict[str, Any],
         result: dict[str, Any] | None = None,
         action_id: str | None = None,
+        undo: dict[str, Any] | None = None,
+        undo_available: bool = False,
     ) -> None:
         if self._on_event is None:
             return
@@ -238,6 +332,8 @@ class Gateway:
             summary=summary,
             args_redacted={k: (v if len(str(v)) < 200 else str(v)[:200] + "…") for k, v in args.items()},
             result_redacted=result,
+            undo=undo,
+            undo_available=undo_available,
             trace_id=action_id,
         )
         try:

@@ -19,6 +19,12 @@ def make_demo_server() -> MCPServer:
         return {"id": "n1", "text": text}
 
     @srv.tool()
+    def delete_note(id: str) -> str:
+        """Delete a note."""
+        state["deleted"] = id
+        return "deleted"
+
+    @srv.tool()
     def post_message(channel: str, text: str) -> str:
         """Post a message to other people."""
         state["posted"].append((channel, text))
@@ -53,7 +59,8 @@ def registry(demo_server):
                 default_tier="A",
                 tools={
                     "lookup": ToolPolicy(tier="R"),
-                    "create_note": ToolPolicy(tier="W"),
+                    "create_note": ToolPolicy(tier="W", undo="delete_note"),
+                    "delete_note": ToolPolicy(tier="A"),
                     "post_message": ToolPolicy(tier="A"),
                     "flaky": ToolPolicy(tier="R"),
                     "injected": ToolPolicy(tier="R"),

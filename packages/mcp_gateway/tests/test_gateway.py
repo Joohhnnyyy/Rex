@@ -103,3 +103,29 @@ async def test_hostile_tool_output_stays_inside_untrusted_wrapper(registry):
         out = await gw.call("rex", "demo.injected", {})
         assert out.text.startswith("<untrusted_data")
         assert out.text.rstrip().endswith("</untrusted_data>")
+
+
+async def test_undo_tier_w_action(registry, demo_server):
+    async with open_gw(registry) as gw:
+        out = await gw.call("rex", "demo.create_note", {"text": "buy groceries"})
+        assert out.ok
+        last_ev = gw.events[-1]
+        assert last_ev.status == "succeeded"
+        assert last_ev.undo_available is True
+        assert last_ev.undo == {"tool": "demo.delete_note", "args": {"id": "n1"}}
+
+        res = await gw.undo()
+        assert res.ok
+        assert demo_server.state["deleted"] == "n1"
+        assert gw.events[-1].status == "undone"
+
+        with pytest.raises(RuntimeError, match="Nothing to undo"):
+            await gw.undo()
+
+
+async def test_destructive_args_escalate_w_tool_to_approval(registry):
+    async with open_gw(registry) as gw:
+        out = await gw.call("rex", "demo.create_note", {"text": "x", "archived": True})
+        assert isinstance(out, NeedsApproval)
+        out2 = await gw.call("rex", "demo.create_note", {"text": "x", "archived": False})
+        assert not isinstance(out2, NeedsApproval)

@@ -3,7 +3,12 @@ name = "rex-mcp-servers"
 version = "0.1.0"
 description = "Rex's own MCP tool servers (location, ...)"
 requires-python = ">=3.12"
-dependencies = ["mcp>=2.3", "httpx>=0.27"]
+dependencies = [
+  "mcp>=2.3",
+  "httpx>=0.27",
+  "google-api-python-client>=2.140",
+  "google-auth-oauthlib>=1.2",
+]
 
 [build-system]
 requires = ["hatchling"]

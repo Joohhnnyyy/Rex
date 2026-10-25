@@ -34,6 +34,7 @@ class ActionEvent(_Model):
     job_id: UUID | None = None
     args_redacted: dict[str, Any] = Field(default_factory=dict)
     result_redacted: dict[str, Any] | None = None
+    undo: dict[str, Any] | None = Field(default=None, description="Compensating call spec {tool, args}")
     undo_available: bool = False
     trace_id: str | None = None
 
@@ -91,3 +92,35 @@ class Turn(_Model):
     tts_ms: int | None = None
     total_ms: int | None = None
     fallback_used: bool = False
+
+
+class User(_Model):
+    """User account entity."""
+
+    id: UUID
+    email: str
+    display_name: str = ""
+    preferred_lang: str = "hi-IN"
+    timezone: str = "Asia/Kolkata"
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class UserUpdate(_Model):
+    """Fields that can be updated on the current user profile."""
+
+    display_name: str | None = None
+    preferred_lang: str | None = None
+    timezone: str | None = None
+
+
+class VoiceSession(_Model):
+    """Voice interaction session."""
+
+    id: UUID
+    user_id: UUID
+    client: Literal["web", "desktop", "phone"] = "web"
+    room: str
+    started_at: datetime
+    ended_at: datetime | None = None
+    lang_first: str | None = None
+    turns: list[Turn] = Field(default_factory=list)

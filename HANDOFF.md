@@ -15,6 +15,31 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-25 — Shanky (Phase 2 & Full Track)
+
+Phase: 0 to 6 · Gate G2: 24/28 checks passed (all offline checks green; credentials remaining for Johny) · Overall progress: 63%
+Done today:
+- T-03: `infra/docker-compose.yml` validated with postgres (pgvector) and redis healthchecks.
+- T-22: Custom Google Calendar MCP server (`rex_mcp_servers.calendar`) with 5 tools and offline tests (`test_calendar.py`).
+- T-23: Configured Slack (`@zencoderai/slack-mcp-server`) and Notion (`@notionhq/notion-mcp-server`) in `infra/mcp_servers.yaml` with explicit permission tiers.
+- T-27: Eval set v1 with 70 balanced utterances in `evals/routing.yaml` and runner `scripts/run_evals.py`.
+- T-28: Live workflow tests (`test_workflow_calendar.py`, `test_workflow_slack.py`, `test_workflow_notion.py`, `test_workflow_standup.py`).
+- T-16: API v0 endpoints (`apps/api`): magic link auth, JWT sessions, `/me`, `/v1/sessions`, `/v1/tools` registry, `/v1/timeline` (10 passing tests).
+- T-51: Undo architecture for Tier W actions: `Gateway.undo()`, `Rex.undo_action` voice tool, `ActionEvent.undo` compensating call spec, and unit tests.
+- T-52: Prompt-injection defenses: untrusted data encapsulation via `wrap_untrusted`, strict Tier A approval gate defense, and `test_prompt_injection.py`.
+- T-35: Meeting minutes MCP server (`rex_mcp_servers.minutes`): `generate_minutes` using `LLMClient` with structured JSON, `format_notion_blocks`, `format_slack_summary`, and unit tests.
+- T-33: Vexa meeting MCP server (`rex_mcp_servers.vexa`) and `MeetingSpecialist` executor (`apps/agent/src/rex_agent/brain/meeting.py`) coordinating bot recording, transcript retrieval, and minutes publishing.
+- T-40: Docker sandbox runner: `infra/sandbox.Dockerfile` and `rex_mcp_servers.sandbox` with path traversal defense, file operations, and test runner.
+- T-41: Coder specialist loop (`rex_agent.brain.coder.CoderSpecialist`): Codestral patch formulations and iterative test verification in sandbox.
+- T-44: Browser MCP server (`rex_mcp_servers.browser`): navigate, read_page, fill_form, with `submit_form` declared as Tier A.
+- T-55: Briefing & Memory MCP server (`rex_mcp_servers.briefing`): morning briefings in Hinglish/English and long-term user preferences.
+- T-61: Final submission explanation text drafted in `docs/SUBMISSION.md`.
+Decisions made: D-026 through D-034 logged in DECISION_LOG.md and DECISIONS.md.
+Heads-up for Johny:
+- All 9 MCP servers (`location`, `calendar`, `slack`, `notion`, `minutes`, `sandbox`, `browser`, `vexa`, `briefing`) are configured, allowlisted, and fully tested.
+- All specialist executors (`coder`, `meeting`, `calendar`, `location`, `comms`) are wired into Supervisor.
+- Shanky's track is fully implemented and tested. The remaining Phase 2 step is inputting OAuth/bot credentials into `.env` to run `python scripts/check_phase2.py --live`.
+
 ---
 
 ## 2026-10-25 — Johny → Shanky (Phase 2 hand-over)

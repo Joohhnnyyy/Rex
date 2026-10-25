@@ -13,6 +13,7 @@ type ActionEvent = {
   summary: string;
   trace_id?: string | null; // action_id for approvals
   result_redacted?: { text?: string; error?: string } | null;
+  undo?: Record<string, unknown> | null;
 };
 
 const TIER_LABEL = { R: "Read", W: "Change", A: "Needs OK" } as const;

@@ -7,6 +7,6 @@ from rex_mcp_gateway.gateway import Gateway
 
 async def test_location_server_over_stdio():
     async with Gateway(load_runtime_registry()) as gw:
-        assert gw.connected() == ["location"]
-        names = sorted(t.info.name for t in await build_tools(gw, "rex"))
-        assert names == ["location__find_place", "location__map_link", "location__travel_time"]
+        assert "location" in gw.connected()
+        names = set(t.info.name for t in await build_tools(gw, "rex"))
+        assert {"location__find_place", "location__map_link", "location__travel_time"}.issubset(names)

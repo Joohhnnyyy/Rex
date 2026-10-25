@@ -8,12 +8,17 @@ def _names(agent):
 
 def test_rex_exposes_core_tools():
     names = _names(Rex(AgentConfig()))
-    assert {"delegate_task", "approve_action", "deny_action"} <= names
+    assert {"delegate_task", "approve_action", "deny_action", "undo_action"} <= names
 
 
 async def test_approve_without_gateway_is_graceful():
     agent = Rex(AgentConfig())
     assert await agent.approve_action(None, "x") == "No tools are connected."
+
+
+async def test_undo_without_gateway_is_graceful():
+    agent = Rex(AgentConfig())
+    assert await agent.undo_action(None) == "No tools are connected."
 
 
 def test_runtime_registry_has_location_for_rex():
