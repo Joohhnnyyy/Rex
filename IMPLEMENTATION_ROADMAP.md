@@ -2,6 +2,29 @@
 
 17 days, 7 phases, 2 people. Every task has an ID (`T-xx`) that also exists as an entity in the project graph (`memory/project-graph.jsonl`) — update status there and run `python scripts/progress.py` to refresh [PROGRESS.md](PROGRESS.md).
 
+## Re-plan — 26 Oct 2026 (supersedes dates below where they differ)
+
+Full review and plan: [Rex — Progress Review & Next-Phase Plan](https://claude.ai/artifact/4nY8k2exraJUhLJNhnEp9q).
+
+| Task | Change | Owner | Due |
+|---|---|---|---|
+| T-02 | Credentials: Google OAuth, Slack bot + team ID, Notion token + page, Vexa key, Twilio SID + number | Johny | 27 Oct |
+| T-36 (new) | Route Coder + Meeting specialists through the gateway | Shanky | 27 Oct |
+| T-37 (new) | Tool surface + tier fixes (rex ≤ 25 tools, sandbox coder-only, `execute`/`join_meeting` Tier A, browser off until real, undo expiry) | Shanky | 27 Oct |
+| T-10/11/12 | Close the live voice loop (p50 ≤ 1.8 s on 3 sessions) | Johny | 28 Oct |
+| T-22/23/28 | Reopened until `check_phase2.py --live` passes | Shanky | 28 Oct |
+| T-29 | Gate G2: `--live` all green + all 70 evals ≥ 90 % | Shanky | 28 Oct |
+| T-30 → T-31 | Twilio SIP trunk → Caller agent (**critical path**) | Johny | 29 Oct → 1 Nov |
+| T-32 | `call_tool` server — moved to Shanky | Shanky | 2 Nov |
+| T-34 | Gnani batch STT for meetings — moved to Shanky | Shanky | 31 Oct |
+| T-38 (new) | Real Playwright browser (replace mock) | Shanky | 2 Nov |
+| T-42/43 | Browser screen-share instead of desktop app (desktop = stretch) | Johny | 4 Nov |
+| T-50 | **Cut** (English-only, D-023) | — | — |
+| T-54 | Evals + latency + 10× dry runs — moved to Shanky | Shanky | 7 Nov |
+| Milestones | Gate G3 phone booking 2 Nov · **feature freeze 3 Nov** · video 8 Nov · **submit 9 Nov** (10 Nov = buffer) | Both | |
+
+Fallback if the Caller slips past 2 Nov: a labelled LiveKit browser "call" with Shanky playing the clinic.
+
 ## Ownership at a glance
 
 | Track | Johny | Shanky |

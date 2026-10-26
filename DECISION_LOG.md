@@ -2,6 +2,11 @@
 
 Chronological record of every decision and change of mind. Never edit old entries — add a new one that supersedes. Format: `YYYY-MM-DD · ID · who · decision · reason`.
 
+## 2026-10-26
+
+- **D-035** · Both · Re-plan after Shanky's push: verify-and-harden first (26–28 Oct), phone call is the critical path, T-32/T-34/T-54 move to Shanky, T-50 cut, desktop app → browser screen-share, feature freeze 3 Nov, submit 9 Nov · Johny's track at 29 % vs Shanky's 85 %; most of Shanky's work not yet verified live.
+- **D-036** · Both · Tasks are only `done` after a live run against the real service; code + offline tests = `in_progress` · Keeps PROGRESS.md honest.
+
 ## 2026-10-25
 
 - **D-034** · Shanky · Briefing & Memory MCP server (`rex_mcp_servers.briefing`) synthesizing daily schedule, open tasks, and travel times into Hinglish/English morning briefings.

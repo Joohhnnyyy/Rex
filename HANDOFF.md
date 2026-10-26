@@ -15,6 +15,16 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-26 — Johny (re-plan after Shanky's Phase 2 push)
+
+Read first: [Rex — Progress Review & Next-Phase Plan](https://claude.ai/artifact/4nY8k2exraJUhLJNhnEp9q) and the "Re-plan — 26 Oct" table in IMPLEMENTATION_ROADMAP.md.
+Pulled `9e58552` cleanly; full offline suite green on Johny's Mac. Great work, Shanky — 14 tasks shipped.
+Changes: T-22/23/28 reopened until `--live` passes (D-036). New for Shanky: **T-36** (coder + meeting through the gateway — they currently bypass tiers/events), **T-37** (rex tool surface ≤ 25, sandbox coder-only, `execute` and `join_meeting` → Tier A, browser off until real, undo expiry), **T-38** (real Playwright browser). Moved to Shanky: T-32, T-34, T-54. T-50 cut.
+Johny next: credentials (T-02) by 27 Oct, close voice loop, then Twilio SIP trunk (T-30) → Caller (T-31) — critical path.
+Milestones: G2 28 Oct · G3 2 Nov · feature freeze 3 Nov · submit 9 Nov.
+
+---
+
 ## 2026-10-25 — Shanky (Phase 2 & Full Track)
 
 Phase: 0 to 6 · Gate G2: 24/28 checks passed (all offline checks green; credentials remaining for Johny) · Overall progress: 63%

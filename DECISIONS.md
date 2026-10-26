@@ -33,6 +33,9 @@ The **current** answer to each architectural question. When a decision changes, 
 | D-033 | Coder Specialist | rex_agent.brain.coder loop with Codestral and sandbox test verification | Accepted | Shanky | Autonomous self-healing code agent |
 | D-034 | Briefing MCP | rex_mcp_servers.briefing for personalized morning brief in Hinglish | Accepted | Shanky | High-value daily synthesized routine |
 
+| D-035 | Re-plan (26 Oct) | Verify-and-harden first; phone call is the critical path; T-32/T-34/T-54 → Shanky; T-50 cut; screen-share instead of desktop app; freeze 3 Nov; submit 9 Nov | Accepted | Both | Balance tracks, protect the demo |
+| D-036 | When is a task done? | Only after a live run against the real service; code + offline tests = in progress | Accepted | Both | Honest progress |
+
 ## Decision template
 
 ```
