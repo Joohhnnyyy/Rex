@@ -55,7 +55,7 @@
 {"type": "relation", "from": "T-01", "to": "Phase 0", "relationType": "part_of"}
 {"type": "relation", "from": "T-01", "to": "Repo", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-01", "relationType": "owns"}
-{"type": "entity", "name": "T-02", "entityType": "Task", "observations": ["title: Accounts and API keys (Gnani, LiveKit, Twilio, Google, Slack, Notion, GitHub, Gemini, Mistral)", "status: in_progress", "started: 2026-10-24 (Johny)", "note: keys in .env: Gnani, Gemini, Mistral, Groq, Twilio API key pair (2026-10-24)", "note: still missing: Twilio Account SID (AC…) + number, LiveKit, Google OAuth, Slack, Notion, GitHub", "note: LiveKit Cloud project keys added (2026-10-24)", "due: 2026-10-27"]}
+{"type": "entity", "name": "T-02", "entityType": "Task", "observations": ["title: Accounts and API keys (Gnani, LiveKit, Twilio, Google, Slack, Notion, GitHub, Gemini, Mistral)", "status: in_progress", "started: 2026-10-24 (Johny)", "note: keys in .env: Gnani, Gemini, Mistral, Groq, Twilio API key pair (2026-10-24)", "note: still missing: Twilio Account SID (AC…) + number, LiveKit, Google OAuth, Slack, Notion, GitHub", "note: LiveKit Cloud project keys added (2026-10-24)", "due: 2026-10-27", "note: 2026-10-28 done: Google OAuth client + Calendar API + login, Slack bot (token, team ID, groups:read), Notion, Gemini, Groq", "blocked: Mistral key allows 0 req/min (check plan in Mistral console); Gemini free tier 20 req/day/model"]}
 {"type": "relation", "from": "T-02", "to": "Phase 0", "relationType": "part_of"}
 {"type": "relation", "from": "T-02", "to": "Repo", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-02", "relationType": "owns"}
@@ -299,7 +299,7 @@
 {"type": "relation", "from": "Shanky", "to": "T-28", "relationType": "owns"}
 {"type": "relation", "from": "T-28", "to": "T-22", "relationType": "depends_on"}
 {"type": "relation", "from": "T-28", "to": "T-23", "relationType": "depends_on"}
-{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 27/28 on 2026-10-28"]}
+{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 27/28 on 2026-10-28", "note: 2026-10-28 offline 27/28; --live 26/30 — every live test passed at least once; re-run after Gemini quota reset or billing"]}
 {"type": "relation", "from": "T-29", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-29", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-29", "relationType": "owns"}

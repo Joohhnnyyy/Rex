@@ -15,6 +15,22 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-28 (night) — Johny → Shanky: your work list (in order)
+
+Progress 60 % · Phase 2 67 % · 13 days left. Pull `main` first (`de77d34`+).
+1. **Review my changes in your files** (today): `rex_llm_router/router.py` (`REX_CHAIN_<KIND>`), `rex_mcp_gateway/gateway.py` + `registry.py` (`tool_subsets`, tool-name cache), `rex_agent/models.py` (`PortableLLM`, thinking off, 4 s timeout), `rex_mcp_servers/calendar.py` (client cache), live calendar test, root `conftest.py`.
+2. **T-28 / T-29 — Phase 2 gate (overdue, due 28 Oct):** after the Gemini quota resets (≈ 29 Oct 13:00 IST) run `REX_LIVE_TESTS=1 uv run --env-file .env python scripts/check_phase2.py --live`. All tools are verified; only LLM 429s remain. Then mark T-28/T-29 done.
+3. **T-36 — route Coder + Meeting through the gateway (overdue, due 27 Oct):** `brain/coder.py` calls `SandboxRunner` directly and the meeting specialist bypasses tiers/events/undo.
+4. **T-37 — rest (overdue):** tool surface is done; still open: `sandbox.execute` + `vexa.join_meeting` → Tier A, undo expiry.
+5. **T-34 — Gnani batch STT for meeting recordings** (due 31 Oct).
+6. **T-32 — `call_tool` MCP server** for the Caller (due 2 Nov) — coordinate the interface with Johny's T-31.
+7. **T-38 — real Playwright browser** replacing the mock (due 2 Nov); then re-add `browser` to the rex allowlist.
+8. **T-54 — eval run v2 + latency pass + 10× dry runs** (due 7 Nov); add short (30–60 s) caching for channel list / today's calendar.
+9. **T-62 / T-63** with Johny: posts + submission (9 Nov). Feature freeze **3 Nov**.
+Decision needed from both: Gemini billing (free tier = 20 req/day/model breaks live tests and the demo).
+
+---
+
 ## 2026-10-28 (evening) — Johny (latency fixes — touched Shanky's gateway/router/models files)
 
 Measured before/after each change (same prompt, same model):
