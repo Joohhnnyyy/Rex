@@ -129,3 +129,11 @@ async def test_destructive_args_escalate_w_tool_to_approval(registry):
         assert isinstance(out, NeedsApproval)
         out2 = await gw.call("rex", "demo.create_note", {"text": "x", "archived": False})
         assert not isinstance(out2, NeedsApproval)
+
+
+async def test_tool_subset_hides_and_blocks_other_tools(registry):
+    registry.tool_subsets = {"rex": {"demo": {"lookup"}}}
+    async with open_gw(registry) as gw:
+        assert [t.qualified_name for t in await gw.list_tools("rex")] == ["demo.lookup"]
+        with pytest.raises(ToolDenied):
+            await gw.call("rex", "demo.create_note", {"text": "x"})

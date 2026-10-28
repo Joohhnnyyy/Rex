@@ -148,9 +148,15 @@ def _format_event(item: dict[str, Any]) -> dict[str, Any]:
 def build_server(service=None) -> MCPServer:
     """Build the calendar MCPServer. `service` can be a fake for tests."""
     server = MCPServer("calendar")
+    cache: dict[str, Any] = {}
 
     def get_svc():
-        return service if service is not None else _real_service()
+        # Build the Google client once per server process; google-auth refreshes the access token itself.
+        if service is not None:
+            return service
+        if "svc" not in cache:
+            cache["svc"] = _real_service()
+        return cache["svc"]
 
     @server.tool()
     async def list_events(date_from: str, date_to: str, query: str | None = None) -> str:

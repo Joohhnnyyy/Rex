@@ -40,6 +40,8 @@ class ServerSpec:
 class Registry:
     servers: dict[str, ServerSpec]
     allowlists: dict[str, set[str]] = field(default_factory=dict)
+    # specialist -> server -> the only tools it sees there (fewer tool schemas = faster, cheaper LLM turns)
+    tool_subsets: dict[str, dict[str, set[str]]] = field(default_factory=dict)
 
     def tier_for(self, server: str, tool: str) -> Tier:
         """Declared tier for the tool, else the server default (which itself defaults to the strictest, A)."""
@@ -47,6 +49,10 @@ class Registry:
 
     def allowed(self, specialist: str, server: str) -> bool:
         return server in self.allowlists.get(specialist, set())
+
+    def exposes(self, specialist: str, server: str, tool: str) -> bool:
+        subset = self.tool_subsets.get(specialist, {}).get(server)
+        return subset is None or tool in subset
 
 
 def _expand(value: Any, env: Mapping[str, str]) -> Any:
@@ -76,4 +82,8 @@ def load_registry(path: str | Path, env: Mapping[str, str] | None = None) -> Reg
             tools=tools,
         )
     allow = {k: set(v or []) for k, v in (raw.get("allowlists") or {}).items()}
-    return Registry(servers=servers, allowlists=allow)
+    subsets = {
+        spec: {server: set(tools or []) for server, tools in (by_server or {}).items()}
+        for spec, by_server in (raw.get("tool_subsets") or {}).items()
+    }
+    return Registry(servers=servers, allowlists=allow, tool_subsets=subsets)

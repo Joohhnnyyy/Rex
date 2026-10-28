@@ -299,7 +299,7 @@
 {"type": "relation", "from": "Shanky", "to": "T-28", "relationType": "owns"}
 {"type": "relation", "from": "T-28", "to": "T-22", "relationType": "depends_on"}
 {"type": "relation", "from": "T-28", "to": "T-23", "relationType": "depends_on"}
-{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 26/30 live on 2026-10-28"]}
+{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 27/28 on 2026-10-28"]}
 {"type": "relation", "from": "T-29", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-29", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-29", "relationType": "owns"}
@@ -312,7 +312,7 @@
 {"type": "relation", "from": "T-36", "to": "MCP gateway", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-36", "relationType": "owns"}
 {"type": "relation", "from": "T-36", "to": "T-20", "relationType": "depends_on"}
-{"type": "entity", "name": "T-37", "entityType": "Task", "observations": ["title: Tool surface + tier fixes: rex <=25 tools, sandbox coder-only, execute & join_meeting Tier A, browser off until real, undo expiry", "status: todo", "due: 2026-10-27", "note: 2026-10-26 added by plan (docs: Rex — Progress Review & Next-Phase Plan)"]}
+{"type": "entity", "name": "T-37", "entityType": "Task", "observations": ["title: Tool surface + tier fixes: rex <=25 tools, sandbox coder-only, execute & join_meeting Tier A, browser off until real, undo expiry", "due: 2026-10-27", "note: 2026-10-26 added by plan (docs: Rex — Progress Review & Next-Phase Plan)", "status: in_progress", "note: 2026-10-28 tool surface done (Johny): rex 59 -> 24 tools via tool_subsets, sandbox coder-only, browser off; prompt 7143 -> 3003 tokens", "note: still open: execute & join_meeting Tier A, undo expiry"]}
 {"type": "relation", "from": "T-37", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-37", "to": "MCP gateway", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-37", "relationType": "owns"}

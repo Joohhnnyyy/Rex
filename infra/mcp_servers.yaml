@@ -107,7 +107,16 @@ servers:
       store_memory:         {tier: W}
 
 allowlists:
-  rex: [location, calendar, slack, notion, minutes, sandbox, browser, vexa, briefing]
+  # sandbox is coder-only; browser stays off for rex until the real Playwright browser lands (T-37, T-38)
+  rex: [location, calendar, slack, notion, minutes, vexa, briefing]
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
   screen: [browser]
+
+# Optional: the only tools a specialist sees on a server. Every tool schema is sent to the LLM on every
+# turn — Notion alone was ~78k chars (~20k tokens) — so rex keeps <= 25 tools (T-37).
+tool_subsets:
+  rex:
+    slack: [slack_list_channels, slack_get_channel_history, slack_post_message, slack_reply_to_thread]
+    notion: [API-post-search, API-post-page, API-patch-block-children, API-retrieve-page-markdown]
+    minutes: [generate_minutes]

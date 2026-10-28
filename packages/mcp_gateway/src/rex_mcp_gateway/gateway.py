@@ -105,6 +105,7 @@ class Gateway:
         self._ttl = timedelta(seconds=approval_ttl_s)
         self._stack = AsyncExitStack()
         self._clients: dict[str, Client] = {}
+        self._tools: dict[str, list[Any]] = {}  # server -> MCP tool list, fetched once (saves a round trip per call)
         self._pending: dict[str, PendingAction] = {}
         self._undo_history: dict[str, dict[str, Any]] = {}
         self._undo_order: list[str] = []
@@ -132,6 +133,7 @@ class Gateway:
 
     async def __aexit__(self, *exc: object) -> None:
         self._clients.clear()
+        self._tools.clear()
         await self._stack.__aexit__(*exc)
 
     def connected(self) -> list[str]:
@@ -143,6 +145,11 @@ class Gateway:
         except KeyError:
             raise ToolDenied(f"server {server!r} is not connected") from None
 
+    async def _server_tools(self, server: str) -> list[Any]:
+        if server not in self._tools:
+            self._tools[server] = (await (await self._client(server)).list_tools()).tools
+        return self._tools[server]
+
     # ---------- discovery ----------
     async def list_tools(self, specialist: str) -> list[ToolInfo]:
         out: list[ToolInfo] = []
@@ -150,12 +157,13 @@ class Gateway:
             if not self.registry.allowed(specialist, server):
                 continue
             try:
-                client = await self._client(server)
-                listed = await client.list_tools()
+                listed = await self._server_tools(server)
             except Exception:
                 logger.exception("could not list tools for %s", server)
                 continue
-            for t in listed.tools:
+            for t in listed:
+                if not self.registry.exposes(specialist, server, t.name):
+                    continue
                 out.append(
                     ToolInfo(
                         qualified_name=f"{server}.{t.name}",
@@ -177,9 +185,11 @@ class Gateway:
             raise ToolDenied(f"unknown tool {qualified_tool!r}")
         if not self.registry.allowed(specialist, server):
             raise ToolDenied(f"{specialist!r} may not use {server!r}")
-        known = {t.name for t in (await (await self._client(server)).list_tools()).tools}
+        known = {t.name for t in await self._server_tools(server)}
         if tool not in known:
             raise ToolDenied(f"unknown tool {qualified_tool!r}")
+        if not self.registry.exposes(specialist, server, tool):
+            raise ToolDenied(f"{specialist!r} may not use {qualified_tool!r}")
 
         summary = summary or f"{qualified_tool} {json.dumps(args, ensure_ascii=False)[:120]}"
         tier = self.registry.tier_for(server, tool)

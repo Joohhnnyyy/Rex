@@ -15,6 +15,23 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-28 (evening) — Johny (latency fixes — touched Shanky's gateway/router/models files)
+
+Measured before/after each change (same prompt, same model):
+| Change | Before | After |
+|---|---|---|
+| Rex tool surface (`tool_subsets` in `infra/mcp_servers.yaml`, sandbox/browser off for rex) | 59 tools, 101,796 schema chars, **7,143 prompt tokens**, 1.9 s | 24 tools, 27,352 chars, **3,003 tokens**, 1.0–1.8 s (Groq gpt-oss-120b, 1 sample each — noisy) |
+| Mixed-provider history (`PortableLLM` in `rex_agent/models.py`) | Gemini 400 `missing thought_signature` after a fallback turn | OK (verified live on gemini-3.6-flash); Gemini fields stripped for Mistral/Groq |
+| Gemini thinking off (`reasoning_effort: none`) | 2.6 s / tool step | 2.1 s (gemini-2.5-flash, earlier benchmark) |
+| Fallback `attempt_timeout` | 8 s of silence before fallback | 4 s |
+| Calendar client cached per process | 506 ms / list_events | 390 ms |
+| Gateway caches tool names (no list_tools per call) | 2 ms | 1 ms (negligible) |
+Biggest win: the tool trim — also why Groq 429'd (TPM limit vs 7k-token prompts).
+**Mistral key is blocked**: `x-ratelimit-limit-req-minute: 0` — check the plan in the Mistral console; earlier "Mistral-first" runs were really answered by Groq.
+Not done: voice-loop tuning (turn detector, TTS websocket, filler line) needs a live audio session; Phase 2 `--live` not re-run (Gemini quota resets ~29 Oct 13:00 IST).
+
+---
+
 ## 2026-10-28 — Johny (Phase 2 unblock: calendar live)
 
 Google Calendar login done (token in `~/.config/rex/google_token.json`, Calendar API enabled). **T-22 done**: live C-1..C-4 green against real Google.
