@@ -91,10 +91,24 @@ def _real_service():
     return build("calendar", "v3", credentials=creds)
 
 
+def _ensure_env():
+    """Load .env from repository root if environment variables are not set."""
+    if not os.environ.get("GOOGLE_CLIENT_ID") or not os.environ.get("GOOGLE_CLIENT_SECRET"):
+        for parent in Path(__file__).resolve().parents:
+            env_file = parent / ".env"
+            if env_file.exists():
+                for line in env_file.read_text().splitlines():
+                    if "=" in line and not line.lstrip().startswith("#"):
+                        k, v = line.split("=", 1)
+                        os.environ.setdefault(k.strip(), v.split(" #")[0].strip())
+                break
+
+
 def _login():
     """One-time OAuth interactive browser flow."""
     from google_auth_oauthlib.flow import InstalledAppFlow
 
+    _ensure_env()
     client_id = os.environ.get("GOOGLE_CLIENT_ID")
     client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
     if not client_id or not client_secret:

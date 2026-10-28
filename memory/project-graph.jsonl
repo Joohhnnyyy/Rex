@@ -299,7 +299,7 @@
 {"type": "relation", "from": "Shanky", "to": "T-28", "relationType": "owns"}
 {"type": "relation", "from": "T-28", "to": "T-22", "relationType": "depends_on"}
 {"type": "relation", "from": "T-28", "to": "T-23", "relationType": "depends_on"}
-{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "check: 24/28 on 2026-10-25", "due: 2026-10-28"]}
+{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 23/28 on 2026-10-27"]}
 {"type": "relation", "from": "T-29", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-29", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-29", "relationType": "owns"}
