@@ -4,14 +4,17 @@ Uses real LLM + Calendar MCP tools through the gateway.
 """
 
 import os
+import re
 
 import pytest
 
 from rex_agent.main import load_runtime_registry
 from rex_agent.testing import rex_session
+from rex_mcp_servers.calendar import default_token_path
 
-# Enable test service if real OAuth credentials are not logged in yet
-os.environ.setdefault("REX_FAKE_SERVICES", "1")
+# Fall back to the fake calendar only until the real OAuth login has been done
+if not default_token_path().exists():
+    os.environ.setdefault("REX_FAKE_SERVICES", "1")
 
 
 def calendar_registry():
@@ -60,8 +63,13 @@ async def test_calendar_find_free_slots_c3():
 async def test_calendar_delete_event_approval_c4():
     """C-4: Delete the [Rex test] demo event -> Tier A requires approval, then approves."""
     events = []
-    async with rex_session(events, registry=calendar_registry()) as (session, _gw):
-        r1 = await session.run(user_input="Delete the [Rex test] demo event with id evt_1")
+    async with rex_session(events, registry=calendar_registry()) as (session, gw):
+        # Create the event first so the id exists on the real calendar too (not only in the fake)
+        created = await gw.call(
+            "rex", "calendar.create_event", {"title": "[Rex test] demo", "start": "2030-01-01T10:00:00"}
+        )
+        event_id = re.search(r'"id": "([^"]+)"', created.text).group(1)  # text is wrapped in <untrusted_data>
+        r1 = await session.run(user_input=f"Delete the [Rex test] demo event with id {event_id}")
         r1.expect.contains_function_call(name="calendar__delete_event")
         assert any(e.status == "awaiting_approval" for e in events)
 

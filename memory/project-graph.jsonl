@@ -121,7 +121,7 @@
 {"type": "relation", "from": "T-21", "to": "MCP gateway", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-21", "relationType": "owns"}
 {"type": "relation", "from": "T-21", "to": "T-20", "relationType": "depends_on"}
-{"type": "entity", "name": "T-22", "entityType": "Task", "observations": ["title: Google OAuth + Calendar specialist", "note: assigned to Shanky 2026-10-25 — see docs/team/SHANKY_PHASE2.md (S2-1)", "started: 2026-10-25 (Shanky)", "completed: 2026-10-25 (Shanky)", "status: in_progress", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)"]}
+{"type": "entity", "name": "T-22", "entityType": "Task", "observations": ["title: Google OAuth + Calendar specialist", "note: assigned to Shanky 2026-10-25 — see docs/team/SHANKY_PHASE2.md (S2-1)", "started: 2026-10-25 (Shanky)", "completed: 2026-10-25 (Shanky)", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)", "status: done", "note: 2026-10-28 live calendar tests C-1..C-4 green against real Google (Johny); C-4 now creates its own event"]}
 {"type": "relation", "from": "T-22", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-22", "to": "Specialists", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-22", "relationType": "owns"}

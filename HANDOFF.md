@@ -15,6 +15,17 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-28 — Johny (Phase 2 unblock: calendar live)
+
+Google Calendar login done (token in `~/.config/rex/google_token.json`, Calendar API enabled). **T-22 done**: live C-1..C-4 green against real Google.
+Heads-up Shanky — touched your file `apps/agent/tests/live/test_workflow_calendar.py`:
+- it forced `REX_FAKE_SERVICES=1`, so the "live" calendar test never hit Google; now it only falls back to the fake when no token exists.
+- C-4 deleted a hard-coded `evt_1` (exists only in the fake → 404 live); it now creates its own event first and deletes that.
+- Live tests need the keys in the process: run with `uv run --env-file .env …` (the agent doesn't auto-load `.env`; only the calendar server does).
+Still open for G2: Slack bot token + team ID in `.env` (Johny, in progress), then `check_phase2.py --live`.
+
+---
+
 ## 2026-10-26 — Johny (re-plan after Shanky's Phase 2 push)
 
 Read first: [Rex — Progress Review & Next-Phase Plan](https://claude.ai/artifact/4nY8k2exraJUhLJNhnEp9q) and the "Re-plan — 26 Oct" table in IMPLEMENTATION_ROADMAP.md.
