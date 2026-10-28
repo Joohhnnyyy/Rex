@@ -126,7 +126,7 @@
 {"type": "relation", "from": "T-22", "to": "Specialists", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-22", "relationType": "owns"}
 {"type": "relation", "from": "T-22", "to": "T-20", "relationType": "depends_on"}
-{"type": "entity", "name": "T-23", "entityType": "Task", "observations": ["title: Slack + Notion specialists", "note: assigned to Shanky 2026-10-25 — Slack (S2-2) + Notion (S2-3)", "completed: 2026-10-25 (Shanky)", "status: in_progress", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)"]}
+{"type": "entity", "name": "T-23", "entityType": "Task", "observations": ["title: Slack + Notion specialists", "note: assigned to Shanky 2026-10-25 — Slack (S2-2) + Notion (S2-3)", "completed: 2026-10-25 (Shanky)", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)", "status: done", "note: 2026-10-28 Slack (scopes incl. groups:read, bot in #rex-test) + Notion verified live (Johny)"]}
 {"type": "relation", "from": "T-23", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-23", "to": "Specialists", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-23", "relationType": "owns"}
@@ -293,13 +293,13 @@
 {"type": "relation", "from": "D-021", "to": "Supervisor", "relationType": "affects"}
 {"type": "entity", "name": "D-024", "entityType": "Decision", "observations": ["summary: Location tools on OpenStreetMap (Nominatim + OSRM), Google Maps optional later", "date: 2026-10-24"]}
 {"type": "relation", "from": "D-024", "to": "Specialists", "relationType": "affects"}
-{"type": "entity", "name": "T-28", "entityType": "Task", "observations": ["title: Live workflow tests: calendar, slack, notion, standup (S2-4)", "note: assigned to Shanky 2026-10-25", "completed: 2026-10-25 (Shanky)", "status: in_progress", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)"]}
+{"type": "entity", "name": "T-28", "entityType": "Task", "observations": ["title: Live workflow tests: calendar, slack, notion, standup (S2-4)", "note: assigned to Shanky 2026-10-25", "completed: 2026-10-25 (Shanky)", "note: 2026-10-26 plan — code + offline tests done; reopen until check_phase2.py --live passes (needs credentials)", "status: blocked — free-tier LLM rate limits (Gemini 20 req/day/model; Mistral + Groq 429s) make live runs flaky", "note: 2026-10-28 every live test passed at least once against real services; failures are LLM 429s only", "note: REX_CHAIN_SUPERVISE=mistral_small,groq_llama runs live tests without the Gemini quota"]}
 {"type": "relation", "from": "T-28", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-28", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-28", "relationType": "owns"}
 {"type": "relation", "from": "T-28", "to": "T-22", "relationType": "depends_on"}
 {"type": "relation", "from": "T-28", "to": "T-23", "relationType": "depends_on"}
-{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 23/28 on 2026-10-27"]}
+{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 26/30 live on 2026-10-28"]}
 {"type": "relation", "from": "T-29", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-29", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-29", "relationType": "owns"}

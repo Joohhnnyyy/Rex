@@ -24,6 +24,13 @@ Heads-up Shanky — touched your file `apps/agent/tests/live/test_workflow_calen
 - Live tests need the keys in the process: run with `uv run --env-file .env …` (the agent doesn't auto-load `.env`; only the calendar server does).
 Still open for G2: Slack bot token + team ID in `.env` (Johny, in progress), then `check_phase2.py --live`.
 
+Later same day: Slack done (bot in #rex-test; manifest needed `groups:read` — list_channels includes private channels). **T-23 done.** `--live` = 26/30; every live test passed at least once against real services.
+**Blocker for Shanky (T-28/T-29) — LLM chain, not tools:**
+- Gemini free tier = **20 requests/day per model** (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`); one `--live` run burns it. Mistral + Groq free tiers also 429 on the multi-step tests.
+- When Gemini fails mid-conversation the history becomes unusable for everyone: Gemini then wants a `thought_signature` on tool calls it didn't make; Mistral 422s on Gemini's `extra_content`. Needs a fix in `rex_agent/models.py` (or Gemini billing + `reasoning_effort: none`).
+- Benchmarked (tool call + answer): gemini-2.5-flash 2.6 s (2.1 s thinking off) — fastest; 3.6-flash 5.7 s; 3.8-flash timed out; 3.7/flash-latest 503; 4-argon not in free quota.
+- New: `REX_CHAIN_<KIND>` env override in `rex_llm_router/router.py` (your file) to reorder chains, e.g. `REX_CHAIN_SUPERVISE=mistral_small,groq_llama`. Root `conftest.py` clears it for offline tests.
+
 ---
 
 ## 2026-10-26 — Johny (re-plan after Shanky's Phase 2 push)

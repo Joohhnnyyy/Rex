@@ -28,5 +28,10 @@ def test_model_ids_can_be_overridden_by_env(monkeypatch):
     assert route("supervise")[0].name == "gemini-test-001"
 
 
+def test_chain_order_can_be_overridden_by_env(monkeypatch):
+    monkeypatch.setenv("REX_CHAIN_SUPERVISE", "mistral_small, groq_llama")
+    assert [m.alias for m in route("supervise")] == ["mistral_small", "groq_llama"]
+
+
 def test_supervise_uses_groq_as_fast_second_choice():
     assert [m.provider for m in route("supervise")][:2] == ["gemini", "groq"]
