@@ -15,6 +15,17 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-10-29 — Johny (Nemotron backup + Phase 3 plan)
+Phase: 2 → 3 · Gate: G2 open (T-29), G3 target 3 Nov
+Done today: Nemotron 3 Ultra added as 3rd LLM backup (`dbc1c72`, D-037). Chain: Gemini → Groq → Nemotron → Mistral → OpenRouter.
+Heads-up for Shanky: touched your `rex_llm_router/models.py` + `router.py` (new `nvidia` provider / `nvidia_nemotron` alias) and `test_client.py`. New env var `NVIDIA_API_KEY` (in `.env.example`). Nemotron thinking is turned off in `rex_agent/models.py`.
+Phase 3 plan: [.planning/phases/03-caller-meeting/03-PLAN.md](.planning/phases/03-caller-meeting/03-PLAN.md). New task **T-39 (Shanky)**: step-3 glue (CallOutcome → calendar event; clinic place + ETA → Slack) + `scripts/check_phase3.py --live`, due 3 Nov.
+Shanky's order now: T-29 → T-36 → T-37 → T-34 (31 Oct) → agree `call_tool` interface (31 Oct) → T-32 (2 Nov) → T-38 → T-39 (3 Nov).
+Blocked: Twilio Account SID + number (Johny), Mistral key 0 req/min, Gemini 20 req/day.
+Tomorrow (Johny): T-30 Twilio trunk; live voice loop T-10/11/12.
+
+---
+
 ## 2026-10-28 (night) — Johny → Shanky: your work list (in order)
 
 Progress 60 % · Phase 2 67 % · 13 days left. Pull `main` first (`de77d34`+).

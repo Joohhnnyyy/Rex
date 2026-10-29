@@ -2,6 +2,10 @@
 
 Chronological record of every decision and change of mind. Never edit old entries — add a new one that supersedes. Format: `YYYY-MM-DD · ID · who · decision · reason`.
 
+## 2026-10-29
+
+- **D-037** · Johny/Claude · NVIDIA Nemotron 3 Ultra (`nvidia/nemotron-3-ultra-550b-a55b`) is the 3rd supervise backup after Gemini and Groq, thinking off · Measured on Rex's 24-tool turn: 3/3 correct tool calls, ~3.9 s vs Groq gpt-oss-120b 1.44 s — good enough to keep tests running when free tiers run out, too slow for the main voice model.
+
 ## 2026-10-26
 
 - **D-035** · Both · Re-plan after Shanky's push: verify-and-harden first (26–28 Oct), phone call is the critical path, T-32/T-34/T-54 move to Shanky, T-50 cut, desktop app → browser screen-share, feature freeze 3 Nov, submit 9 Nov · Johny's track at 29 % vs Shanky's 85 %; most of Shanky's work not yet verified live.

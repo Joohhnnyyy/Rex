@@ -9,7 +9,7 @@
 {"type": "relation", "from": "Phase 1", "to": "Rex", "relationType": "part_of"}
 {"type": "entity", "name": "Phase 2", "entityType": "Phase", "observations": ["title: Core tools + dashboard v1", "window: 2026-10-28..2026-10-31", "gate: G2: demo steps 1+3; scope freeze"]}
 {"type": "relation", "from": "Phase 2", "to": "Rex", "relationType": "part_of"}
-{"type": "entity", "name": "Phase 3", "entityType": "Phase", "observations": ["title: Caller + Meeting", "window: 2026-11-01..2026-11-04", "gate: G3: demo steps 1-3"]}
+{"type": "entity", "name": "Phase 3", "entityType": "Phase", "observations": ["title: Caller + Meeting", "window: 2026-11-01..2026-11-04", "gate: G3: demo steps 1-3", "plan: 2026-10-29 G3 target 3 Nov (feature freeze), 4 Nov buffer; critical path T-02 Twilio → T-30 → T-31 → T-32 → T-39", "plan: demo step 1 needs one live run from a real Meet (T-33/T-35 offline only, D-036)"]}
 {"type": "relation", "from": "Phase 3", "to": "Rex", "relationType": "part_of"}
 {"type": "entity", "name": "Phase 4", "entityType": "Phase", "observations": ["title: Coder + Screen + Browser", "window: 2026-11-03..2026-11-06", "gate: G4: demo step 4"]}
 {"type": "relation", "from": "Phase 4", "to": "Rex", "relationType": "part_of"}
@@ -55,7 +55,7 @@
 {"type": "relation", "from": "T-01", "to": "Phase 0", "relationType": "part_of"}
 {"type": "relation", "from": "T-01", "to": "Repo", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-01", "relationType": "owns"}
-{"type": "entity", "name": "T-02", "entityType": "Task", "observations": ["title: Accounts and API keys (Gnani, LiveKit, Twilio, Google, Slack, Notion, GitHub, Gemini, Mistral)", "status: in_progress", "started: 2026-10-24 (Johny)", "note: keys in .env: Gnani, Gemini, Mistral, Groq, Twilio API key pair (2026-10-24)", "note: still missing: Twilio Account SID (AC…) + number, LiveKit, Google OAuth, Slack, Notion, GitHub", "note: LiveKit Cloud project keys added (2026-10-24)", "due: 2026-10-27", "note: 2026-10-28 done: Google OAuth client + Calendar API + login, Slack bot (token, team ID, groups:read), Notion, Gemini, Groq", "blocked: Mistral key allows 0 req/min (check plan in Mistral console); Gemini free tier 20 req/day/model"]}
+{"type": "entity", "name": "T-02", "entityType": "Task", "observations": ["title: Accounts and API keys (Gnani, LiveKit, Twilio, Google, Slack, Notion, GitHub, Gemini, Mistral)", "status: in_progress", "started: 2026-10-24 (Johny)", "note: keys in .env: Gnani, Gemini, Mistral, Groq, Twilio API key pair (2026-10-24)", "note: still missing: Twilio Account SID (AC…) + number, LiveKit, Google OAuth, Slack, Notion, GitHub", "note: LiveKit Cloud project keys added (2026-10-24)", "due: 2026-10-27", "note: 2026-10-28 done: Google OAuth client + Calendar API + login, Slack bot (token, team ID, groups:read), Notion, Gemini, Groq", "blocked: Mistral key allows 0 req/min (check plan in Mistral console); Gemini free tier 20 req/day/model", "note: 2026-10-29 NVIDIA API key added (build.nvidia.com); still missing: Twilio Account SID + number"]}
 {"type": "relation", "from": "T-02", "to": "Phase 0", "relationType": "part_of"}
 {"type": "relation", "from": "T-02", "to": "Repo", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-02", "relationType": "owns"}
@@ -90,7 +90,7 @@
 {"type": "relation", "from": "T-12", "to": "Voice loop", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-12", "relationType": "owns"}
 {"type": "relation", "from": "T-12", "to": "T-11", "relationType": "depends_on"}
-{"type": "entity", "name": "T-13", "entityType": "Task", "observations": ["title: LLM router v1 (Gemini, Mistral, fallback)", "status: done", "note: OpenAI-compatible client, fallback on 429/5xx/timeout, key-skip; 11 tests; live check pending keys (scripts/llm_smoke.py)", "done: 2026-10-24", "note: Groq added as 2nd choice (D-020); 18 tests"]}
+{"type": "entity", "name": "T-13", "entityType": "Task", "observations": ["title: LLM router v1 (Gemini, Mistral, fallback)", "status: done", "note: OpenAI-compatible client, fallback on 429/5xx/timeout, key-skip; 11 tests; live check pending keys (scripts/llm_smoke.py)", "done: 2026-10-24", "note: Groq added as 2nd choice (D-020); 18 tests", "note: 2026-10-29 NVIDIA Nemotron 3 Ultra added as 3rd supervise backup, thinking off (dbc1c72); 24-tool turn ~3.9 s vs Groq 1.44 s"]}
 {"type": "relation", "from": "T-13", "to": "Phase 1", "relationType": "part_of"}
 {"type": "relation", "from": "T-13", "to": "LLM router", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-13", "relationType": "owns"}
@@ -152,18 +152,18 @@
 {"type": "relation", "from": "T-27", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-27", "relationType": "owns"}
 {"type": "relation", "from": "T-27", "to": "T-14", "relationType": "depends_on"}
-{"type": "entity", "name": "T-30", "entityType": "Task", "observations": ["title: Twilio SIP trunk to LiveKit", "status: todo", "due: 2026-10-29"]}
+{"type": "entity", "name": "T-30", "entityType": "Task", "observations": ["title: Twilio SIP trunk to LiveKit", "status: todo", "due: 2026-10-29", "plan: 2026-10-29 start now (overdue): Twilio SID + number + verified phone → LiveKit outbound trunk → test call rings Johny's phone; due 2026-10-31"]}
 {"type": "relation", "from": "T-30", "to": "Phase 3", "relationType": "part_of"}
 {"type": "relation", "from": "T-30", "to": "Telephony", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-30", "relationType": "owns"}
 {"type": "relation", "from": "T-30", "to": "T-02", "relationType": "depends_on"}
-{"type": "entity", "name": "T-31", "entityType": "Task", "observations": ["title: Caller agent (8 kHz, disclosure, booking)", "status: todo", "due: 2026-11-01"]}
+{"type": "entity", "name": "T-31", "entityType": "Task", "observations": ["title: Caller agent (8 kHz, disclosure, booking)", "status: todo", "due: 2026-11-01", "plan: 2026-10-29 1–2 Nov; 8 kHz Gnani, disclosure line, goal+constraints, end_call; Shanky plays clinic"]}
 {"type": "relation", "from": "T-31", "to": "Phase 3", "relationType": "part_of"}
 {"type": "relation", "from": "T-31", "to": "Telephony", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-31", "relationType": "owns"}
 {"type": "relation", "from": "T-31", "to": "T-30", "relationType": "depends_on"}
 {"type": "relation", "from": "T-31", "to": "T-11", "relationType": "depends_on"}
-{"type": "entity", "name": "T-32", "entityType": "Task", "observations": ["title: call_tool MCP server", "status: todo", "due: 2026-11-02", "note: 2026-10-26 reassigned to Shanky (plan)"]}
+{"type": "entity", "name": "T-32", "entityType": "Task", "observations": ["title: call_tool MCP server", "status: todo", "due: 2026-11-02", "note: 2026-10-26 reassigned to Shanky (plan)", "plan: 2026-10-29 agree interface with Johny by 31 Oct (start_call/status/hangup → CallOutcome); build 1–2 Nov"]}
 {"type": "relation", "from": "T-32", "to": "Phase 3", "relationType": "part_of"}
 {"type": "relation", "from": "T-32", "to": "Telephony", "relationType": "builds"}
 {"type": "relation", "from": "T-32", "to": "T-31", "relationType": "depends_on"}
@@ -173,7 +173,7 @@
 {"type": "relation", "from": "T-33", "to": "Meeting pipeline", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-33", "relationType": "owns"}
 {"type": "relation", "from": "T-33", "to": "T-03", "relationType": "depends_on"}
-{"type": "entity", "name": "T-34", "entityType": "Task", "observations": ["title: Gnani batch STT for recordings", "status: todo", "note: 2026-10-26 reassigned to Shanky (plan)", "due: 2026-10-31"]}
+{"type": "entity", "name": "T-34", "entityType": "Task", "observations": ["title: Gnani batch STT for recordings", "status: todo", "note: 2026-10-26 reassigned to Shanky (plan)", "due: 2026-10-31", "plan: 2026-10-29 due 31 Oct; feeds T-35 for demo step 1 from a real recording"]}
 {"type": "relation", "from": "T-34", "to": "Phase 3", "relationType": "part_of"}
 {"type": "relation", "from": "T-34", "to": "Meeting pipeline", "relationType": "builds"}
 {"type": "relation", "from": "T-34", "to": "T-33", "relationType": "depends_on"}
@@ -283,7 +283,7 @@
 {"type": "relation", "from": "R-02", "to": "Rex", "relationType": "threatens"}
 {"type": "entity", "name": "R-03", "entityType": "Risk", "observations": ["title: Gnani STT finals only", "mitigation: Tight VAD + fast ack", "status: open"]}
 {"type": "relation", "from": "R-03", "to": "Rex", "relationType": "threatens"}
-{"type": "entity", "name": "R-04", "entityType": "Risk", "observations": ["title: Free-tier LLM rate limits", "mitigation: Router fallback chain", "status: open"]}
+{"type": "entity", "name": "R-04", "entityType": "Risk", "observations": ["title: Free-tier LLM rate limits", "mitigation: Router fallback chain", "status: open", "note: 2026-10-29 chain now gemini → groq → nvidia_nemotron → mistral → openrouter; Nemotron free tier OK but slow"]}
 {"type": "relation", "from": "R-04", "to": "Rex", "relationType": "threatens"}
 {"type": "entity", "name": "R-05", "entityType": "Risk", "observations": ["title: Meeting bot admission", "mitigation: Admit manually; synthetic recording fallback", "status: open"]}
 {"type": "relation", "from": "R-05", "to": "Rex", "relationType": "threatens"}
@@ -328,3 +328,14 @@
 {"type": "relation", "from": "Feature freeze", "to": "Rex", "relationType": "part_of"}
 {"type": "entity", "name": "Submit early", "entityType": "Milestone", "observations": ["date: 2026-11-09", "rule: posts live, form submitted, 10 Nov is buffer"]}
 {"type": "relation", "from": "Submit early", "to": "Rex", "relationType": "part_of"}
+{"type": "entity", "name": "T-39", "entityType": "Task", "observations": ["title: Demo step 3 glue + check_phase3.py: CallOutcome slot → calendar.create_event; clinic place + ETA → Slack", "status: todo", "note: 2026-10-29 added by Phase 3 plan", "due: 2026-11-03", "done when: scripts/check_phase3.py --live runs demo steps 1–3 end to end"]}
+{"type": "entity", "name": "D-037", "entityType": "Decision", "observations": ["summary: NVIDIA Nemotron 3 Ultra as 3rd supervise backup (after Gemini, Groq), thinking off; not main — 2.7× slower than Groq", "date: 2026-10-29"]}
+{"type": "relation", "from": "T-39", "to": "Phase 3", "relationType": "part_of"}
+{"type": "relation", "from": "Shanky", "to": "T-39", "relationType": "owns"}
+{"type": "relation", "from": "T-39", "to": "T-31", "relationType": "depends_on"}
+{"type": "relation", "from": "T-39", "to": "T-32", "relationType": "depends_on"}
+{"type": "relation", "from": "T-39", "to": "T-22", "relationType": "depends_on"}
+{"type": "relation", "from": "T-39", "to": "T-24", "relationType": "depends_on"}
+{"type": "relation", "from": "T-39", "to": "Specialists", "relationType": "builds"}
+{"type": "relation", "from": "D-037", "to": "Phase 2", "relationType": "decided_in"}
+{"type": "relation", "from": "D-037", "to": "LLM router", "relationType": "affects"}
