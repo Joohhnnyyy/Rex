@@ -7,7 +7,7 @@ import os
 from rex_llm_router.models import ModelSpec, spec
 
 CHAINS: dict[str, list[str]] = {
-    "supervise": ["gemini_flash", "groq_llama", "mistral_small", "openrouter_free"],
+    "supervise": ["gemini_flash", "groq_llama", "nvidia_nemotron", "mistral_small", "openrouter_free"],
     "summarise": ["mistral_small", "groq_llama", "gemini_flash"],
     "code": ["codestral", "gemini_flash"],
     "vision": ["gemini_flash"],

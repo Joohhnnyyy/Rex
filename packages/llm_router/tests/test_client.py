@@ -5,7 +5,13 @@ import pytest
 
 from rex_llm_router.client import AllModelsFailed, LLMClient, LLMRequestError
 
-KEYS = {"GEMINI_API_KEY": "g", "GROQ_API_KEY": "q", "MISTRAL_API_KEY": "m", "OPENROUTER_API_KEY": "o"}
+KEYS = {
+    "GEMINI_API_KEY": "g",
+    "GROQ_API_KEY": "q",
+    "MISTRAL_API_KEY": "m",
+    "OPENROUTER_API_KEY": "o",
+    "NVIDIA_API_KEY": "n",
+}
 MSGS = [{"role": "user", "content": "Namaste"}]
 
 
@@ -78,7 +84,7 @@ async def test_all_models_failed_lists_attempts():
     res_handler = lambda req: httpx.Response(429)  # noqa: E731
     with pytest.raises(AllModelsFailed) as exc:
         await make_client(res_handler).complete("supervise", MSGS)
-    assert len(exc.value.attempts) == 4
+    assert len(exc.value.attempts) == 5
     assert {a.outcome for a in exc.value.attempts} == {"rate_limited"}
 
 

@@ -8,9 +8,15 @@ def test_llm_providers_follow_router_order_and_skip_missing_keys():
 
 
 def test_llm_providers_all_keys():
-    env = {"GEMINI_API_KEY": "g", "GROQ_API_KEY": "q", "MISTRAL_API_KEY": "m", "OPENROUTER_API_KEY": "o"}
+    env = {
+        "GEMINI_API_KEY": "g",
+        "GROQ_API_KEY": "q",
+        "MISTRAL_API_KEY": "m",
+        "OPENROUTER_API_KEY": "o",
+        "NVIDIA_API_KEY": "n",
+    }
     provs = llm_providers(env)
-    assert [p.provider for p in provs] == ["gemini", "groq", "mistral", "openrouter"]
+    assert [p.provider for p in provs] == ["gemini", "groq", "nvidia", "mistral", "openrouter"]
     assert provs[1].base_url == "https://api.groq.com/openai/v1"
 
 

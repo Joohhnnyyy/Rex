@@ -67,7 +67,9 @@ def build_llm(env: Mapping[str, str] | None = None) -> lk_llm.FallbackAdapter:
     env = os.environ if env is None else env
     specs = llm_providers(env)
     if not specs:
-        raise RuntimeError("No LLM API key set (GEMINI_API_KEY, GROQ_API_KEY, MISTRAL_API_KEY or OPENROUTER_API_KEY)")
+        raise RuntimeError(
+            "No LLM API key set (GEMINI_API_KEY, GROQ_API_KEY, NVIDIA_API_KEY, MISTRAL_API_KEY or OPENROUTER_API_KEY)"
+        )
     llms = [
         PortableLLM(
             gemini=s.provider == "gemini",
@@ -76,6 +78,8 @@ def build_llm(env: Mapping[str, str] | None = None) -> lk_llm.FallbackAdapter:
             api_key=env[s.key_env],
             # Thinking off: Rex's turns are routing + tool calls; measured 2.6 s -> 2.1 s per tool step on 2.5-flash.
             **({"reasoning_effort": "none"} if s.provider == "gemini" else {}),
+            # Nemotron thinking off: 1.5 s -> 0.7 s on a one-line reply.
+            **({"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}} if s.provider == "nvidia" else {}),
         )
         for s in specs
     ]
