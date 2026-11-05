@@ -5,6 +5,7 @@ import "@livekit/components-styles";
 import { LiveKitRoom } from "@livekit/components-react";
 import { useState } from "react";
 
+import { RexOrb } from "@/components/RexOrb";
 import { RexSession } from "@/components/RexSession";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -49,7 +50,7 @@ export default function Home() {
 
       {!conn ? (
         <section className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-10 shadow-sm">
-          <div className="orb orb-idle" aria-hidden />
+          <RexOrb />
           <p className="text-center text-[var(--muted)]">
             Speak in English, Hinglish or your own language. Rex listens, acts, and asks before anything risky.
           </p>
