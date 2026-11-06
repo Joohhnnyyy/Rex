@@ -4,13 +4,16 @@ import {
   DisconnectButton,
   RoomAudioRenderer,
   StartAudio,
+  TrackToggle,
   VoiceAssistantControlBar,
   useTrackVolume,
   useTranscriptions,
   useVoiceAssistant,
 } from "@livekit/components-react";
+import { Track } from "livekit-client";
 import { useEffect, useRef } from "react";
 
+import { BrowserView } from "@/components/BrowserView";
 import { RexOrb } from "@/components/RexOrb";
 import { Timeline } from "@/components/Timeline";
 import { langChip } from "@/lib/lang";
@@ -43,6 +46,14 @@ export function RexSession({ identity }: { identity: string }) {
         </p>
         <div className="flex items-center gap-3">
           <VoiceAssistantControlBar controls={{ leave: false }} />
+          {/* Rex only looks when asked (look_at_screen); frames stay in memory, nothing is saved. */}
+          <TrackToggle
+            source={Track.Source.ScreenShare}
+            captureOptions={{ audio: false }}
+            className="rounded-full border border-[var(--muted)]/40 px-4 py-2 text-sm"
+          >
+            Share screen
+          </TrackToggle>
           <DisconnectButton className="rounded-full border border-[var(--danger)] px-4 py-2 text-sm text-[var(--danger)]">
             End
           </DisconnectButton>
@@ -74,6 +85,7 @@ export function RexSession({ identity }: { identity: string }) {
           <div ref={endRef} />
         </ol>
       </section>
+      <BrowserView />
       <Timeline />
       <RoomAudioRenderer />
     </div>
