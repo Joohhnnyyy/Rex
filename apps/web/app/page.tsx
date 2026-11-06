@@ -3,8 +3,21 @@
 import "@livekit/components-styles";
 
 import { LiveKitRoom } from "@livekit/components-react";
+import { DataStreamError, DataStreamErrorReason } from "livekit-client";
 import { useState } from "react";
+import { config as rxConfig } from "rxjs";
 
+// LiveKit's transcript/timeline hooks subscribe to text streams without an error handler, so ending a call
+// while Rex is mid-sentence surfaces "Room disconnected in the middle of receiving data" as an unhandled
+// error. That cut-off stream is expected; drop just that one and keep reporting everything else.
+rxConfig.onUnhandledError = (err) => {
+  if (err instanceof DataStreamError && err.reason === DataStreamErrorReason.AbnormalEnd) return;
+  setTimeout(() => {
+    throw err;
+  });
+};
+
+import { RexOrb } from "@/components/RexOrb";
 import { RexSession } from "@/components/RexSession";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -49,7 +62,7 @@ export default function Home() {
 
       {!conn ? (
         <section className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-10 shadow-sm">
-          <div className="orb orb-idle" aria-hidden />
+          <RexOrb />
           <p className="text-center text-[var(--muted)]">
             Speak in English, Hinglish or your own language. Rex listens, acts, and asks before anything risky.
           </p>
@@ -79,7 +92,13 @@ export default function Home() {
           video={false}
           onDisconnected={() => setConn(null)}
           onError={(e) => {
-            setError(`Couldn't connect to LiveKit (${conn.url}): ${e.message}`);
+            // First error wins: tearing the room down makes LiveKit also report
+            // "Client initiated disconnect", which would hide the real cause.
+            const msg =
+              e.name === "NotAllowedError"
+                ? "Microphone access was blocked. Allow the mic for this site and try again."
+                : `Couldn't connect to LiveKit (${conn.url}): ${e.message}`;
+            setError((prev) => prev ?? msg);
             setConn(null);
           }}
           className="flex w-full justify-center"

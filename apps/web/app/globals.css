@@ -64,6 +64,3 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-.rex-bars {
-  --lk-fg: var(--accent);
-}

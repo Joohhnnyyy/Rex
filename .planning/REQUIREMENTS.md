@@ -16,7 +16,7 @@ IDs match `../PRD.md` (F-xx). v1 = must ship for the demo. v2 = stretch. Out of 
 | TOOL-04 (F7) | Maps: place search, ETA, share pin | 2 | Shanky |
 | SAFE-01 (F13) | Permission tiers R/W/A in gateway; approval for A by voice or dashboard | 2 | Shanky + Johny |
 | UI-01 (F14) | Dashboard: transcript, timeline, approvals, connections | 1, 2, 5 | Johny |
-| CALL-01 (F8) | Outbound Twilio call books a slot and reports a structured outcome | 3 | Johny |
+| CALL-01 (F8) | In-browser call (LiveKit room, no PSTN — D-038) books a slot and reports a structured outcome | 3 | Johny |
 | MEET-01 (F9) | Meeting bot → Gnani batch STT → minutes to Notion + Slack | 3 | Shanky + Johny |
 | CODE-01 (F10) | Coder: sandbox fix, tests, draft PR | 4 | Shanky |
 | SCREEN-01 (F11) | Desktop companion: push-to-talk + screen explain | 4 | Johny |

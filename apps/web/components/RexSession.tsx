@@ -1,16 +1,20 @@
 "use client";
 
 import {
-  BarVisualizer,
   DisconnectButton,
   RoomAudioRenderer,
   StartAudio,
+  TrackToggle,
   VoiceAssistantControlBar,
+  useTrackVolume,
   useTranscriptions,
   useVoiceAssistant,
 } from "@livekit/components-react";
+import { Track } from "livekit-client";
 import { useEffect, useRef } from "react";
 
+import { BrowserView } from "@/components/BrowserView";
+import { RexOrb } from "@/components/RexOrb";
 import { Timeline } from "@/components/Timeline";
 import { langChip } from "@/lib/lang";
 
@@ -25,6 +29,7 @@ const STATE_LABEL: Record<string, string> = {
 
 export function RexSession({ identity }: { identity: string }) {
   const { state, audioTrack, agent } = useVoiceAssistant();
+  const level = useTrackVolume(audioTrack);
   const transcriptions = useTranscriptions();
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -35,13 +40,20 @@ export function RexSession({ identity }: { identity: string }) {
   return (
     <div className="flex w-full max-w-2xl flex-col gap-6">
       <section className="flex flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-8 shadow-sm">
-        <div className={`orb orb-${state}`} aria-hidden />
+        <RexOrb state={state} level={level} />
         <p className="text-sm font-medium text-[var(--muted)]" aria-live="polite">
           {agent ? STATE_LABEL[state] ?? state : "Waiting for Rex to join…"}
         </p>
-        <BarVisualizer state={state} trackRef={audioTrack} barCount={7} className="rex-bars h-16 w-48" />
         <div className="flex items-center gap-3">
           <VoiceAssistantControlBar controls={{ leave: false }} />
+          {/* Rex only looks when asked (look_at_screen); frames stay in memory, nothing is saved. */}
+          <TrackToggle
+            source={Track.Source.ScreenShare}
+            captureOptions={{ audio: false }}
+            className="rounded-full border border-[var(--muted)]/40 px-4 py-2 text-sm"
+          >
+            Share screen
+          </TrackToggle>
           <DisconnectButton className="rounded-full border border-[var(--danger)] px-4 py-2 text-sm text-[var(--danger)]">
             End
           </DisconnectButton>
@@ -73,6 +85,7 @@ export function RexSession({ identity }: { identity: string }) {
           <div ref={endRef} />
         </ol>
       </section>
+      <BrowserView />
       <Timeline />
       <RoomAudioRenderer />
     </div>

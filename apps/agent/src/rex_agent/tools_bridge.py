@@ -8,10 +8,15 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from livekit.agents import function_tool
+from livekit.agents import RunContext, function_tool
 from livekit.agents.llm import RawFunctionTool
 
+from rex_agent.brain.acks import tool_filler
 from rex_mcp_gateway.gateway import Gateway, ToolInfo
+
+# Speak a filler only if the tool keeps the line silent this long; quick tools stay quiet.
+FILLER_DELAY_S = 0.7
+_filled_speech: set[str] = set()  # one filler per reply, even when the LLM calls several tools
 
 _TIER_HINT = {
     "R": "Read-only.",
@@ -35,9 +40,15 @@ def _summary(info: ToolInfo, args: dict[str, Any]) -> str:
 
 
 def _make_tool(gw: Gateway, specialist: str, info: ToolInfo) -> RawFunctionTool:
-    async def handler(raw_arguments: dict[str, object]) -> str:
-        out = await gw.call(specialist, info.qualified_name, dict(raw_arguments), summary=_summary(info, raw_arguments))
-        return out.text
+    async def handler(context: RunContext, raw_arguments: dict[str, object]) -> str:
+        call = gw.call(specialist, info.qualified_name, dict(raw_arguments), summary=_summary(info, raw_arguments))
+        speech_id = context.speech_handle.id
+        if speech_id in _filled_speech:
+            return (await call).text
+        _filled_speech.add(speech_id)
+        lang = getattr(context.session.current_agent, "_lang", None)
+        async with context.with_filler(tool_filler(info.server, lang), delay=FILLER_DELAY_S):
+            return (await call).text
 
     schema = {
         "name": livekit_name(info.qualified_name),

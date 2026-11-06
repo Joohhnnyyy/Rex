@@ -87,7 +87,16 @@ servers:
       navigate:    {tier: R}
       read_page:   {tier: R}
       fill_form:   {tier: W}
+      click:       {tier: A}
       submit_form: {tier: A}
+
+  gmail:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.gmail"]
+    default_tier: A
+    tools:
+      search_emails: {tier: R}
+      read_email:    {tier: R}
+      send_email:    {tier: A}
 
   vexa:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.vexa"]
@@ -107,16 +116,21 @@ servers:
       store_memory:         {tier: W}
 
 allowlists:
-  # sandbox is coder-only; browser stays off for rex until the real Playwright browser lands (T-37, T-38)
-  rex: [location, calendar, slack, notion, minutes, vexa, briefing]
+  # sandbox is coder-only; browser is the real Playwright one since T-38
+  rex: [location, calendar, slack, notion, minutes, vexa, briefing, browser, gmail]
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
   screen: [browser]
 
 # Optional: the only tools a specialist sees on a server. Every tool schema is sent to the LLM on every
-# turn — Notion alone was ~78k chars (~20k tokens) — so rex keeps <= 25 tools (T-37).
+# turn — Notion alone was ~78k chars (~20k tokens) — so rex keeps a small tool set (T-37: <= 25,
+# raised to 28 on 2026-11-06 for Gmail's 3 small tools).
 tool_subsets:
   rex:
     slack: [slack_list_channels, slack_get_channel_history, slack_post_message, slack_reply_to_thread]
     notion: [API-post-search, API-post-page, API-patch-block-children, API-retrieve-page-markdown]
     minutes: [generate_minutes]
+    # navigate returns the page itself, so rex skips read_page/click; links are followed by URL.
+    browser: [navigate, fill_form, submit_form]
+    # status/transcript stay with the meeting specialist (delegate_task) to keep rex at 25 tools.
+    vexa: [join_meeting, leave_meeting]
