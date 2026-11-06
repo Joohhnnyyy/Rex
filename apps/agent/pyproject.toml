@@ -9,6 +9,7 @@ dependencies = [
   "rex-llm-router",
   "rex-mcp-gateway",
   "rex-mcp-servers",
+  "pyautogui>=0.9.54",
 ]
 
 [tool.uv.sources]

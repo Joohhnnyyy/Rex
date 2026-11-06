@@ -23,3 +23,33 @@ _ACKS: dict[str, dict[str, str]] = {
 def fast_ack(specialist: str, lang: str) -> str:
     table = _ACKS.get(lang, _ACKS["en-IN"])
     return table.get(specialist, table["_"])
+
+
+# Spoken while a direct tool runs (JARVIS-style: one line, picked by tool, no immediate repeats).
+_FILLERS: dict[str, dict[str, list[str]]] = {
+    "en-IN": {
+        "calendar": ["Checking your calendar.", "Let me look at your calendar."],
+        "gmail": ["Checking your inbox.", "Looking through your email."],
+        "browser": ["Opening that page.", "Having a look at that page."],
+        "location": ["Looking that up.", "Checking the map."],
+        "slack": ["Checking Slack.", "Looking at Slack."],
+        "notion": ["Checking Notion.", "Looking in Notion."],
+        "_": ["One moment.", "Give me a second."],
+    },
+    "hi-en": {
+        "calendar": ["Calendar dekh raha hoon.", "Ek second, calendar check karta hoon."],
+        "gmail": ["Inbox dekh raha hoon.", "Mail check kar raha hoon."],
+        "browser": ["Page khol raha hoon.", "Ek second, page dekhta hoon."],
+        "location": ["Map pe dekh raha hoon.", "Ek second, check karta hoon."],
+        "_": ["Ek second.", "Bas ek minute."],
+    },
+}
+_last_filler: dict[str, str] = {}
+
+
+def tool_filler(server: str, lang: str | None) -> str:
+    table = _FILLERS.get(lang or "en-IN", _FILLERS["en-IN"])
+    options = table.get(server, table["_"])
+    pick = next((o for o in options if o != _last_filler.get(server)), options[0])
+    _last_filler[server] = pick
+    return pick

@@ -34,6 +34,28 @@ def test_names_round_trip():
     assert qualified_name("location__find_place") == "location.find_place"
 
 
+class _Ctx:
+    """Minimal RunContext stand-in: records filler lines instead of speaking them."""
+
+    fillers: list[str] = []
+
+    def __init__(self, speech_id: str = "s1") -> None:
+        from types import SimpleNamespace
+
+        self.speech_handle = SimpleNamespace(id=speech_id)
+        self.session = SimpleNamespace(current_agent=SimpleNamespace(_lang="en-IN"))
+
+    def with_filler(self, text: str, delay: float = 0):
+        from contextlib import asynccontextmanager
+
+        @asynccontextmanager
+        async def cm():
+            _Ctx.fillers.append(text)
+            yield
+
+        return cm()
+
+
 async def test_build_tools_exposes_schema_and_calls_gateway():
     reg, sent = _registry()
     async with Gateway(reg) as gw:
@@ -44,11 +66,12 @@ async def test_build_tools_exposes_schema_and_calls_gateway():
         assert schema["parameters"]["properties"]["q"]
         assert "needs the user's approval" in by_name["demo__send"].info.raw_schema["description"]
 
-        out = await by_name["demo__lookup"]._func(raw_arguments={"q": "pune"})
+        out = await by_name["demo__lookup"]._func(context=_Ctx(), raw_arguments={"q": "pune"})
         assert "found pune" in out
 
-        out = await by_name["demo__send"]._func(raw_arguments={"to": "shanky"})
+        out = await by_name["demo__send"]._func(context=_Ctx(), raw_arguments={"to": "shanky"})
         assert "approve_action" in out and sent == []
         action_id = gw.pending()[0].action_id
         done = await gw.approve(action_id)
         assert done.ok and sent == ["shanky"]
+        assert _Ctx.fillers == ["One moment."]  # one filler per reply (same speech id), picked by server
