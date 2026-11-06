@@ -12,4 +12,6 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv python install 3.12
       - run: uv sync
+      # The browser MCP server's test drives a real headless Chromium (T-38).
+      - run: uv run playwright install --with-deps --only-shell chromium
       - run: make check
