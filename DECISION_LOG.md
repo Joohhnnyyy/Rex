@@ -2,6 +2,10 @@
 
 Chronological record of every decision and change of mind. Never edit old entries — add a new one that supersedes. Format: `YYYY-MM-DD · ID · who · decision · reason`.
 
+## 2026-11-03
+
+- **D-038** · Johny · **Drop Twilio / phone calls.** Rex runs only as a browser (web app) and app agent. The Caller (demo step 2) talks to the "clinic" in a LiveKit room joined from a web link, labelled as a simulated call · Twilio trial cannot bridge calls into LiveKit (no Elastic SIP, no TwiML Bins, external TwiML won't ring); no time or budget to upgrade before the 10 Nov deadline. (supersedes D-008)
+
 ## 2026-10-29
 
 - **D-037** · Johny/Claude · NVIDIA Nemotron 3 Ultra (`nvidia/nemotron-3-ultra-550b-a55b`) is the 3rd supervise backup after Gemini and Groq, thinking off · Measured on Rex's 24-tool turn: 3/3 correct tool calls, ~3.9 s vs Groq gpt-oss-120b 1.44 s — good enough to keep tests running when free tiers run out, too slow for the main voice model.

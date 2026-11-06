@@ -2,6 +2,17 @@
 
 17 days, 7 phases, 2 people. Every task has an ID (`T-xx`) that also exists as an entity in the project graph (`memory/project-graph.jsonl`) — update status there and run `python scripts/progress.py` to refresh [PROGRESS.md](PROGRESS.md).
 
+## Re-plan — 3 Nov 2026: no telephony (D-038)
+
+Twilio is dropped. Rex is a browser + app agent only. Demo step 2 becomes an in-browser "call": Rex and the clinic (Shanky) join one LiveKit room from a web link.
+
+| Task | Change | Owner | Due |
+|---|---|---|---|
+| T-30 | Was Twilio SIP trunk → now browser call room (room + join link, no PSTN) | Johny | 4 Nov |
+| T-31 | Caller agent runs in that room (16 kHz, disclosure, booking) | Johny | 5 Nov |
+| T-32 | `call_tool.start_call` creates the room + link instead of dialing; `CallOutcome` unchanged | Shanky | 5 Nov |
+| T-39 | Step-3 glue + `check_phase3.py --live` | Shanky | 6 Nov |
+
 ## Re-plan — 26 Oct 2026 (supersedes dates below where they differ)
 
 Full review and plan: [Rex — Progress Review & Next-Phase Plan](https://claude.ai/artifact/4nY8k2exraJUhLJNhnEp9q).
@@ -31,7 +42,7 @@ Fallback if the Caller slips past 2 Nov: a labelled LiveKit browser "call" with 
 |---|---|---|
 | Realtime voice (LiveKit, Gnani STT/TTS, VAD, barge-in) | **Owner** | Reviewer |
 | Language routing + fallback STT/TTS | **Owner** | — |
-| Twilio telephony + Caller agent | **Owner** | Reviewer |
+| Browser call room + Caller agent | **Owner** | Reviewer |
 | Desktop companion (Tauri) + screen capture | **Owner** | — |
 | Web dashboard (frontend) | **Owner** | API contracts |
 | Supervisor + LangGraph + LLM router | Reviewer | **Owner** |
@@ -122,8 +133,8 @@ gantt
 
 | ID | Task | Owner | Done when |
 |---|---|---|---|
-| T-30 | Twilio SIP trunk → LiveKit outbound trunk | Johny | Test call rings a verified phone |
-| T-31 | Caller agent (8 kHz Gnani STT/TTS, disclosure line, goal + constraints, end_call) | Johny | Books a slot with a teammate playing the clinic |
+| T-30 | Browser call room (LiveKit room + join link, no PSTN — D-038) | Johny | Clinic joins from a browser link and hears Rex |
+| T-31 | Caller agent (16 kHz Gnani STT/TTS, disclosure line, goal + constraints, end_call) | Johny | Books a slot with a teammate playing the clinic |
 | T-32 | `call_tool` MCP server (start/status/hangup, outcome schema) | Johny | Supervisor gets structured outcome |
 | T-33 | Vexa setup + `meeting.join` / fetch audio | Shanky | Bot joins a test Meet |
 | T-34 | Gnani batch STT step for recordings | Johny | Diarised transcript JSON |
@@ -178,4 +189,4 @@ gantt
 3. Fallback languages (T-50) → Gnani languages only.
 4. Meeting bot join (T-33) → upload a synthetic recording instead.
 
-Never cut: voice quality, the phone call, the approval gate.
+Never cut: voice quality, the in-browser call (D-038), the approval gate.
