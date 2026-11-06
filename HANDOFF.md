@@ -15,6 +15,27 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-11-06 — Johny (taking T-38 from Shanky)
+Heads-up for Shanky: Johny (with Claude) is building **T-38 real Playwright browser**. Touching your `rex_mcp_servers/browser.py` (mock → Playwright), its tests, and `infra/mcp_servers.yaml` (browser on for rex; rex vexa subset trimmed to join/leave to stay ≤ 25 tools). Don't start T-38.
+Also fixed: agent crash on join (RPC registered before room connect, `rex_agent/main.py`); calendar auth errors now reach the model as `ToolError` (re-login hint).
+Voice fix: Rex heard only silence / segfaulted in `liblivekit_ffi` — livekit-agents 1.8 auto-gain-control (native APM) on mic input. Turned off via `RoomOptions(audio_input=AudioInputOptions(auto_gain_control=False))` in `rex_agent/main.py`; live voice confirmed.
+**T-64 Gmail** (new): `rex_mcp_servers/gmail.py` (search_emails/read_email R, send_email A). Google login is now shared (`calendar.google_creds`), SCOPES include gmail.readonly + gmail.send — **re-run `uv run python -m rex_mcp_servers.calendar login`** and enable the Gmail API in the Cloud project. Rex tool cap 25 → 28 in `infra/mcp_servers.yaml` (Shanky: shout if you'd rather trim instead).
+Latency/UX: tool calls now speak a filler ("Checking your inbox.") via `RunContext.with_filler` if a tool keeps the line silent > 0.7 s (`tools_bridge.py`, `brain/acks.py`); chat history capped at 30 items; system prompt rewritten (capabilities, chain tools, no narration). Measured: LLM TTFT ~1.3 s (Gemini flash-lite) is now the biggest cost per step.
+Browser live view: browser MCP server writes ~1 fps JPEG + {url,title} to `~/.config/rex/browser-live/`; the agent streams new frames on LiveKit topic `rex.browser`; dashboard `components/BrowserView.tsx` shows them under the transcript.
+**T-65 Screen share** (new): dashboard "Share screen" button (LiveKit `TrackToggle`); agent keeps only the newest frame (`rex_agent/screen.py`) and `look_at_screen(question)` sends that one JPEG to the router's `vision` chain (Gemini) only when asked. Live check: Rex read a ModuleNotFoundError off a shared screen and gave the fix.
+Screen control: `control_screen(action=click|double_click|right_click|scroll|drag, target, to_target, ...)` moves the real mouse with pyautogui (new dep in rex-agent). Gemini locates the target on the shared frame (0-1000 point; probe: 0-1 px off on test buttons); needs entire-screen share (aspect check) and macOS Accessibility permission for the app running the agent; corner fail-safe on; each action goes to the timeline as `screen.<action>`.
+
+---
+
+## 2026-11-03 — Johny (plan change: no Twilio)
+Phase: 3 · Gate: G3 moves to 6 Nov
+Decisions made: **D-038** — Twilio/phone calls dropped; Rex is a browser + app agent only. Demo step 2 = in-browser "call" (LiveKit room + web link, Shanky plays the clinic).
+Changed: T-30 is now "browser call room" (Johny, 4 Nov); T-31 runs in that room at 16 kHz (5 Nov); T-32 `start_call` returns a room + join link instead of dialing, `CallOutcome` unchanged (Shanky, 5 Nov); T-39 → 6 Nov. R-02 closed.
+Heads-up for Shanky: Twilio vars removed from `.env.example`; nothing in code used them.
+Tomorrow (Johny): T-30 room + link; then T-31.
+
+---
+
 ## 2026-10-29 — Johny (Nemotron backup + Phase 3 plan)
 Phase: 2 → 3 · Gate: G2 open (T-29), G3 target 3 Nov
 Done today: Nemotron 3 Ultra added as 3rd LLM backup (`dbc1c72`, D-037). Chain: Gemini → Groq → Nemotron → Mistral → OpenRouter.
