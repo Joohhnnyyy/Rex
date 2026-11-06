@@ -26,12 +26,16 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from mcp.server.mcpserver import MCPServer
+from mcp.server.mcpserver.exceptions import ToolError
 
 logger = logging.getLogger("rex.calendar")
 IST = ZoneInfo("Asia/Kolkata")
+# One Google login (one token) covers Calendar and Gmail; adding a scope means running `login` again.
 SCOPES = [
     "https://www.googleapis.com/auth/calendar.events",
     "https://www.googleapis.com/auth/calendar.readonly",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.send",
 ]
 
 
@@ -63,32 +67,43 @@ def parse_datetime(dt_str: str, default_end_of_day: bool = False) -> datetime:
     return parsed
 
 
-def _real_service():
-    """Build a Google Calendar v3 service from ~/.config/rex/google_token.json."""
+LOGIN_HINT = "Ask the user to run: uv run python -m rex_mcp_servers.calendar login"
+
+
+def google_creds(product: str = "Google Calendar"):
+    """Saved Google credentials (refreshed if needed), or a ToolError the model can explain to the user."""
+    from google.auth.exceptions import RefreshError
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
-    from googleapiclient.discovery import build
 
     token_path = default_token_path()
     if not token_path.exists():
-        if os.environ.get("REX_FAKE_SERVICES") == "1":
-            from rex_mcp_servers.calendar_fake import FakeCalendarService
+        raise ToolError(f"{product} is not connected (no token at {token_path}). {LOGIN_HINT}")
 
-            return FakeCalendarService()
-        raise RuntimeError(
-            f"Google token not found at {token_path}. Run 'python -m rex_mcp_servers.calendar login' first."
-        )
-
-    creds = Credentials.from_authorized_user_file(str(token_path), SCOPES)
+    # Use the scopes the token was granted: asking for new ones on refresh fails until the user logs in again.
+    creds = Credentials.from_authorized_user_file(str(token_path))
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            try:
+                creds.refresh(Request())
+            except RefreshError as e:  # refresh token expired or revoked (Testing-mode apps: after 7 days)
+                raise ToolError(f"{product} login has expired. {LOGIN_HINT}") from e
             token_path.parent.mkdir(parents=True, exist_ok=True)
             token_path.write_text(creds.to_json())
         else:
-            raise RuntimeError("Google credentials expired or invalid. Please run login again.")
+            raise ToolError(f"{product} credentials are invalid. {LOGIN_HINT}")
+    return creds
 
-    return build("calendar", "v3", credentials=creds)
+
+def _real_service():
+    """Build a Google Calendar v3 service from ~/.config/rex/google_token.json."""
+    from googleapiclient.discovery import build
+
+    if not default_token_path().exists() and os.environ.get("REX_FAKE_SERVICES") == "1":
+        from rex_mcp_servers.calendar_fake import FakeCalendarService
+
+        return FakeCalendarService()
+    return build("calendar", "v3", credentials=google_creds())
 
 
 def _ensure_env():
