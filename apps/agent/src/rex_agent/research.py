@@ -8,6 +8,7 @@ on the timeline. Doing things on websites (forms, logins) stays with the Playwri
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from rex_mcp_gateway.gateway import Gateway, NeedsApproval, wrap_untrusted
@@ -57,7 +58,9 @@ def compact_page(text: str) -> str:
             text = str(payload.get("markdown") or (payload.get("data") or {}).get("markdown") or text)
     except ValueError:
         pass
-    text = "\n".join(line.rstrip() for line in text.splitlines() if line.strip())
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)  # images
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)  # [link text](url) -> link text
+    text = "\n".join(line.rstrip() for line in text.splitlines() if len(line.strip()) > 2)
     return text[:MAX_CHARS] + (" …(cut)" if len(text) > MAX_CHARS else "")
 
 

@@ -79,3 +79,8 @@ def test_yaml_only_search_and_scrape_are_read_tier():
     assert {k: v["tier"] for k, v in fc["tools"].items()} == {"firecrawl_search": "R", "firecrawl_scrape": "R"}
     assert cfg["allowlists"]["research"] == ["firecrawl"]
     assert "firecrawl" not in cfg["allowlists"]["rex"]
+
+
+def test_page_drops_images_and_link_urls():
+    md = "[Jump to content](https://x/#a)\n![](https://img/x.png)[Bhopal](https://w/Bhopal) is a city.\n\n*\n"
+    assert compact_page(md) == "Jump to content\nBhopal is a city."
