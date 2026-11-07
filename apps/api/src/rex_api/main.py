@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from rex_api.connections import router as connections_router
 from rex_api.livekit_tokens import router as livekit_router
+from rex_api.memory import router as memory_router
 from rex_api.settings import Settings
 
 
@@ -24,6 +25,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(livekit_router)
     app.include_router(connections_router)
+    app.include_router(memory_router)
     return app
 
 

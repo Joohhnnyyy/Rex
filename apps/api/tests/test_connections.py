@@ -27,3 +27,18 @@ async def test_connections_report_each_service(monkeypatch, tmp_path):
     assert by_id["gmail"]["status"] == "off"
     assert by_id["slack"]["status"] == "ok"
     assert by_id["notion"] == {"id": "notion", "name": "Notion", "status": "off", "detail": "Set NOTION_TOKEN in .env"}
+
+
+@pytest.mark.asyncio
+async def test_memory_endpoint_lists_facts_and_newest_calls_first(monkeypatch, tmp_path):
+    from rex_mcp_servers import memory
+
+    path = tmp_path / "m.json"
+    monkeypatch.setenv("REX_MEMORY_PATH", str(path))
+    memory.remember("manager", "Shanky")
+    memory.add_episode("first call")
+    memory.add_episode("second call")
+    async with AsyncClient(transport=ASGITransport(app=create_app(Settings())), base_url="http://test") as c:
+        body = (await c.get("/v1/memory")).json()
+    assert body["facts"]["manager"]["value"] == "Shanky"
+    assert [e["summary"] for e in body["episodes"]] == ["second call", "first call"]

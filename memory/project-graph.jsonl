@@ -225,7 +225,7 @@
 {"type": "relation", "from": "T-52", "to": "MCP gateway", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-52", "relationType": "owns"}
 {"type": "relation", "from": "T-52", "to": "T-21", "relationType": "depends_on"}
-{"type": "entity", "name": "T-53", "entityType": "Task", "observations": ["title: Dashboard polish + mobile", "status: todo", "due: 2026-11-06", "status: in_progress", "started: 2026-11-07 (Johny)", "note: 2026-11-07 language badge (last thing you said), phone layout at 375px, connections panel; in-call view still to check in Chrome"]}
+{"type": "entity", "name": "T-53", "entityType": "Task", "observations": ["title: Dashboard polish + mobile", "status: todo", "due: 2026-11-06", "status: in_progress", "started: 2026-11-07 (Johny)", "note: 2026-11-07 language badge (last thing you said), phone layout at 375px, connections panel; in-call view still to check in Chrome", "note: 2026-11-07 control-center redesign: SVG mascot (10 states) + HUD driven by Rex's voice state, command bar sends text to Rex, live actions/approvals, memory + connections views; System Health/Globe/Projects/Resources are demo-tagged; Three.js orb removed"]}
 {"type": "relation", "from": "T-53", "to": "Phase 5", "relationType": "part_of"}
 {"type": "relation", "from": "T-53", "to": "Web dashboard", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-53", "relationType": "owns"}
