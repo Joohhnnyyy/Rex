@@ -107,6 +107,24 @@ servers:
       fetch_transcript:   {tier: R}
       leave_meeting:      {tier: W}
 
+  # Mac apps and windows through the accessibility tree (no screenshots). Rex reaches it only through its
+  # own `use_desktop` tool (allowlist "screen"), not as 67 raw tools. Ref actions are headless.
+  desktop:
+    command: ["npx", "-y", "agent-desktop@1.2.0", "mcp"]
+    env:
+      PATH: "${PATH}"
+      HOME: "${HOME}"
+    default_tier: A
+    tools:
+      desktop_list_windows: {tier: R}
+      desktop_snapshot:     {tier: R, timeout_s: 30}
+      desktop_launch:       {tier: W, timeout_s: 30}
+      desktop_focus_window: {tier: W}
+      desktop_click:        {tier: W}
+      desktop_type:         {tier: W}
+      desktop_press:        {tier: W}
+      desktop_scroll:       {tier: W}
+
   memory:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.memory"]
     env:
@@ -122,7 +140,7 @@ allowlists:
   rex: [location, calendar, slack, notion, minutes, vexa, memory, browser, gmail]
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
-  screen: [browser]
+  screen: [browser, desktop]
 
 # Optional: the only tools a specialist sees on a server. Every tool schema is sent to the LLM on every
 # turn — Notion alone was ~78k chars (~20k tokens) — so rex keeps a small tool set (T-37: <= 25,

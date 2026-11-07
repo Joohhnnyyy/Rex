@@ -25,6 +25,7 @@ Heads-up for Shanky: new `apps/api/src/rex_api/connections.py` (GET /v1/connecti
 Also (D-040, your track, Shanky): deleted `rex_api` auth/sessions/timeline/tools + their tests, `infra/docker-compose.yml` (+ `make infra-up/down`), schemas CallOutcome/ApprovalRequest/Turn/User/UserUpdate/VoiceSession, `scripts/sip_setup.py` + `seed_graph.py`. Supervisor is now background-only for `coder` and `meeting`. Nothing used them; shout if you had plans for Postgres.
 Also (T-55): Rex has long-term memory now: `rex_mcp_servers/memory.py` replaces the fake `briefing` server (its hardcoded meetings/tasks are gone). Facts + a 1–2 line summary per call live in `~/.config/rex/memory.json` (REX_MEMORY_PATH to override) and are put in Rex's prompt each call.
 Also (T-53): dashboard rebuilt as the Rex Control Center (`apps/web/components/dash/`); see apps/web/README for live vs demo panels. New `GET /v1/memory` in `rex_api/memory.py`. Deps: +lucide-react, +recharts, -three.
+Also (T-65): Rex has `use_desktop` (apps/agent/src/rex_agent/desktop.py): any Mac app via its accessibility tree through `npx agent-desktop@1.2.0 mcp` (gateway server `desktop`, allowlist `screen`, so Rex doesn't see its 67 raw tools). Needs Node and Accessibility for the app running the agent. Snapshots are private: never log them.
 Tomorrow: G5 run-through of the browser-only demo, then T-60 video
 
 ## 2026-11-06 — Johny (taking T-38 from Shanky)

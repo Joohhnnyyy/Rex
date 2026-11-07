@@ -44,6 +44,8 @@ from rex_agent.brain.meeting import MeetingSpecialist
 from rex_agent.brain.specialists import REGISTRY, ExecResult
 from rex_agent.brain.supervisor import Supervisor
 from rex_agent.config import AgentConfig
+from rex_agent.desktop import ACTIONS as DESKTOP_ACTIONS
+from rex_agent.desktop import Desktop
 from rex_agent.lang import detect_language, tts_language
 from rex_agent.models import build_llm, build_stt, build_tts
 from rex_agent.prompts import greeting, system_prompt
@@ -75,6 +77,7 @@ class Rex(Agent):
         self.gateway = gateway
         self._lang: str | None = "en-IN" if cfg.english_only else None
         self.screen = ScreenWatcher()  # attached to the room in entrypoint
+        self.desktop = Desktop(gateway) if gateway else None
         self.publish_event = None  # set in entrypoint: sends ActionEvents to the dashboard timeline
         self.supervisor = Supervisor(
             say=self._say_now,
@@ -134,6 +137,56 @@ class Rex(Agent):
             except Exception as e:
                 logger.exception("vision call failed")
                 return f"Couldn't analyse the screen right now ({type(e).__name__}). Tell the user to try again."
+
+    @function_tool()
+    async def use_desktop(
+        self,
+        context: RunContext,
+        action: str,
+        app: str | None = None,
+        ref: str | None = None,
+        text: str | None = None,
+        keys: str | None = None,
+        direction: str | None = None,
+        amount: int | str | None = None,
+        find: str | None = None,
+        submit: bool | str | None = None,
+    ) -> str:
+        """Use the apps on the user's Mac (WhatsApp, Chrome, Finder, Notes, Settings…) through their
+        accessibility tree: no screen sharing needed. Loop: look at the app, act on an element by its ref,
+        look again to check. When the user asked for it, just do it; don't ask "shall I?" first.
+
+        Args:
+            action: windows (list open windows), open (launch an app), focus (bring an app to the front),
+                look (list the app's elements: refs like e7 for what you can act on, plus readable text),
+                click, type (types text into ref), press (a key combo) or scroll
+            app: the app name, e.g. "WhatsApp", "Google Chrome", "Notes"; needed for open, focus and look
+            ref: for click, type and scroll: the element ref from the latest look, e.g. "e7"
+            text: for type: the text to enter
+            keys: for press: e.g. "return", "escape", "cmd+f", "cmd+l"
+            direction: for scroll: up, down, left or right
+            amount: for scroll: how far, 1 to 10
+            find: for look: only list elements whose text contains this, e.g. "Asmi" or "message"
+            submit: for type: press Return afterwards (sends a chat message or a search)
+        """
+        if self.desktop is None:
+            return "Desktop control isn't available in this session."
+        if action not in DESKTOP_ACTIONS:
+            return f"Unknown action {action!r}. Use one of: {', '.join(DESKTOP_ACTIONS)}."
+        a = _clean_screen_args(None, None, direction, amount, text, submit, keys)
+        s = lambda v: "" if v is None or str(v).strip().lower() in _EMPTY else str(v).strip()  # noqa: E731
+        async with context.with_filler("On it.", delay=0.7):
+            return await self.desktop.run(
+                action,
+                app=s(app),
+                ref=s(ref),
+                text=a["text"],
+                keys=a["keys"],
+                direction=a["direction"],
+                amount=min(a["amount"], 10),
+                find=s(find),
+                submit=a["submit"],
+            )
 
     @function_tool()
     async def control_screen(
