@@ -14,9 +14,10 @@ import { Track } from "livekit-client";
 import { useEffect, useRef } from "react";
 
 import { BrowserView } from "@/components/BrowserView";
+import { Connections } from "@/components/Connections";
 import { RexOrb } from "@/components/RexOrb";
 import { Timeline } from "@/components/Timeline";
-import { langChip } from "@/lib/lang";
+import { LANG_NAME, langChip } from "@/lib/lang";
 
 const STATE_LABEL: Record<string, string> = {
   disconnected: "Disconnected",
@@ -32,6 +33,8 @@ export function RexSession({ identity }: { identity: string }) {
   const level = useTrackVolume(audioTrack);
   const transcriptions = useTranscriptions();
   const endRef = useRef<HTMLDivElement>(null);
+  const lastMine = [...transcriptions].reverse().find((t) => t.participantInfo.identity === identity);
+  const heard = lastMine ? langChip(lastMine.text) : null;
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,12 +42,19 @@ export function RexSession({ identity }: { identity: string }) {
 
   return (
     <div className="flex w-full max-w-2xl flex-col gap-6">
-      <section className="flex flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-8 shadow-sm">
+      <section className="flex flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-5 shadow-sm sm:p-8">
         <RexOrb state={state} level={level} />
-        <p className="text-sm font-medium text-[var(--muted)]" aria-live="polite">
-          {agent ? STATE_LABEL[state] ?? state : "Waiting for Rex to join…"}
-        </p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2" aria-live="polite">
+          <p className="text-sm font-medium text-[var(--muted)]">
+            {agent ? STATE_LABEL[state] ?? state : "Waiting for Rex to join…"}
+          </p>
+          {heard && (
+            <span className="rounded-full bg-[var(--accent)]/15 px-2.5 py-0.5 text-xs font-medium text-[var(--accent)]">
+              {LANG_NAME[heard] ?? heard}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <VoiceAssistantControlBar controls={{ leave: false }} />
           {/* Rex only looks when asked (look_at_screen); frames stay in memory, nothing is saved. */}
           <TrackToggle
@@ -87,6 +97,7 @@ export function RexSession({ identity }: { identity: string }) {
       </section>
       <BrowserView />
       <Timeline />
+      <Connections />
       <RoomAudioRenderer />
     </div>
   );

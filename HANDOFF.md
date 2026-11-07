@@ -15,6 +15,15 @@ Heads-up for teammate: <files you touched in their track, env changes, new keys>
 Tomorrow: T-…
 ```
 
+## 2026-11-07 — Johny
+Phase: 5 · Gate: G5 not yet run
+Done today: T-25 (connections panel), closed T-10/11/12/43 (working live); T-42 dropped
+In progress: T-53 — language badge + phone layout done; check the in-call view in Chrome, then video polish
+Blocked: —
+Decisions made: D-039 (call feature dropped, browser-only; logged)
+Heads-up for Shanky: new `apps/api/src/rex_api/connections.py` (GET /v1/connections) registered in `main.py`, test in `apps/api/tests/test_connections.py`. It refreshes the Google token and asks Playwright for Chromium's path; no new env vars. `scripts/progress.py` now supports `status: dropped` (left out of every count).
+Tomorrow: G5 run-through of the browser-only demo, then T-60 video
+
 ## 2026-11-06 — Johny (taking T-38 from Shanky)
 Heads-up for Shanky: Johny (with Claude) is building **T-38 real Playwright browser**. Touching your `rex_mcp_servers/browser.py` (mock → Playwright), its tests, and `infra/mcp_servers.yaml` (browser on for rex; rex vexa subset trimmed to join/leave to stay ≤ 25 tools). Don't start T-38.
 Also fixed: agent crash on join (RPC registered before room connect, `rex_agent/main.py`); calendar auth errors now reach the model as `ToolError` (re-login hint).

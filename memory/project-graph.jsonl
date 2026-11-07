@@ -74,18 +74,18 @@
 {"type": "relation", "from": "Johny", "to": "T-05", "relationType": "owns"}
 {"type": "relation", "from": "Shanky", "to": "T-05", "relationType": "owns"}
 {"type": "relation", "from": "T-05", "to": "T-01", "relationType": "depends_on"}
-{"type": "entity", "name": "T-10", "entityType": "Task", "observations": ["title: LiveKit worker with Gnani Prisma STT", "status: in_progress", "note: rex_agent built with gnani.STT (en-IN,hi-IN, transcribe); tests green; LIVE TEST PENDING on Mac", "note: 2026-10-24 first live run on Mac — worker registered (India South); fixed STT 1008 (hi-IN) and Gemini empty-contents greeting", "due: 2026-10-28"]}
+{"type": "entity", "name": "T-10", "entityType": "Task", "observations": ["title: LiveKit worker with Gnani Prisma STT", "status: in_progress", "note: rex_agent built with gnani.STT (en-IN,hi-IN, transcribe); tests green; LIVE TEST PENDING on Mac", "note: 2026-10-24 first live run on Mac — worker registered (India South); fixed STT 1008 (hi-IN) and Gemini empty-contents greeting", "due: 2026-10-28", "status: done", "note: 2026-11-07 live calls work daily (Gnani STT en-IN/hi-IN)"]}
 {"type": "relation", "from": "T-10", "to": "Phase 1", "relationType": "part_of"}
 {"type": "relation", "from": "T-10", "to": "Voice loop", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-10", "relationType": "owns"}
 {"type": "relation", "from": "T-10", "to": "T-02", "relationType": "depends_on"}
 {"type": "relation", "from": "T-10", "to": "T-05", "relationType": "depends_on"}
-{"type": "entity", "name": "T-11", "entityType": "Task", "observations": ["title: Gnani Timbre TTS adapter with barge-in", "status: in_progress", "note: gnani.TTS timbre-v2.5 SSE, interruptible via AgentSession; per-turn language switch; LIVE TEST PENDING", "due: 2026-10-28"]}
+{"type": "entity", "name": "T-11", "entityType": "Task", "observations": ["title: Gnani Timbre TTS adapter with barge-in", "status: in_progress", "note: gnani.TTS timbre-v2.5 SSE, interruptible via AgentSession; per-turn language switch; LIVE TEST PENDING", "due: 2026-10-28", "status: done", "note: 2026-11-07 live TTS with barge-in works in calls"]}
 {"type": "relation", "from": "T-11", "to": "Phase 1", "relationType": "part_of"}
 {"type": "relation", "from": "T-11", "to": "Voice loop", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-11", "relationType": "owns"}
 {"type": "relation", "from": "T-11", "to": "T-10", "relationType": "depends_on"}
-{"type": "entity", "name": "T-12", "entityType": "Task", "observations": ["title: VAD/turn tuning + latency metrics", "status: in_progress", "note: Silero VAD + multilingual turn detector (VAD fallback); metrics logged; tuning needs live run", "due: 2026-10-28"]}
+{"type": "entity", "name": "T-12", "entityType": "Task", "observations": ["title: VAD/turn tuning + latency metrics", "status: in_progress", "note: Silero VAD + multilingual turn detector (VAD fallback); metrics logged; tuning needs live run", "due: 2026-10-28", "status: done", "note: 2026-11-06 measured: end of turn ~0.7 s, LLM TTFT 1.3-1.6 s, TTS ~0.3 s; tool fillers added"]}
 {"type": "relation", "from": "T-12", "to": "Phase 1", "relationType": "part_of"}
 {"type": "relation", "from": "T-12", "to": "Voice loop", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-12", "relationType": "owns"}
@@ -136,7 +136,7 @@
 {"type": "relation", "from": "T-24", "to": "Specialists", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-24", "relationType": "owns"}
 {"type": "relation", "from": "T-24", "to": "T-20", "relationType": "depends_on"}
-{"type": "entity", "name": "T-25", "entityType": "Task", "observations": ["title: Dashboard v1: timeline, approvals, connections", "status: in_progress", "note: Actions timeline with Approve/Deny done (text stream rex.timeline + RPC); connections page pending", "due: 2026-11-03"]}
+{"type": "entity", "name": "T-25", "entityType": "Task", "observations": ["title: Dashboard v1: timeline, approvals, connections", "status: in_progress", "note: Actions timeline with Approve/Deny done (text stream rex.timeline + RPC); connections page pending", "due: 2026-11-03", "status: done", "note: 2026-11-07 connections panel: GET /v1/connections (voice, calendar, gmail, slack, notion, browser) + dashboard chips"]}
 {"type": "relation", "from": "T-25", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-25", "to": "Web dashboard", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-25", "relationType": "owns"}
@@ -194,12 +194,12 @@
 {"type": "relation", "from": "Shanky", "to": "T-41", "relationType": "owns"}
 {"type": "relation", "from": "T-41", "to": "T-40", "relationType": "depends_on"}
 {"type": "relation", "from": "T-41", "to": "T-20", "relationType": "depends_on"}
-{"type": "entity", "name": "T-42", "entityType": "Task", "observations": ["title: Tauri desktop companion + hotkey PTT", "status: todo", "due: 2026-11-04", "note: 2026-10-26 plan — desktop app moved to stretch; deliver browser screen-share instead"]}
+{"type": "entity", "name": "T-42", "entityType": "Task", "observations": ["title: Tauri desktop companion + hotkey PTT", "status: todo", "due: 2026-11-04", "note: 2026-10-26 plan — desktop app moved to stretch; deliver browser screen-share instead", "status: dropped — browser-only (D-039); screen share replaced the desktop app"]}
 {"type": "relation", "from": "T-42", "to": "Phase 4", "relationType": "part_of"}
 {"type": "relation", "from": "T-42", "to": "Desktop companion", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-42", "relationType": "owns"}
 {"type": "relation", "from": "T-42", "to": "T-15", "relationType": "depends_on"}
-{"type": "entity", "name": "T-43", "entityType": "Task", "observations": ["title: Screen capture + screen_tool bridge", "status: todo", "due: 2026-11-04"]}
+{"type": "entity", "name": "T-43", "entityType": "Task", "observations": ["title: Screen capture + screen_tool bridge", "status: todo", "due: 2026-11-04", "status: done", "note: 2026-11-07 covered by T-65 via browser screen share: look_at_screen + control_screen"]}
 {"type": "relation", "from": "T-43", "to": "Phase 4", "relationType": "part_of"}
 {"type": "relation", "from": "T-43", "to": "Desktop companion", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-43", "relationType": "owns"}
@@ -225,7 +225,7 @@
 {"type": "relation", "from": "T-52", "to": "MCP gateway", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-52", "relationType": "owns"}
 {"type": "relation", "from": "T-52", "to": "T-21", "relationType": "depends_on"}
-{"type": "entity", "name": "T-53", "entityType": "Task", "observations": ["title: Dashboard polish + mobile", "status: todo", "due: 2026-11-06"]}
+{"type": "entity", "name": "T-53", "entityType": "Task", "observations": ["title: Dashboard polish + mobile", "status: todo", "due: 2026-11-06", "status: in_progress", "started: 2026-11-07 (Johny)", "note: 2026-11-07 language badge (last thing you said), phone layout at 375px, connections panel; in-call view still to check in Chrome"]}
 {"type": "relation", "from": "T-53", "to": "Phase 5", "relationType": "part_of"}
 {"type": "relation", "from": "T-53", "to": "Web dashboard", "relationType": "builds"}
 {"type": "relation", "from": "Johny", "to": "T-53", "relationType": "owns"}

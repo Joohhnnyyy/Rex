@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from rex_api.auth import router as auth_router
+from rex_api.connections import router as connections_router
 from rex_api.livekit_tokens import router as livekit_router
 from rex_api.sessions import router as sessions_router
 from rex_api.settings import Settings
@@ -38,6 +39,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(sessions_router)
     app.include_router(tools_router)
     app.include_router(timeline_router)
+    app.include_router(connections_router)
     return app
 
 

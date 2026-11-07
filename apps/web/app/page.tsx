@@ -17,6 +17,7 @@ rxConfig.onUnhandledError = (err) => {
   });
 };
 
+import { Connections } from "@/components/Connections";
 import { RexOrb } from "@/components/RexOrb";
 import { RexSession } from "@/components/RexSession";
 
@@ -52,16 +53,17 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-8 px-4 py-10">
+    <main className="flex min-h-screen flex-col items-center gap-6 px-4 py-8 sm:gap-8 sm:py-10">
       <header className="flex w-full max-w-2xl items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">
           Rex <span className="text-[var(--accent)]">●</span>
         </h1>
-        <span className="text-xs text-[var(--muted)]">Gnani Prisma + Timbre · LiveKit</span>
+        <span className="hidden text-xs text-[var(--muted)] sm:inline">Gnani Prisma + Timbre · LiveKit</span>
       </header>
 
       {!conn ? (
-        <section className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-10 shadow-sm">
+        <>
+        <section className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-[var(--surface)] p-6 shadow-sm sm:p-10">
           <RexOrb />
           <p className="text-center text-[var(--muted)]">
             Speak in English, Hinglish or your own language. Rex listens, acts, and asks before anything risky.
@@ -83,6 +85,10 @@ export default function Home() {
           </button>
           {error && <p className="text-sm text-[var(--danger)]">{error}</p>}
         </section>
+        <div className="w-full max-w-2xl">
+          <Connections />
+        </div>
+        </>
       ) : (
         <LiveKitRoom
           serverUrl={conn.url}

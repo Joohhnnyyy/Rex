@@ -33,3 +33,16 @@ export function langChip(text: string): string {
   if (words.length && (hindi >= 2 || hindi / words.length >= 0.25)) return "HINGLISH";
   return "EN";
 }
+
+export const LANG_NAME: Record<string, string> = {
+  EN: "English",
+  HINGLISH: "Hinglish",
+  HI: "Hindi",
+  BN: "Bengali",
+  PA: "Punjabi",
+  GU: "Gujarati",
+  TA: "Tamil",
+  TE: "Telugu",
+  KN: "Kannada",
+  ML: "Malayalam",
+};
