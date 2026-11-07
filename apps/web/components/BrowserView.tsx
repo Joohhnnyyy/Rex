@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 
 // Live view of Rex's browser: the agent streams a JPEG of the page (about 1 per second, only on change)
 // on the "rex.browser" topic. Only the newest frame is kept, so memory stays flat.
-type Frame = { url: string; title: string; ts: number; img: string };
+export type Frame = { url: string; title: string; ts: number; img: string };
 
-export function BrowserView() {
+// LiveKit allows ONE handler per text-stream topic, so subscribe once (in the dashboard) and pass the frame down.
+export function useBrowserFrame(): Frame | null {
   const room = useRoomContext();
   const [frame, setFrame] = useState<Frame | null>(null);
 
@@ -22,7 +23,10 @@ export function BrowserView() {
     });
     return () => room.unregisterTextStreamHandler("rex.browser");
   }, [room]);
+  return frame;
+}
 
+export function BrowserView({ frame }: { frame: Frame | null }) {
   if (!frame) return null;
 
   const host = (() => {

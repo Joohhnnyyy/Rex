@@ -1,6 +1,6 @@
 "use client";
 
-import { TrackToggle, useTranscriptions } from "@livekit/components-react";
+import { TrackToggle, type useTranscriptions } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { Clock, Minimize2, MonitorUp, PhoneOff, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -86,7 +86,9 @@ export function Immersive({
   onEnd,
   bar,
   animate,
+  transcriptions,
 }: {
+  transcriptions: ReturnType<typeof useTranscriptions>;
   identity: string;
   mascot: MascotState;
   level: number;
@@ -103,7 +105,6 @@ export function Immersive({
   animate: boolean;
 }) {
   const scene = useRef<HTMLDivElement>(null);
-  const transcriptions = useTranscriptions();
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);

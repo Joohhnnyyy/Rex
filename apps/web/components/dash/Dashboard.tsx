@@ -15,7 +15,7 @@ import { Track, type LocalAudioTrack } from "livekit-client";
 import { AudioLines, Maximize2, Mic, MonitorUp, PhoneOff, Send } from "lucide-react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
-import { BrowserView } from "@/components/BrowserView";
+import { BrowserView, useBrowserFrame } from "@/components/BrowserView";
 import { Connections } from "@/components/Connections";
 import { Immersive } from "@/components/dash/Immersive";
 import { MascotFace, MascotStage } from "@/components/dash/Mascot";
@@ -122,7 +122,9 @@ export function Dashboard({
   const level = useTrackVolume(audioTrack);
   const { microphoneTrack, isScreenShareEnabled } = useLocalParticipant();
   const micLevel = useTrackVolume(microphoneTrack?.track as LocalAudioTrack | undefined);
+  // One subscription per text-stream topic (LiveKit throws on a second handler); children get the data as props.
   const transcriptions = useTranscriptions();
+  const browserFrame = useBrowserFrame();
   const events = useActions();
   const reduced = useReducedMotion();
   const now = useNow(20_000);
@@ -460,9 +462,9 @@ export function Dashboard({
                 </div>
               </Panel>
               <div className="flex flex-col gap-5">
-                <BrowserView />
+                <BrowserView frame={browserFrame} />
                 <Panel title="Conversation">
-                  <Transcript identity={identity} />
+                  <Transcript identity={identity} transcriptions={transcriptions} />
                 </Panel>
               </div>
             </div>
@@ -495,8 +497,8 @@ export function Dashboard({
       {drawer?.kind === "assistant" && (
         <Drawer title="Conversation with Rex" onClose={() => setDrawer(null)} wide>
           <div className="flex flex-col gap-5">
-            <BrowserView />
-            <Transcript identity={identity} />
+            <BrowserView frame={browserFrame} />
+            <Transcript identity={identity} transcriptions={transcriptions} />
             {events.length > 0 && (
               <section>
                 <h3 className="mb-2 text-sm font-medium text-[var(--text-2)]">Actions</h3>
@@ -551,6 +553,7 @@ export function Dashboard({
       {immersive && (
         <Immersive
           identity={identity}
+          transcriptions={transcriptions}
           mascot={mascot}
           level={level}
           micLevel={micLevel}
@@ -653,8 +656,13 @@ function CommandBar({
   );
 }
 
-function Transcript({ identity }: { identity: string }) {
-  const transcriptions = useTranscriptions();
+function Transcript({
+  identity,
+  transcriptions,
+}: {
+  identity: string;
+  transcriptions: ReturnType<typeof useTranscriptions>;
+}) {
   const end = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // Braces matter: newer browsers return a Promise from scrollIntoView, and an effect may only return a cleanup.

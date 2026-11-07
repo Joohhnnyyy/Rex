@@ -204,16 +204,20 @@ export function Rail({ view, onView }: { view: View; onView: (v: View) => void }
 
 export function Drawer({ title, onClose, children, wide = false }: { title: string; onClose: () => void; children: ReactNode; wide?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
+  // Set up once: during a call the parent re-renders many times a second (voice levels), and re-running this
+  // on every render kept moving focus and re-adding the Esc listener.
+  const close = useRef(onClose);
+  close.current = onClose;
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
     ref.current?.focus();
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && close.current();
     document.addEventListener("keydown", esc);
     return () => {
       document.removeEventListener("keydown", esc);
       prev?.focus();
     };
-  }, [onClose]);
+  }, []);
   return (
     <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true" aria-label={title}>
       <button className="absolute inset-0 bg-black/55" aria-label="Close" onClick={onClose} tabIndex={-1} />
