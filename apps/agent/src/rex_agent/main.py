@@ -193,13 +193,16 @@ class Rex(Agent):
         amount: int | str | None = None,
         find: str | None = None,
         submit: bool | str | None = None,
+        to: str | None = None,
     ) -> str:
         """Use the apps on the user's Mac (WhatsApp, Chrome, Finder, Notes, Settings…) through their
         accessibility tree: no screen sharing needed. Loop: look at the app, act on an element by its ref,
         look again to check. When the user asked for it, just do it; don't ask "shall I?" first.
 
         Args:
-            action: windows (list open windows), open (launch an app), focus (bring an app to the front),
+            action: send (send a chat message: give app, to and text; it opens the right chat, sends and
+                checks it arrived), windows (list open windows), open (launch an app), focus (bring an app to
+                the front),
                 look (list the app's elements: refs like e7 for what you can act on, plus readable text),
                 click, type (types text into ref), press (a key combo) or scroll
             app: the app name, e.g. "WhatsApp", "Google Chrome", "Notes"; needed for open, focus and look
@@ -210,6 +213,7 @@ class Rex(Agent):
             amount: for scroll: how far, 1 to 10
             find: for look: only list elements whose text contains this, e.g. "Asmi" or "message"
             submit: for type: press Return afterwards (sends a chat message or a search)
+            to: for send: the chat or contact name, e.g. "Shanky"
         """
         if self.desktop is None:
             return "Desktop control isn't available in this session."
@@ -228,6 +232,7 @@ class Rex(Agent):
                 amount=min(a["amount"], 10),
                 find=s(find),
                 submit=a["submit"],
+                to=s(to),
             )
 
     @function_tool()

@@ -122,6 +122,7 @@ servers:
       desktop_focus_window: {tier: W}
       desktop_click:        {tier: W}
       desktop_type:         {tier: W}
+      desktop_set_value:    {tier: W}
       desktop_press:        {tier: W}
       desktop_scroll:       {tier: W}
       desktop_clipboard_set: {tier: W}  # pasting multi-line messages
