@@ -107,17 +107,19 @@ servers:
       fetch_transcript:   {tier: R}
       leave_meeting:      {tier: W}
 
-  briefing:
-    command: ["${PYTHON}", "-m", "rex_mcp_servers.briefing"]
+  memory:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.memory"]
+    env:
+      REX_MEMORY_PATH: "${REX_MEMORY_PATH}"
     default_tier: R
     tools:
-      get_morning_briefing: {tier: R}
-      get_memories:         {tier: R}
-      store_memory:         {tier: W}
+      remember_fact: {tier: W}
+      forget_fact:   {tier: W}
+      search_memory: {tier: R}
 
 allowlists:
   # sandbox is coder-only; browser is the real Playwright one since T-38
-  rex: [location, calendar, slack, notion, minutes, vexa, briefing, browser, gmail]
+  rex: [location, calendar, slack, notion, minutes, vexa, memory, browser, gmail]
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
   screen: [browser]

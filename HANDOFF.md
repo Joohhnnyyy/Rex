@@ -23,6 +23,7 @@ Blocked: —
 Decisions made: D-039 (call feature dropped, browser-only; logged)
 Heads-up for Shanky: new `apps/api/src/rex_api/connections.py` (GET /v1/connections) registered in `main.py`, test in `apps/api/tests/test_connections.py`. It refreshes the Google token and asks Playwright for Chromium's path; no new env vars. `scripts/progress.py` now supports `status: dropped` (left out of every count).
 Also (D-040, your track, Shanky): deleted `rex_api` auth/sessions/timeline/tools + their tests, `infra/docker-compose.yml` (+ `make infra-up/down`), schemas CallOutcome/ApprovalRequest/Turn/User/UserUpdate/VoiceSession, `scripts/sip_setup.py` + `seed_graph.py`. Supervisor is now background-only for `coder` and `meeting`. Nothing used them; shout if you had plans for Postgres.
+Also (T-55): Rex has long-term memory now: `rex_mcp_servers/memory.py` replaces the fake `briefing` server (its hardcoded meetings/tasks are gone). Facts + a 1–2 line summary per call live in `~/.config/rex/memory.json` (REX_MEMORY_PATH to override) and are put in Rex's prompt each call.
 Tomorrow: G5 run-through of the browser-only demo, then T-60 video
 
 ## 2026-11-06 — Johny (taking T-38 from Shanky)

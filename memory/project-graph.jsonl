@@ -235,7 +235,7 @@
 {"type": "relation", "from": "T-54", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-54", "relationType": "owns"}
 {"type": "relation", "from": "T-54", "to": "T-27", "relationType": "depends_on"}
-{"type": "entity", "name": "T-55", "entityType": "Task", "observations": ["title: Stretch pick (memory / briefing / Gmail)", "status: done", "note: rex_mcp_servers.briefing server with get_morning_briefing, store_memory, get_memories, and test_briefing.py complete"]}
+{"type": "entity", "name": "T-55", "entityType": "Task", "observations": ["title: Stretch pick (memory / briefing / Gmail)", "status: done", "note: rex_mcp_servers.briefing server with get_morning_briefing, store_memory, get_memories, and test_briefing.py complete", "status: done", "note: 2026-11-07 long-term memory: ~/.config/rex/memory.json (facts + per-call summaries), loaded into Rex's prompt each call; tools remember_fact/forget_fact/search_memory; fake briefing server removed"]}
 {"type": "relation", "from": "T-55", "to": "Phase 5", "relationType": "part_of"}
 {"type": "relation", "from": "T-55", "to": "Specialists", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-55", "relationType": "owns"}

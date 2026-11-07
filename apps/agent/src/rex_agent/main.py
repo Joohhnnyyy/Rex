@@ -49,8 +49,10 @@ from rex_agent.models import build_llm, build_stt, build_tts
 from rex_agent.prompts import greeting, system_prompt
 from rex_agent.screen import NOT_SHARING, ScreenWatcher, control_screen, describe_screen
 from rex_agent.tools_bridge import build_tools
+from rex_llm_router.client import LLMClient
 from rex_mcp_gateway.gateway import Gateway
 from rex_mcp_gateway.registry import Registry, load_registry
+from rex_mcp_servers import memory
 from rex_mcp_servers.browser import read_live_frame
 from rex_shared.schemas import ActionEvent
 
@@ -66,7 +68,8 @@ BROWSER_TOPIC = "rex.browser"  # live screenshots of Rex's browser for the dashb
 class Rex(Agent):
     def __init__(self, cfg: AgentConfig, gateway: Gateway | None = None, tools: list | None = None) -> None:
         super().__init__(
-            instructions=system_prompt(cfg.user_name, datetime.now(IST), cfg.english_only), tools=tools or []
+            instructions=system_prompt(cfg.user_name, datetime.now(IST), cfg.english_only, memory.prompt_block()),
+            tools=tools or [],
         )
         self._cfg = cfg
         self.gateway = gateway
@@ -322,7 +325,39 @@ async def entrypoint(ctx: JobContext) -> None:
         live = asyncio.create_task(stream_browser_view(room))
         await closed.wait()
         live.cancel()
+        try:
+            await asyncio.wait_for(save_session_summary(session.history), timeout=30)
+        except Exception:
+            logger.exception("could not save the session summary to memory")
         logger.info("session closed; usage: %s", usage.get_summary())
+
+
+SUMMARY_PROMPT = (
+    "Summarise this voice session between the user and their assistant Rex for Rex's long-term memory, "
+    "in at most two short sentences: what the user wanted, what Rex actually did (sent, booked, found, "
+    "opened), and anything left unfinished. Past tense, plain text, no preamble. Use the user's names for "
+    "people and places."
+)
+
+
+async def save_session_summary(history: ChatContext, llm: LLMClient | None = None) -> str | None:
+    """Store a one-or-two-line summary of a finished call, so the next call knows what was done."""
+    lines = []
+    for item in history.items:
+        if item.type == "message" and item.role in ("user", "assistant") and item.text_content:
+            lines.append(f"{'User' if item.role == 'user' else 'Rex'}: {item.text_content}")
+        elif item.type == "function_call":
+            lines.append(f"(Rex used {item.name} {item.arguments[:200]})")
+    if sum(line.startswith("User:") for line in lines) < 1:
+        return None  # nothing was said; nothing to remember
+    out = await (llm or LLMClient()).complete(
+        "summarise",
+        [{"role": "system", "content": SUMMARY_PROMPT}, {"role": "user", "content": "\n".join(lines)[-12000:]}],
+    )
+    summary = " ".join(out.text.split())
+    if summary:
+        memory.add_episode(summary)
+    return summary or None
 
 
 _EMPTY = {"", "none", "null", "nil", "n/a"}
