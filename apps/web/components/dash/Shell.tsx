@@ -6,7 +6,7 @@ import {
   Box,
   Command,
   Database,
-  FlaskConical,
+  Folder,
   Home,
   Layers,
   Search,
@@ -24,15 +24,16 @@ import type { View } from "@/lib/dashboard";
 export const TABS: [View, string, LucideIcon][] = [
   ["overview", "Overview", Home],
   ["discover", "Discover", Sparkles],
+  ["files", "Files", Folder],
   ["agents", "Agents", Workflow],
   ["analysis", "Analysis", BarChart3],
-  ["lab", "Lab", FlaskConical],
   ["settings", "Settings", Settings],
 ];
 
 const RAIL: [View, string, LucideIcon][] = [
   ["overview", "Overview", Home],
   ["discover", "Discover", Sparkles],
+  ["files", "Files", Folder],
   ["agents", "Agents", Layers],
   ["analysis", "Analysis", BarChart3],
   ["projects", "Projects", Box],

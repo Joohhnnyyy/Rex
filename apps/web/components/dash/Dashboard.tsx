@@ -18,6 +18,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { BrowserView, useBrowserFrame } from "@/components/BrowserView";
 import { Connections } from "@/components/Connections";
 import { Discover } from "@/components/dash/Discover";
+import { Files } from "@/components/dash/Files";
 import { Immersive } from "@/components/dash/Immersive";
 import { MascotFace, MascotStage } from "@/components/dash/Mascot";
 import { RichText } from "@/components/dash/RichText";
@@ -308,6 +309,7 @@ export function Dashboard({
     ...TABS.map(([v, label]) => ({ id: `go-${v}`, label: `Go to ${label}`, run: () => setView(v) })),
     { id: "go-memory", label: "Go to Memory", run: () => setView("memory") },
     { id: "go-projects", label: "Go to Projects", run: () => setView("projects") },
+    { id: "go-lab", label: "Go to Lab", run: () => setView("lab") },
     connected
       ? { id: "end", label: "End call with Rex", hint: "voice", run: onEnd }
       : { id: "start", label: "Talk to Rex", hint: "voice", run: onStart },
@@ -491,6 +493,8 @@ export function Dashboard({
           {view === "memory" && <MemoryView />}
 
           {view === "discover" && <Discover onSeen={loadFinds} />}
+
+          {view === "files" && <Files />}
 
           {view === "settings" && (
             <div className="grid gap-5 xl:grid-cols-2">

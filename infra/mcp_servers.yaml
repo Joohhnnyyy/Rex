@@ -140,6 +140,19 @@ servers:
       firecrawl_search: {tier: R, timeout_s: 30}
       firecrawl_scrape: {tier: R, timeout_s: 45}
 
+  # The user's file library (Documents/Rex): downloads and notes Rex keeps for them, sorted into folders.
+  files:
+    command: ["${PYTHON}", "-m", "rex_mcp_servers.files"]
+    env:
+      REX_FILES_DIR: "${REX_FILES_DIR}"
+      REX_BROWSER_ALLOW_LOCAL: "${REX_BROWSER_ALLOW_LOCAL}"
+    default_tier: A
+    tools:
+      save_from_url: {tier: W, timeout_s: 90}
+      save_note:     {tier: W}
+      list_files:    {tier: R}
+      move_file:     {tier: W}
+
   memory:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.memory"]
     env:
@@ -152,7 +165,7 @@ servers:
 
 allowlists:
   # sandbox is coder-only; browser is the real Playwright one since T-38
-  rex: [location, calendar, slack, notion, minutes, vexa, memory, browser, gmail]
+  rex: [location, calendar, slack, notion, minutes, vexa, memory, browser, gmail, files]
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
   screen: [browser, desktop]

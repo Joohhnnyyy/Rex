@@ -89,3 +89,27 @@ pipelines:
           important (sender and gist). If something is empty, say so in a few words.
           Calendar: {{events}}
           Unread email: {{inbox}}
+
+  research_doc:
+    description: Look something up on the web and save a tidy write-up with links as a document in the user's Files.
+    inputs:
+      topic: what to look up
+      folder: which Files folder to keep it in, e.g. "Delhi trip" (use "Research" if the user doesn't say)
+    steps:
+      - id: found
+        do: research
+        query: "{{topic}}"
+      - id: doc
+        do: write
+        prompt: |
+          Write a short research note on: {{topic}} (as of {{today}}). Start with a 2-3 sentence summary, then
+          "Sources:" and up to 6 lines "- <name>: <key fact> - <full link>". Use only these results:
+          {{found}}
+      - id: saved
+        do: tool
+        call: files.save_note
+        args:
+          title: "{{topic}}"
+          text: "{{doc}}"
+          folder: "{{folder}}"
+

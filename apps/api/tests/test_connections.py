@@ -58,3 +58,26 @@ async def test_discoveries_endpoints(monkeypatch, tmp_path):
         res = await c.post("/v1/discoveries/run")
         assert res.status_code == 503 and "FIRECRAWL_API_KEY" in res.json()["detail"]
         assert (await c.post("/v1/discoveries/seen")).json() == {"ok": True}
+
+
+@pytest.mark.asyncio
+async def test_files_are_served_safely(monkeypatch, tmp_path):
+    from rex_mcp_servers import files
+
+    monkeypatch.setenv("REX_FILES_DIR", str(tmp_path / "Rex"))
+    img = files.write_note("x", "y")
+    files._save([{**img, "mime": "image/png"}])  # pretend it's an image
+    page = files.write_note("page", "<script>alert(1)</script>")
+    entries = files.load()
+    files._save([*entries, {**page, "mime": "text/html", "name": "page.html"}])
+    async with AsyncClient(transport=ASGITransport(app=create_app(Settings())), base_url="http://test") as c:
+        listed = (await c.get("/v1/files")).json()
+        assert {f["name"] for f in listed["files"]} >= {"x.md", "page.html"}
+        r = await c.get(f"/v1/files/{img['id']}/content")
+        assert (
+            r.headers["content-disposition"].startswith("inline") and r.headers["x-content-type-options"] == "nosniff"
+        )
+        r = await c.get(f"/v1/files/{page['id']}/content")
+        assert r.headers["content-disposition"].startswith("attachment")  # never rendered on our origin
+        assert r.headers["content-type"] == "application/octet-stream"
+        assert (await c.get("/v1/files/nope/content")).status_code == 404
