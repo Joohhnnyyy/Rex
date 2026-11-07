@@ -14,3 +14,5 @@ class Settings(BaseSettings):
     livekit_api_secret: str = ""
     livekit_token_ttl_s: int = 3600
     livekit_agent_name: str = "rex"
+    # Rex's own research runs in the background of the real server only (tests build apps without it).
+    discover_in_background: bool = False

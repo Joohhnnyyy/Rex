@@ -17,6 +17,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 
 import { BrowserView, useBrowserFrame } from "@/components/BrowserView";
 import { Connections } from "@/components/Connections";
+import { Discover } from "@/components/dash/Discover";
 import { Immersive } from "@/components/dash/Immersive";
 import { MascotFace, MascotStage } from "@/components/dash/Mascot";
 import { RichText } from "@/components/dash/RichText";
@@ -154,6 +155,20 @@ export function Dashboard({
 
   const name = identity ? identity[0].toUpperCase() + identity.slice(1) : "there";
 
+  // New finds from Rex's own research, for the Discover badge and the bell.
+  const [finds, setFinds] = useState<{ id: string; title: string }[]>([]);
+  const loadFinds = useCallback(() => {
+    fetch(`${API_URL}/v1/discoveries`)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((d: { items: { id: string; title: string; seen: boolean }[] }) => setFinds(d.items.filter((i) => !i.seen)))
+      .catch(() => {});
+  }, []);
+  useEffect(() => {
+    loadFinds();
+    const id = setInterval(loadFinds, 300_000);
+    return () => clearInterval(id);
+  }, [loadFinds]);
+
   // How many services Rex can reach, for the status line under the greeting.
   const [services, setServices] = useState<{ ok: number; total: number } | null>(null);
   useEffect(() => {
@@ -283,6 +298,7 @@ export function Dashboard({
     ...events.filter((e) => approvals.has(e.id)).map((e) => ({ id: e.id, text: `Needs your OK: ${e.summary}`, when: "Approve in Recent Activity" })),
     ...events.filter((e) => e.status === "failed").slice(0, 5).map((e) => ({ id: e.id, text: `Failed: ${e.summary}`, when: new Date(e.ts).toLocaleTimeString() })),
     ...(error ? [{ id: "err", text: error, when: "Connection" }] : []),
+    ...finds.slice(0, 3).map((f) => ({ id: `find-${f.id}`, text: `Rex found: ${f.title}`, when: "In Discover" })),
   ];
 
   const lastMine = [...transcriptions].reverse().find((t) => t.participantInfo.identity === identity);
@@ -291,6 +307,7 @@ export function Dashboard({
   const commands: PaletteCommand[] = [
     ...TABS.map(([v, label]) => ({ id: `go-${v}`, label: `Go to ${label}`, run: () => setView(v) })),
     { id: "go-memory", label: "Go to Memory", run: () => setView("memory") },
+    { id: "go-projects", label: "Go to Projects", run: () => setView("projects") },
     connected
       ? { id: "end", label: "End call with Rex", hint: "voice", run: onEnd }
       : { id: "start", label: "Talk to Rex", hint: "voice", run: onStart },
@@ -371,6 +388,7 @@ export function Dashboard({
         view={view}
         onView={setView}
         onSearch={() => setPalette(true)}
+        badges={{ discover: finds.length }}
         notifications={notifications}
         name={name}
         menu={
@@ -471,6 +489,8 @@ export function Dashboard({
           )}
 
           {view === "memory" && <MemoryView />}
+
+          {view === "discover" && <Discover onSeen={loadFinds} />}
 
           {view === "settings" && (
             <div className="grid gap-5 xl:grid-cols-2">

@@ -58,7 +58,7 @@ from rex_agent.tools_bridge import build_tools, filler_once
 from rex_llm_router.client import LLMClient
 from rex_mcp_gateway.gateway import Gateway, wrap_untrusted
 from rex_mcp_gateway.registry import Registry, load_registry
-from rex_mcp_servers import memory
+from rex_mcp_servers import discoveries, memory
 from rex_mcp_servers.browser import read_live_frame
 from rex_shared.schemas import ActionEvent
 
@@ -75,7 +75,12 @@ class Rex(Agent):
     def __init__(self, cfg: AgentConfig, gateway: Gateway | None = None, tools: list | None = None) -> None:
         super().__init__(
             instructions=system_prompt(
-                cfg.user_name, datetime.now(IST), cfg.english_only, memory.prompt_block(), pipelines=catalog()
+                cfg.user_name,
+                datetime.now(IST),
+                cfg.english_only,
+                memory.prompt_block(),
+                pipelines=catalog(),
+                finds=discoveries.prompt_block(),
             ),
             tools=tools or [],
         )

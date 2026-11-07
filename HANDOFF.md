@@ -28,6 +28,7 @@ Also (T-53): dashboard rebuilt as the Rex Control Center (`apps/web/components/d
 Also (T-65): Rex has `use_desktop` (apps/agent/src/rex_agent/desktop.py): any Mac app via its accessibility tree through `npx agent-desktop@1.2.0 mcp` (gateway server `desktop`, allowlist `screen`, so Rex doesn't see its 67 raw tools). Needs Node and Accessibility for the app running the agent. Snapshots are private: never log them.
 Also: `research_web` (apps/agent/src/rex_agent/research.py) does read-only web search + page reading through Firecrawl (`npx firecrawl-mcp@3.37.0`, allowlist `research`; only search/scrape are tiered R). Needs FIRECRAWL_API_KEY in .env; without it Rex falls back to the browser.
 Also: pipelines (apps/agent/src/rex_agent/pipelines.py, infra/pipelines.yaml): reusable routines Rex runs with `run_pipeline` (steps run in code: research / write / send / tool, each checked; approvals pause the run). Built-ins: share_research, send_whatsapp, email_research, daily_brief. Rex saves new ones with `save_pipeline` to ~/.config/rex/pipelines.yaml.
+Also: Discover (rex_mcp_servers/discoveries.py, rex_api/discover.py, web Discover tab): Rex researches the user's interests on its own every 6 h (REX_DISCOVER_EVERY_H; Firecrawl past-week search + LLM pick, only URLs from the search kept) and shows finds with a why; unseen finds go into Rex's prompt. API now depends on rex-llm-router.
 Tomorrow: G5 run-through of the browser-only demo, then T-60 video
 
 ## 2026-11-06 — Johny (taking T-38 from Shanky)

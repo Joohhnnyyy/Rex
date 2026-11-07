@@ -42,3 +42,19 @@ async def test_memory_endpoint_lists_facts_and_newest_calls_first(monkeypatch, t
         body = (await c.get("/v1/memory")).json()
     assert body["facts"]["manager"]["value"] == "Shanky"
     assert [e["summary"] for e in body["episodes"]] == ["second call", "first call"]
+
+
+@pytest.mark.asyncio
+async def test_discoveries_endpoints(monkeypatch, tmp_path):
+    monkeypatch.setenv("REX_DISCOVERIES_PATH", str(tmp_path / "d.json"))
+    monkeypatch.setenv("REX_MEMORY_PATH", str(tmp_path / "m.json"))
+    monkeypatch.delenv("FIRECRAWL_API_KEY", raising=False)
+    async with AsyncClient(transport=ASGITransport(app=create_app(Settings())), base_url="http://test") as c:
+        assert (await c.put("/v1/discoveries/interests", json={"interests": ["Naruto", " "]})).json() == {
+            "interests": ["Naruto"]
+        }
+        body = (await c.get("/v1/discoveries")).json()
+        assert body["active_interests"] == ["Naruto"] and body["items"] == [] and body["ready"] is False
+        res = await c.post("/v1/discoveries/run")
+        assert res.status_code == 503 and "FIRECRAWL_API_KEY" in res.json()["detail"]
+        assert (await c.post("/v1/discoveries/seen")).json() == {"ok": True}

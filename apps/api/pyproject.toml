@@ -3,10 +3,11 @@ name = "rex-api"
 version = "0.1.0"
 description = "Rex backend API"
 requires-python = ">=3.12"
-dependencies = ["fastapi>=0.115", "uvicorn[standard]>=0.32", "pydantic-settings>=2.6", "httpx>=0.27", "livekit-api>=1.0", "rex-mcp-servers"]
+dependencies = ["fastapi>=0.115", "uvicorn[standard]>=0.32", "pydantic-settings>=2.6", "httpx>=0.27", "livekit-api>=1.0", "rex-mcp-servers", "rex-llm-router"]
 
 [tool.uv.sources]
 rex-mcp-servers = { workspace = true }
+rex-llm-router = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]

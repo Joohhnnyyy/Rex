@@ -13,7 +13,7 @@ export type MascotState =
   | "sleeping"
   | "success";
 
-export type View = "overview" | "agents" | "projects" | "analysis" | "lab" | "memory" | "settings";
+export type View = "overview" | "discover" | "agents" | "projects" | "analysis" | "lab" | "memory" | "settings";
 
 export type Tier = "R" | "W" | "A";
 export type ActionStatus = "started" | "succeeded" | "failed" | "awaiting_approval" | "denied" | "undone";

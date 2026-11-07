@@ -11,6 +11,7 @@ import {
   Layers,
   Search,
   Settings,
+  Sparkles,
   Workflow,
   X,
   type LucideIcon,
@@ -22,8 +23,8 @@ import type { View } from "@/lib/dashboard";
 
 export const TABS: [View, string, LucideIcon][] = [
   ["overview", "Overview", Home],
+  ["discover", "Discover", Sparkles],
   ["agents", "Agents", Workflow],
-  ["projects", "Projects", Box],
   ["analysis", "Analysis", BarChart3],
   ["lab", "Lab", FlaskConical],
   ["settings", "Settings", Settings],
@@ -31,6 +32,7 @@ export const TABS: [View, string, LucideIcon][] = [
 
 const RAIL: [View, string, LucideIcon][] = [
   ["overview", "Overview", Home],
+  ["discover", "Discover", Sparkles],
   ["agents", "Agents", Layers],
   ["analysis", "Analysis", BarChart3],
   ["projects", "Projects", Box],
@@ -48,7 +50,9 @@ export function TopBar({
   notifications,
   name,
   menu,
+  badges = {},
 }: {
+  badges?: Partial<Record<View, number>>;
   view: View;
   onView: (v: View) => void;
   onSearch: () => void;
@@ -116,6 +120,11 @@ export function TopBar({
               >
                 <Icon className="size-4" aria-hidden />
                 <span className="hidden md:inline">{label}</span>
+                {!!badges[v] && (
+                  <span className="grid min-w-5 place-items-center rounded-full bg-[var(--red)] px-1.5 text-[10px] font-semibold text-white" aria-label={`${badges[v]} new`}>
+                    {badges[v]}
+                  </span>
+                )}
               </button>
             </li>
           ))}
