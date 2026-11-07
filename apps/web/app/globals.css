@@ -119,6 +119,60 @@ body {
   }
 }
 
+/* Entrance: children of .stagger rise in one after another; --base offsets a whole group. */
+.stagger > * {
+  animation: rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--base, 0ms) + var(--i, 0) * 70ms);
+}
+.stagger > :nth-child(2) { --i: 1; }
+.stagger > :nth-child(3) { --i: 2; }
+.stagger > :nth-child(4) { --i: 3; }
+.rise {
+  animation: rise 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Small interactive cards lift and pick up a red edge on hover. */
+.lift {
+  transition:
+    transform 160ms ease-out,
+    border-color 160ms ease-out,
+    background-color 160ms ease-out;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-active);
+}
+
+/* Listening: rings ripple out from the mascot. */
+.ripple {
+  animation: ripple 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  transform-origin: 200px 190px;
+}
+.ripple-2 {
+  animation-delay: 1.2s;
+}
+@keyframes ripple {
+  from {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.05);
+    opacity: 0;
+  }
+}
+
+/* Bars and rings fill from zero on first paint. */
+.grow {
+  transition: width 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

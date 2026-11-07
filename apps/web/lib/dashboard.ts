@@ -63,7 +63,8 @@ export type DemoActivity = { id: string; kind: "validation" | "review" | "code" 
 // Rex's real agents: the voice operator and the background specialists it can delegate to.
 export const AGENTS: AgentInfo[] = [
   { id: "rex", name: "Rex", role: "Voice & Orchestration", servers: [] },
-  { id: "browser", name: "Browser", role: "Web pages & forms", servers: ["browser", "screen"] },
+  { id: "desktop", name: "Desktop", role: "Mac apps like WhatsApp", servers: ["desktop", "screen"] },
+  { id: "web", name: "Research", role: "Web search & reading", servers: ["firecrawl", "browser"] },
   { id: "comms", name: "Comms", role: "Gmail, Slack & Calendar", servers: ["gmail", "slack", "calendar", "notion"] },
 ];
 

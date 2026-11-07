@@ -18,13 +18,14 @@ import {
   MemoryStick,
   MonitorSmartphone,
   Rocket,
+  Search,
   ShieldCheck,
   Sprout,
   Wifi,
   Workflow,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import {
@@ -112,10 +113,53 @@ function Ring({ value, size, stroke, children }: { value: number; size: number; 
   );
 }
 
+function useMounted() {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOn(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return on;
+}
+
+// Counts a number up from 0 (or from its last value) so metrics settle in instead of popping.
+export function useCountUp(target: number, ms = 900) {
+  const [shown, setShown] = useState(0);
+  const from = useRef(0);
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(target);
+      from.current = target;
+      return;
+    }
+    const start = performance.now();
+    const a = from.current;
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / ms);
+      const v = a + (target - a) * (1 - Math.pow(1 - p, 3));
+      setShown(v);
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else from.current = target;
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, ms]);
+  return shown;
+}
+
+function CountUp({ value, decimals = 0 }: { value: number; decimals?: number }) {
+  return <>{useCountUp(value).toFixed(decimals)}</>;
+}
+
 function Bar({ value }: { value: number }) {
+  const on = useMounted();
   return (
     <div className="h-[5px] w-full rounded-full bg-white/[0.06]">
-      <div className="h-full rounded-full bg-gradient-to-r from-[var(--red-deep)] to-[var(--red)]" style={{ width: `${value}%` }} />
+      <div
+        className="grow h-full rounded-full bg-gradient-to-r from-[var(--red-deep)] to-[var(--red)]"
+        style={{ width: `${on ? value : 0}%` }}
+      />
     </div>
   );
 }
@@ -154,7 +198,9 @@ export function SystemHealth() {
     >
       <div className="flex items-center gap-6">
         <Ring value={m.health} size={116} stroke={9}>
-          <span className="tabular text-[28px] font-semibold leading-none">{m.health}%</span>
+          <span className="tabular text-[28px] font-semibold leading-none">
+            <CountUp value={m.health} />%
+          </span>
           <span className="mt-1 text-[11px] text-[var(--text-2)]">Health Score</span>
         </Ring>
         <ul className="flex min-w-0 flex-1 flex-col gap-3">
@@ -208,7 +254,9 @@ export function TaskProgress({ live }: { live: TaskSummary | null }) {
     >
       <div className="flex items-center gap-6">
         <Ring value={completion(t)} size={96} stroke={8}>
-          <span className="tabular text-[22px] font-semibold leading-none">{completion(t)}%</span>
+          <span className="tabular text-[22px] font-semibold leading-none">
+            <CountUp value={completion(t)} />%
+          </span>
           <span className="mt-1 text-[10px] text-[var(--text-2)]">Completed</span>
         </Ring>
         <ul className="flex flex-1 flex-col gap-2.5 text-[13px]">
@@ -234,14 +282,19 @@ const STATUS_TONE: Record<AgentStatus, "ok" | "warn" | "danger" | "idle"> = {
   paused: "warn",
   error: "danger",
 };
-const AGENT_ICON: Record<string, typeof Bot> = { rex: Bot, browser: MonitorSmartphone, comms: Workflow };
+const AGENT_ICON: Record<string, typeof Bot> = { rex: Bot, desktop: MonitorSmartphone, web: Search, comms: Workflow };
 
 function Sparkline({ data }: { data: number[] }) {
   const max = Math.max(1, ...data);
+  const idle = data.every((v) => v === 0);
   const pts = data.map((v, i) => `${(i / (data.length - 1)) * 100},${22 - (v / max) * 18}`).join(" ");
   return (
     <svg viewBox="0 0 100 24" className="h-6 w-24 shrink-0" preserveAspectRatio="none" aria-hidden>
-      <polyline points={pts} fill="none" stroke="var(--red)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+      {idle ? (
+        <line x1="0" x2="100" y1="20" y2="20" stroke="var(--faint)" strokeWidth="1" strokeDasharray="2 4" vectorEffect="non-scaling-stroke" />
+      ) : (
+        <polyline points={pts} fill="none" stroke="var(--red)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+      )}
     </svg>
   );
 }
@@ -273,7 +326,7 @@ export function ActiveAgents({ rows, onSelect }: { rows: AgentRow[]; onSelect: (
             <li key={a.id}>
               <button
                 onClick={() => onSelect(a.id)}
-                className="flex w-full items-center gap-3 rounded-lg py-2.5 text-left transition-colors hover:bg-white/[0.025]"
+                className="flex w-full items-center gap-3 rounded-lg py-2 text-left transition-colors hover:bg-white/[0.025]"
               >
                 <span className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-[var(--line)] bg-white/[0.03]">
                   <Icon className="size-4 text-[var(--text-2)]" aria-hidden />
@@ -389,18 +442,21 @@ export function GlobalActivity({ animate }: { animate: boolean }) {
   return (
     <Panel title="Global Activity" right={<DemoTag />}>
       <div className="flex flex-col items-center gap-4 sm:flex-row">
-        <div className="aspect-square w-[60%] max-w-[210px] shrink-0 sm:w-[44%]">
+        <div className="aspect-square w-[60%] max-w-[190px] shrink-0 sm:w-[34%]">
           <Globe animate={animate} />
         </div>
         <ul className="flex w-full min-w-0 flex-1 flex-col divide-y divide-[var(--line)]">
           {stats.map(({ icon: Icon, value, label, delta }) => (
-            <li key={label} className="flex items-center gap-3 py-2.5">
+            <li key={label} className="flex items-center gap-3 py-2">
               <span className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-[var(--line)]">
                 <Icon className="size-4 text-[var(--text-2)]" aria-hidden />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="tabular block text-xl font-semibold leading-tight">{value}</span>
-                <span className="block truncate text-xs text-[var(--text-2)]">{label}</span>
+                <span className="tabular block text-xl font-semibold leading-tight">
+                  <CountUp value={parseFloat(value)} decimals={value.includes(".") ? 1 : 0} />
+                  {value.replace(/^[\d.]+/, "")}
+                </span>
+                <span className="block whitespace-nowrap text-xs text-[var(--text-2)]">{label}</span>
               </span>
               <span className="tabular text-xs text-[var(--ok)]">▲ +{delta}%</span>
             </li>
@@ -436,17 +492,13 @@ export function Projects({ onSelect, onViewAll }: { onSelect: (p: Project) => vo
             <li key={p.id}>
               <button
                 onClick={() => onSelect(p)}
-                className="flex h-full w-full flex-col gap-3 rounded-[12px] border border-[var(--line)] bg-white/[0.02] p-3 text-left transition-colors hover:border-[var(--line-active)] hover:bg-white/[0.035]"
+                className="lift flex h-full w-full flex-col gap-2.5 rounded-[12px] border border-[var(--line)] bg-white/[0.02] p-3 text-left hover:bg-white/[0.035]"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-[var(--line)]">
-                    <Icon className="size-4 text-[var(--red-hi)]" aria-hidden />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm font-medium">{p.name}</span>
-                    <span className="block truncate text-[11px] text-[var(--text-2)]">{p.description}</span>
-                  </span>
+                <span className="flex items-center gap-2">
+                  <Icon className="size-4 shrink-0 text-[var(--red-hi)]" aria-hidden />
+                  <span className="text-[13px] font-medium leading-tight">{p.name}</span>
                 </span>
+                <span className="-mt-1 line-clamp-1 text-[11px] text-[var(--text-2)]">{p.description}</span>
                 <span className="flex items-center gap-2">
                   <Bar value={p.progress} />
                   <span className="tabular text-xs text-[var(--text-2)]">{p.progress}%</span>
@@ -524,7 +576,7 @@ export function ActivityList({
         {shown.map((e) => {
           const Icon = e.status === "failed" ? CircleX : e.status === "awaiting_approval" ? Clock : e.status === "started" ? Activity : CircleCheck;
           return (
-            <li key={e.id} className="relative flex gap-3 pb-3 pl-5 before:absolute before:left-[3px] before:top-3 before:h-full before:w-px before:bg-[var(--line)] last:before:hidden">
+            <li key={e.id} className="rise relative flex gap-3 pb-3 pl-5 before:absolute before:left-[3px] before:top-3 before:h-full before:w-px before:bg-[var(--line)] last:before:hidden">
               <span className="absolute left-0 top-2.5 size-[7px] rounded-full bg-[var(--red)]" aria-hidden />
               <span className="grid size-8 shrink-0 place-items-center rounded-[9px] border border-[var(--line)]">
                 <Icon className={`size-4 ${e.status === "failed" ? "text-[var(--danger)]" : "text-[var(--text-2)]"}`} aria-hidden />

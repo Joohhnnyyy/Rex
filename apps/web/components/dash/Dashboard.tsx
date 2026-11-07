@@ -46,6 +46,11 @@ import {
 import { LANG_NAME, langChip } from "@/lib/lang";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const SUGGESTIONS = [
+  "Send Shanky Naruto t-shirt shops",
+  "My calendar tomorrow?",
+  "Unread emails today?",
+];
 const MASCOT_STATES: MascotState[] = ["idle", "listening", "thinking", "speaking", "happy", "confused", "surprised", "error", "sleeping", "success"];
 const STATE_LABEL: Record<string, string> = {
   disconnected: "Offline",
@@ -131,6 +136,15 @@ export function Dashboard({
   const pending = useRef<string | null>(null);
 
   const name = identity ? identity[0].toUpperCase() + identity.slice(1) : "there";
+
+  // How many services Rex can reach, for the status line under the greeting.
+  const [services, setServices] = useState<{ ok: number; total: number } | null>(null);
+  useEffect(() => {
+    fetch(`${API_URL}/v1/connections`)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((list: { status: string }[]) => setServices({ ok: list.filter((c) => c.status === "ok").length, total: list.length }))
+      .catch(() => setServices(null));
+  }, []);
 
   // ⌘K / Ctrl+K
   useEffect(() => {
@@ -286,6 +300,20 @@ export function Dashboard({
         onStart={onStart}
         onEnd={onEnd}
       />
+      {!transcriptions.length && (
+        <ul className="flex max-w-[520px] flex-wrap justify-center gap-2" aria-label="Try asking">
+          {SUGGESTIONS.map((s) => (
+            <li key={s}>
+              <button
+                onClick={() => ask(s)}
+                className="lift rounded-full border border-[var(--line)] bg-white/[0.02] px-3 py-1.5 text-xs text-[var(--text-2)] hover:text-[var(--text)]"
+              >
+                {s}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
       {error && <p className="text-center text-sm text-[var(--danger)]">{error}</p>}
       <StartAudio label="Tap to enable Rex's audio" className="rounded-full bg-[var(--red)] px-4 py-2 text-sm text-white" />
     </div>
@@ -296,7 +324,14 @@ export function Dashboard({
       <h1 className="text-[30px] font-semibold leading-tight tracking-tight">
         {greeting(new Date(now || Date.now()))}, <span className="text-[var(--red)]">{name}</span>
       </h1>
-      <p className="mt-1 text-[15px] text-[var(--text-2)]">Rex Control Center</p>
+      <p className="mt-1 flex items-center gap-2 text-[15px] text-[var(--text-2)]" aria-live="polite">
+        <span className={`size-2 rounded-full ${connected ? "live-dot bg-[var(--red)]" : "bg-[var(--ok)]"}`} aria-hidden />
+        {connected
+          ? `In a call with Rex · ${agent ? (STATE_LABEL[agentState] ?? agentState).toLowerCase() : "joining"}`
+          : services
+            ? `Rex is ready · ${services.ok} of ${services.total} services connected`
+            : "Rex Control Center"}
+      </p>
       <svg viewBox="0 0 300 24" className="mt-2 h-5 w-full max-w-[300px]" aria-hidden>
         <line x1="0" y1="12" x2="40" y2="12" stroke="var(--red)" strokeWidth="2" />
         <path d="M60 12 C90 2 110 22 140 12 S190 2 220 12 S270 20 300 10" fill="none" stroke="var(--red)" strokeOpacity="0.35" strokeDasharray="1 3" />
@@ -331,18 +366,29 @@ export function Dashboard({
           {view === "overview" && (
             <div className="flex flex-col gap-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)_minmax(0,1fr)]">
-                <div className="order-first flex flex-col justify-center md:col-span-2 xl:order-none xl:col-span-1 xl:col-start-2 xl:row-start-1">{stage}</div>
-                <div className="flex min-w-0 flex-col gap-4 xl:col-start-1 xl:row-start-1">
+                <div
+                  className="stagger order-first flex flex-col justify-center md:col-span-2 xl:order-none xl:col-span-1 xl:col-start-2 xl:row-start-1"
+                  style={{ "--base": "60ms" } as React.CSSProperties}
+                >
+                  {stage}
+                </div>
+                <div className="stagger flex min-w-0 flex-col gap-4 xl:col-start-1 xl:row-start-1">
                   {greetingBlock}
                   <SystemHealth />
                   <TaskProgress live={connected ? summarise(events) : null} />
                 </div>
-                <div className="flex min-w-0 flex-col gap-4 xl:col-start-3 xl:row-start-1">
+                <div
+                  className="stagger flex min-w-0 flex-col gap-4 xl:col-start-3 xl:row-start-1"
+                  style={{ "--base": "140ms" } as React.CSSProperties}
+                >
                   <ActiveAgents rows={agentRows} onSelect={(id) => setDrawer({ kind: "agent", id })} />
                   <GlobalActivity animate={!reduced} />
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)]">
+              <div
+                className="stagger grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)]"
+                style={{ "--base": "260ms" } as React.CSSProperties}
+              >
                 <Projects onSelect={(p) => setDrawer({ kind: "project", p })} onViewAll={() => setView("projects")} />
                 <RecentActivity events={events} onDecide={decide} deciding={deciding} onViewAll={() => setDrawer({ kind: "activity" })} />
                 <div className="flex lg:col-span-2 xl:col-span-1 [&>section]:flex-1">

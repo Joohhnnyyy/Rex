@@ -226,7 +226,7 @@ export function MascotStage({
   const ticks = Array.from({ length: 72 }, (_, i) => i * 5);
   const pulse = state === "listening" ? 1 + Math.min(micLevel, 1) * 0.05 : 1;
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[400px]" data-state={state}>
+    <div className="relative mx-auto aspect-square w-full max-w-[370px]" data-state={state}>
       {/* HUD */}
       <svg viewBox="0 0 400 400" className="absolute inset-0 size-full" aria-hidden>
         <defs>
@@ -236,7 +236,24 @@ export function MascotStage({
             <stop offset="1" stopColor="var(--red)" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <circle cx="200" cy="190" r="190" fill="url(#hud-glow)" />
+        {/* the glow breathes with Rex's voice while it speaks */}
+        <circle
+          cx="200"
+          cy="190"
+          r="190"
+          fill="url(#hud-glow)"
+          style={{
+            transformOrigin: "200px 190px",
+            transform: `scale(${state === "speaking" ? 1 + Math.min(level, 1) * 0.16 : 1})`,
+            transition: "transform 110ms ease-out",
+          }}
+        />
+        {state === "listening" && animate && (
+          <g fill="none" stroke="var(--red)" strokeWidth="1.5">
+            <circle className="ripple" cx="200" cy="190" r="150" />
+            <circle className="ripple ripple-2" cx="200" cy="190" r="150" />
+          </g>
+        )}
         {/* corner brackets */}
         {[
           "M24 40 V24 H40",
