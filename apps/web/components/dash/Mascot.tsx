@@ -216,17 +216,19 @@ export function MascotStage({
   level = 0,
   micLevel = 0,
   animate = true,
+  className = "max-w-[370px]",
 }: {
   state: MascotState;
   level?: number;
   micLevel?: number;
   animate?: boolean;
+  className?: string;
 }) {
   const warn = state === "error";
   const ticks = Array.from({ length: 72 }, (_, i) => i * 5);
   const pulse = state === "listening" ? 1 + Math.min(micLevel, 1) * 0.05 : 1;
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[370px]" data-state={state}>
+    <div className={`relative mx-auto aspect-square w-full ${className}`} data-state={state}>
       {/* HUD */}
       <svg viewBox="0 0 400 400" className="absolute inset-0 size-full" aria-hidden>
         <defs>

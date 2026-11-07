@@ -12,11 +12,12 @@ import {
   useVoiceAssistant,
 } from "@livekit/components-react";
 import { Track, type LocalAudioTrack } from "livekit-client";
-import { AudioLines, Mic, MonitorUp, PhoneOff, Send } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AudioLines, Maximize2, Mic, MonitorUp, PhoneOff, Send } from "lucide-react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { BrowserView } from "@/components/BrowserView";
 import { Connections } from "@/components/Connections";
+import { Immersive } from "@/components/dash/Immersive";
 import { MascotFace, MascotStage } from "@/components/dash/Mascot";
 import { RichText } from "@/components/dash/RichText";
 import {
@@ -133,6 +134,20 @@ export function Dashboard({
   const [labState, setLabState] = useState<MascotState | null>(null);
   const [flash, setFlash] = useState<MascotState | null>(null);
   const [draft, setDraft] = useState("");
+  const [immersive, setImmersive] = useState(false);
+
+  // Calls open in the immersive view; ending the call returns to the dashboard.
+  useEffect(() => {
+    setImmersive(connected);
+  }, [connected]);
+  useEffect(() => {
+    if (!immersive) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !document.querySelector("[aria-modal=true]")) setImmersive(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [immersive]);
   const pending = useRef<string | null>(null);
 
   const name = identity ? identity[0].toUpperCase() + identity.slice(1) : "there";
@@ -278,6 +293,7 @@ export function Dashboard({
       ? { id: "end", label: "End call with Rex", hint: "voice", run: onEnd }
       : { id: "start", label: "Talk to Rex", hint: "voice", run: onStart },
     { id: "assistant", label: "Open conversation", run: () => setDrawer({ kind: "assistant" }) },
+    { id: "immersive", label: immersive ? "Leave immersive view" : "Enter immersive view", run: () => setImmersive((v) => !v) },
     ...(connected
       ? [{ id: "share", label: isScreenShareEnabled ? "Stop sharing screen" : "Share screen with Rex", run: () => room.localParticipant.setScreenShareEnabled(!isScreenShareEnabled, { audio: false }) }]
       : []),
@@ -290,6 +306,14 @@ export function Dashboard({
         {connected && <span className="live-dot size-2 rounded-full bg-[var(--red)]" aria-hidden />}
         {connected ? (agent ? STATE_LABEL[agentState] ?? agentState : "Waiting for Rex to join…") : "Rex is offline: press the mic or type to start"}
         {heard && <span className="rounded-full bg-[var(--red-glow)] px-2 py-0.5 text-xs text-[var(--red-hi)]">{LANG_NAME[heard] ?? heard}</span>}
+        <button
+          onClick={() => setImmersive(true)}
+          aria-label="Immersive view"
+          title="Immersive view"
+          className="lift grid size-7 place-items-center rounded-full border border-[var(--line)] text-[var(--text-2)] hover:text-[var(--text)]"
+        >
+          <Maximize2 className="size-3.5" />
+        </button>
       </p>
       <CommandBar
         draft={draft}
@@ -524,6 +548,36 @@ export function Dashboard({
         </Drawer>
       )}
 
+      {immersive && (
+        <Immersive
+          identity={identity}
+          mascot={mascot}
+          level={level}
+          micLevel={micLevel}
+          status={connected ? (agent ? (STATE_LABEL[agentState] ?? agentState) : "Waiting for Rex…") : "Offline"}
+          language={heard ? (LANG_NAME[heard] ?? heard) : null}
+          connected={connected}
+          events={events}
+          deciding={deciding}
+          onDecide={decide}
+          onExit={() => setImmersive(false)}
+          onEnd={onEnd}
+          animate={!reduced}
+          bar={
+            <CommandBar
+              draft={draft}
+              setDraft={setDraft}
+              onSubmit={() => (ask(draft), setDraft(""))}
+              connected={connected}
+              busy={busy}
+              onStart={onStart}
+              onEnd={onEnd}
+              compact
+            />
+          }
+        />
+      )}
+
       <RoomAudioRenderer />
     </div>
   );
@@ -537,6 +591,7 @@ function CommandBar({
   busy,
   onStart,
   onEnd,
+  compact = false,
 }: {
   draft: string;
   setDraft: (s: string) => void;
@@ -545,7 +600,9 @@ function CommandBar({
   busy: boolean;
   onStart: () => void;
   onEnd: () => void;
+  compact?: boolean;
 }) {
+  const inputId = useId();
   return (
     <div className="w-full max-w-[520px]">
       <form
@@ -561,11 +618,11 @@ function CommandBar({
             {busy ? <AudioLines className="live-dot size-5" /> : <Mic className="size-5" />}
           </button>
         )}
-        <label className="sr-only" htmlFor="ask">
+        <label className="sr-only" htmlFor={inputId}>
           Ask Rex
         </label>
         <textarea
-          id="ask"
+          id={inputId}
           rows={1}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
@@ -582,7 +639,7 @@ function CommandBar({
           <Send className="size-4" />
         </button>
       </form>
-      {connected && (
+      {connected && !compact && (
         <div className="mt-2 flex justify-center gap-2">
           <TrackToggle source={Track.Source.ScreenShare} captureOptions={{ audio: false }} showIcon={false} className="flex items-center gap-1.5 rounded-[10px] border border-[var(--line)] px-3 py-1.5 text-xs text-[var(--text-2)] hover:text-[var(--text)] data-[lk-enabled=true]:border-[var(--line-active)] data-[lk-enabled=true]:text-[var(--red-hi)]">
             <MonitorUp className="size-3.5" /> Share screen
