@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import dataclasses
 import json
 import logging
 import os
@@ -43,14 +44,14 @@ from rex_agent.brain.coder import CoderSpecialist
 from rex_agent.brain.meeting import MeetingSpecialist
 from rex_agent.brain.specialists import REGISTRY, ExecResult
 from rex_agent.brain.supervisor import Supervisor
-from rex_agent.config import AgentConfig
+from rex_agent.config import VOICES, AgentConfig
 from rex_agent.desktop import ACTIONS as DESKTOP_ACTIONS
 from rex_agent.desktop import Desktop
 from rex_agent.lang import detect_language, tts_language
 from rex_agent.models import build_llm, build_stt, build_tts
 from rex_agent.prompts import greeting, system_prompt
 from rex_agent.screen import NOT_SHARING, ScreenWatcher, control_screen, describe_screen
-from rex_agent.tools_bridge import build_tools
+from rex_agent.tools_bridge import build_tools, filler_once
 from rex_llm_router.client import LLMClient
 from rex_mcp_gateway.gateway import Gateway
 from rex_mcp_gateway.registry import Registry, load_registry
@@ -131,12 +132,34 @@ class Rex(Agent):
         jpeg = self.screen.jpeg()
         if jpeg is None:
             return NOT_SHARING
-        async with context.with_filler("Let me look at your screen.", delay=0.7):
+        async with filler_once(context, "screen"):
             try:
                 return await describe_screen(jpeg, question)
             except Exception as e:
                 logger.exception("vision call failed")
                 return f"Couldn't analyse the screen right now ({type(e).__name__}). Tell the user to try again."
+
+    @function_tool()
+    async def change_voice(self, context: RunContext, voice: str) -> str:
+        """Switch Rex's speaking voice when the user asks (a name, or male / female / calmer / livelier).
+        The choice is remembered for future calls.
+
+        Args:
+            voice: one of Lakshmi (female, expressive, default), Shivani (female, warm, patient), Chetana
+                (female, empathetic), Kalpana (female, calm), Riyaa (female, lively), Tarika (female,
+                reassuring), Vasudha (female, narrator), Devansh (male, young, energetic), Shubham (male,
+                energetic, confident), Yashraj (male, warm storyteller), Avinash (male, professional),
+                Prakash (male, steady), Harshad (male, firm)
+        """
+        name = next((v for v in VOICES if v.lower() == str(voice).strip().lower()), None)
+        if name is None:
+            return f"No voice called {voice!r}. Choose one of: {', '.join(VOICES)}."
+        tts = self.session.tts
+        if tts is None or not hasattr(tts, "update_options"):
+            return "Voice can't be changed in this session."
+        tts.update_options(voice=name)
+        memory.remember("rex_voice", name)
+        return f"Voice is now {name} ({VOICES[name]}). Say something short in the new voice."
 
     @function_tool()
     async def use_desktop(
@@ -175,7 +198,7 @@ class Rex(Agent):
             return f"Unknown action {action!r}. Use one of: {', '.join(DESKTOP_ACTIONS)}."
         a = _clean_screen_args(None, None, direction, amount, text, submit, keys)
         s = lambda v: "" if v is None or str(v).strip().lower() in _EMPTY else str(v).strip()  # noqa: E731
-        async with context.with_filler("On it.", delay=0.7):
+        async with filler_once(context, "desktop"):
             return await self.desktop.run(
                 action,
                 app=s(app),
@@ -216,7 +239,7 @@ class Rex(Agent):
             submit: for type: press Enter afterwards (sends a chat message or a search)
             keys: for press: e.g. "enter", "esc", "tab", "cmd+a"
         """
-        async with context.with_filler("On it.", delay=0.7):
+        async with filler_once(context, "screen"):
             a = _clean_screen_args(target, to_target, direction, amount, text, submit, keys)
             ok, msg = await control_screen(self.screen, action, **a)
         if self.publish_event:
@@ -332,10 +355,17 @@ async def entrypoint(ctx: JobContext) -> None:
         agent.screen.attach(room)
         agent.publish_event = publish
 
+        # A voice the user picked in an earlier call wins over the default.
+        saved = memory.load()["facts"].get("rex_voice", {}).get("value")
+        if saved in VOICES and cfg.tts_model.startswith("timbre-v3"):
+            cfg = dataclasses.replace(cfg, tts_voice=saved)
         session = AgentSession(
             stt=build_stt(cfg),
             llm=build_llm(),
             tts=build_tts(cfg),
+            # Default is 3 tool steps per reply; a desktop task (find chat, open it, find the box, type, check)
+            # needs ~6, and hitting the cap made Rex stop halfway and speak a tool call as text.
+            max_tool_steps=15,
             vad=ctx.proc.userdata["vad"],
             turn_detection=_turn_detection(),
             preemptive_generation=True,

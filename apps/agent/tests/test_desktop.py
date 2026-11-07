@@ -77,3 +77,20 @@ async def test_guards_and_stale_ref_message():
     assert "needs the app name" in await d.run("look")
     assert "Unknown action" in await d.run("teleport")
     assert "Look again" in await d.run("click", ref="@s9:e1")
+
+
+@pytest.mark.asyncio
+async def test_multiline_text_is_pasted_not_typed():
+    gw = FakeGateway({})
+    d = Desktop(gw)
+    d.snapshot_id = "s1"
+    out = await d.run("type", app="WhatsApp", ref="e9", text="Sites:\n- TeePublic\n- Redbubble", submit=True)
+    assert "pressed Return" in out
+    assert [c[1] for c in gw.calls] == [
+        "desktop.desktop_click",
+        "desktop.desktop_clipboard_set",
+        "desktop.desktop_press",
+        "desktop.desktop_press",
+    ]
+    assert gw.calls[1][2] == {"text": "Sites:\n- TeePublic\n- Redbubble"}
+    assert gw.calls[2][2] == {"combo": "cmd+v", "app": "WhatsApp"}

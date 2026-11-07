@@ -120,11 +120,24 @@ class Desktop:
             env = await self._run("click", {"ref_id": self._ref(ref)}, f"click {ref} in {app or 'the app'}")
             return "Clicked. Look again to check the result." if env.get("ok") else _error(env)
         if action == "type":
-            env = await self._run("type", {"ref_id": self._ref(ref), "text": text}, f"type into {ref}: {text[:60]}")
-            if not env.get("ok"):
-                return _error(env)
+            target = {"app": app} if app else {}
+            if "\n" in text:
+                # Typing a newline presses Return, which sends a chat message early; paste multi-line text.
+                steps = [
+                    ("click", {"ref_id": self._ref(ref)}, f"click {ref}"),
+                    ("clipboard_set", {"text": text}, "copy the message"),
+                    ("press", {"combo": "cmd+v", **target}, f"paste into {ref}: {text[:60]}"),
+                ]
+                for tool, args, summary in steps:
+                    env = await self._run(tool, args, summary)
+                    if not env.get("ok"):
+                        return _error(env)
+            else:
+                env = await self._run("type", {"ref_id": self._ref(ref), "text": text}, f"type into {ref}: {text[:60]}")
+                if not env.get("ok"):
+                    return _error(env)
             if submit:
-                env = await self._run("press", {"combo": "return", **({"app": app} if app else {})}, "press Return")
+                env = await self._run("press", {"combo": "return", **target}, "press Return")
                 if not env.get("ok"):
                     return "Typed it, but pressing Return failed: " + _error(env)
             return "Typed" + (" and pressed Return." if submit else ".") + " Look again to check."

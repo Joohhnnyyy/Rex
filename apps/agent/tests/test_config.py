@@ -36,7 +36,7 @@ def test_multilingual_mode_can_be_switched_back_on():
 
 def test_agent_config_overrides():
     cfg = AgentConfig.from_env({})
-    assert cfg.tts_model == "timbre-v2.5"
+    assert (cfg.tts_model, cfg.tts_voice) == ("timbre-v3.0", "Lakshmi")
     assert cfg.user_name == "Johny"
     cfg2 = AgentConfig.from_env({"REX_STT_LANGUAGE": "ta-IN", "REX_TTS_VOICE": "Kaveri", "REX_USER_NAME": "Shanky"})
     assert (cfg2.stt_language, cfg2.tts_voice, cfg2.user_name) == ("ta-IN", "Kaveri", "Shanky")

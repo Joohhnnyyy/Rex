@@ -18,6 +18,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BrowserView } from "@/components/BrowserView";
 import { Connections } from "@/components/Connections";
 import { MascotFace, MascotStage } from "@/components/dash/Mascot";
+import { RichText } from "@/components/dash/RichText";
 import {
   ActiveAgents,
   ActivityList,
@@ -155,6 +156,18 @@ export function Dashboard({
     return () => clearTimeout(t);
   }, [latest]);
 
+  // Rex's emotion tags (<laugh>, <sigh> …) also show on the mascot's face while it says them.
+  const lastRex = [...transcriptions].reverse().find((t) => t.participantInfo.identity !== identity);
+  const mood: MascotState | null = !lastRex
+    ? null
+    : /<(laugh|giggle|excited)>/i.test(lastRex.text)
+      ? "happy"
+      : /<(sigh|exhales)>/i.test(lastRex.text)
+        ? "confused"
+        : /<whispers>/i.test(lastRex.text)
+          ? "thinking"
+          : null;
+
   const voiceMascot: MascotState = !connected
     ? "idle"
     : agentState === "listening"
@@ -162,7 +175,7 @@ export function Dashboard({
       : agentState === "thinking" || agentState === "connecting" || agentState === "initializing"
         ? "thinking"
         : agentState === "speaking"
-          ? "speaking"
+          ? (mood ?? "speaking")
           : "idle";
   const mascot = labState ?? flash ?? voiceMascot;
 
@@ -554,7 +567,9 @@ function Transcript({ identity }: { identity: string }) {
             <span className="mb-1 text-[11px] text-[var(--text-2)]">
               {mine ? "You" : "Rex"} · {LANG_NAME[langChip(t.text)] ?? langChip(t.text)}
             </span>
-            <span className={`max-w-[85%] rounded-[14px] px-3.5 py-2 text-sm leading-relaxed ${mine ? "bg-[var(--red)] text-white" : "bg-white/[0.05]"}`}>{t.text}</span>
+            <div className={`max-w-[85%] rounded-[14px] px-3.5 py-2 text-sm leading-relaxed ${mine ? "bg-[var(--red)] text-white" : "bg-white/[0.05]"}`}>
+              {mine ? t.text : <RichText text={t.text} />}
+            </div>
           </li>
         );
       })}

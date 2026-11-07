@@ -31,6 +31,8 @@ _FILLERS: dict[str, dict[str, list[str]]] = {
         "location": ["Looking that up.", "Checking the map."],
         "slack": ["Checking Slack.", "Looking at Slack."],
         "notion": ["Checking Notion.", "Looking in Notion."],
+        "desktop": ["Okay, doing it now.", "On it, give me a sec.", "Sure, one moment."],
+        "screen": ["Let me see.", "Hmm, let me have a look."],
         "_": ["One moment.", "Give me a second."],
     },
     "hi-en": {
@@ -38,6 +40,8 @@ _FILLERS: dict[str, dict[str, list[str]]] = {
         "gmail": ["Inbox dekh raha hoon.", "Mail check kar raha hoon."],
         "browser": ["Page khol raha hoon.", "Ek second, page dekhta hoon."],
         "location": ["Map pe dekh raha hoon.", "Ek second, check karta hoon."],
+        "desktop": ["Haan, kar raha hoon.", "Ek second, abhi karta hoon."],
+        "screen": ["Dekhta hoon.", "Ek second, dekh raha hoon."],
         "_": ["Ek second.", "Bas ek minute."],
     },
 }

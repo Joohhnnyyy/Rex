@@ -6,6 +6,23 @@ from dataclasses import dataclass
 
 from rex_llm_router import ModelSpec, route
 
+# Gnani timbre-v3.0 voices (all speak the 10 Indian languages). v2.5 voices are rejected by v3.0 and vice versa.
+VOICES: dict[str, str] = {
+    "Lakshmi": "female, expressive and warm (default)",
+    "Shivani": "female, warm and patient",
+    "Chetana": "female, warm and empathetic",
+    "Kalpana": "female, calm and composed",
+    "Riyaa": "female, confident and lively",
+    "Tarika": "female, warm and reassuring",
+    "Vasudha": "female, expressive narrator",
+    "Devansh": "male, young and energetic",
+    "Shubham": "male, energetic and confident",
+    "Yashraj": "male, warm storyteller",
+    "Avinash": "male, professional and firm",
+    "Prakash": "male, steady and deliberate",
+    "Harshad": "male, professional and firm",
+}
+
 
 @dataclass(frozen=True)
 class AgentConfig:
@@ -13,8 +30,8 @@ class AgentConfig:
     english_only: bool = True  # REX_ENGLISH_ONLY=0 turns multilingual mode back on
     stt_language: str = "en-IN"
     tts_language: str | None = "en-IN"  # None = switch per user turn (multilingual mode)
-    tts_model: str = "timbre-v2.5"
-    tts_voice: str = "Nalini"
+    tts_model: str = "timbre-v3.0"  # v3.0 voices speak all 10 languages and act on <laugh>-style tags
+    tts_voice: str = "Lakshmi"
     tts_method: str = "sse"  # rest | sse | websocket
     sample_rate: int = 16000
 

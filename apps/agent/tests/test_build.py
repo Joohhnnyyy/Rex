@@ -19,7 +19,19 @@ def test_build_stt_and_tts_with_key():
 def test_build_llm_is_fallback_adapter_over_available_providers():
     llm = build_llm(ENV)
     assert isinstance(llm, lk_llm.FallbackAdapter)
-    assert len(llm._llm_instances) == 2
+    # Groq is left out of the voice chain: its 8k tokens-a-minute cap is below Rex's prompt size.
+    assert len(llm._llm_instances) == 1
+
+
+def test_gnani_v3_requests_carry_language():
+    from livekit.plugins.gnani import tts as gnani_tts
+
+    import rex_agent.models  # noqa: F401  (installs the payload patch)
+
+    tts = build_tts(AgentConfig.from_env(ENV), ENV)
+    assert gnani_tts._build_payload(tts._opts, "hi <laugh>")["language"] == "en-IN"
+    tts._opts.language = None
+    assert gnani_tts._build_payload(tts._opts, "hi")["language"] == "auto"
 
 
 def _history(extra):

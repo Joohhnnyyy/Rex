@@ -8,6 +8,7 @@ from typing import Any
 
 from livekit.agents import llm as lk_llm
 from livekit.plugins import gnani, openai
+from livekit.plugins.gnani import tts as gnani_tts
 
 from rex_agent.config import AgentConfig, llm_providers
 
@@ -41,6 +42,20 @@ def portable_ctx(chat_ctx: lk_llm.ChatContext, *, gemini: bool) -> lk_llm.ChatCo
     return lk_llm.ChatContext(items)
 
 
+# The plugin only sends `language` for timbre-v2.5, but v3.0 needs it too ("auto" detects it from the script).
+_plugin_payload = gnani_tts._build_payload
+
+
+def _payload(opts: Any, text: str) -> dict:
+    payload = _plugin_payload(opts, text)
+    if str(opts.model).startswith("timbre-v3"):
+        payload["language"] = opts.language or "auto"
+    return payload
+
+
+gnani_tts._build_payload = _payload
+
+
 def build_stt(cfg: AgentConfig, env: Mapping[str, str] | None = None) -> gnani.STT:
     env = os.environ if env is None else env
     return gnani.STT(
@@ -65,7 +80,9 @@ def build_tts(cfg: AgentConfig, env: Mapping[str, str] | None = None) -> gnani.T
 
 def build_llm(env: Mapping[str, str] | None = None) -> lk_llm.FallbackAdapter:
     env = os.environ if env is None else env
-    specs = llm_providers(env)
+    # Groq's free tier allows 8000 tokens a minute; Rex's voice prompt alone is ~11k, so every Groq attempt
+    # failed with 413 and only added delay before the next fallback. It stays in the router for small tasks.
+    specs = [s for s in llm_providers(env) if s.provider != "groq"]
     if not specs:
         raise RuntimeError(
             "No LLM API key set (GEMINI_API_KEY, GROQ_API_KEY, NVIDIA_API_KEY, MISTRAL_API_KEY or OPENROUTER_API_KEY)"

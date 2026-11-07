@@ -124,6 +124,7 @@ servers:
       desktop_type:         {tier: W}
       desktop_press:        {tier: W}
       desktop_scroll:       {tier: W}
+      desktop_clipboard_set: {tier: W}  # pasting multi-line messages
 
   memory:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.memory"]

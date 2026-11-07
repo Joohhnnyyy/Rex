@@ -5,6 +5,7 @@ Every call still goes through the gateway, so allow-lists, tiers, approvals and 
 
 from __future__ import annotations
 
+import contextlib
 import json
 from typing import Any
 
@@ -39,15 +40,20 @@ def _summary(info: ToolInfo, args: dict[str, Any]) -> str:
     return f"{info.server} · {info.name}({shown})"
 
 
+def filler_once(context: RunContext, server: str):
+    """A filler line for a slow tool, but only once per reply: a 6-step task must not say "On it." six times."""
+    speech_id = context.speech_handle.id
+    if speech_id in _filled_speech:
+        return contextlib.nullcontext()
+    _filled_speech.add(speech_id)
+    lang = getattr(context.session.current_agent, "_lang", None)
+    return context.with_filler(tool_filler(server, lang), delay=FILLER_DELAY_S)
+
+
 def _make_tool(gw: Gateway, specialist: str, info: ToolInfo) -> RawFunctionTool:
     async def handler(context: RunContext, raw_arguments: dict[str, object]) -> str:
         call = gw.call(specialist, info.qualified_name, dict(raw_arguments), summary=_summary(info, raw_arguments))
-        speech_id = context.speech_handle.id
-        if speech_id in _filled_speech:
-            return (await call).text
-        _filled_speech.add(speech_id)
-        lang = getattr(context.session.current_agent, "_lang", None)
-        async with context.with_filler(tool_filler(info.server, lang), delay=FILLER_DELAY_S):
+        async with filler_once(context, info.server):
             return (await call).text
 
     schema = {
