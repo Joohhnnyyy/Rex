@@ -1,0 +1,91 @@
+# Built-in pipelines Rex can run with `run_pipeline` (see apps/agent/src/rex_agent/pipelines.py).
+# Steps run in order in code; each result is checked before the next step. Placeholders: {{input}},
+# {{earlier_step_id}}, {{today}}, {{tomorrow}}, {{now}}. Rex saves new ones to ~/.config/rex/pipelines.yaml.
+pipelines:
+  share_research:
+    description: Look something up on the web and send the top results with links to someone on WhatsApp.
+    inputs:
+      topic: what to look up, e.g. "cheapest flights Delhi to Bhopal on 12 November"
+      to: the WhatsApp chat name, e.g. Shanky
+    steps:
+      - id: found
+        do: research
+        query: "{{topic}}"
+      - id: message
+        do: write
+        prompt: |
+          Write one WhatsApp message to {{to}} sharing the best results for: {{topic}}.
+          First line: a short friendly intro (one sentence). Then up to 5 lines, each
+          "- <name>: <the key detail, e.g. price or time> - <full link>". Use only the results below.
+          Results:
+          {{found}}
+      - id: sent
+        do: send
+        app: WhatsApp
+        to: "{{to}}"
+        text: "{{message}}"
+
+  send_whatsapp:
+    description: Write and send a WhatsApp message from a short brief (the user says what it should say).
+    inputs:
+      to: the WhatsApp chat name
+      brief: what the message should say, in the user's words
+    steps:
+      - id: message
+        do: write
+        prompt: |
+          Write a short, natural WhatsApp message to {{to}} that says: {{brief}}
+          Sound like the user texting a friend: casual, no greeting card tone, no sign-off.
+      - id: sent
+        do: send
+        app: WhatsApp
+        to: "{{to}}"
+        text: "{{message}}"
+
+  email_research:
+    description: Look something up on the web and email a short summary with links (asks the user to approve the send).
+    inputs:
+      topic: what to look up
+      email: who to send it to (email address)
+    steps:
+      - id: found
+        do: research
+        query: "{{topic}}"
+      - id: body
+        do: write
+        prompt: |
+          Write a short email body about: {{topic}}. Two sentences of summary, then up to 5 lines
+          "- <name>: <key detail> - <full link>". Use only these results:
+          {{found}}
+      - id: sent
+        do: tool
+        call: gmail.send_email
+        args:
+          to: "{{email}}"
+          subject: "{{topic}}"
+          body: "{{body}}"
+
+  daily_brief:
+    description: Today's calendar and unread email turned into a short spoken briefing.
+    inputs: {}
+    steps:
+      - id: events
+        do: tool
+        call: calendar.list_events
+        args:
+          date_from: "{{today}}"
+          date_to: "{{today}}"
+      - id: inbox
+        do: tool
+        call: gmail.search_emails
+        args:
+          query: "is:unread newer_than:1d"
+          max_results: 5
+      - id: brief
+        do: write
+        prompt: |
+          It is {{now}}. Turn this into a spoken briefing of at most four short sentences: what's on the
+          calendar today (times said naturally, e.g. "four in the evening") and which unread emails look
+          important (sender and gist). If something is empty, say so in a few words.
+          Calendar: {{events}}
+          Unread email: {{inbox}}
