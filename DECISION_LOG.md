@@ -4,6 +4,7 @@ Chronological record of every decision and change of mind. Never edit old entrie
 
 ## 2026-11-07
 
+- **D-040** · Johny · **Ponytail cut (~930 lines).** Removed API auth/sessions/timeline/tools routes (dashboard uses LiveKit RPC + text streams), Postgres/Redis compose, call/approval/session schemas, sip_setup.py, seed_graph.py, and the 5 specialists with no executor (Rex keeps coder + meeting) · Nothing called them; the API is localhost-only, so the token endpoint stays unauthenticated. Add auth back before any public deploy.
 - **D-039** · Johny · **Drop the call feature entirely.** No Caller agent, call room or call_tool (T-30, T-31, T-32, T-39 dropped); Rex is browser-based only · Not enough time before the 10 Nov deadline; browser, Gmail, Calendar and screen control are the demo. (supersedes D-038)
 
 ## 2026-11-03

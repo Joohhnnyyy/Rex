@@ -17,7 +17,7 @@ async def test_connections_report_each_service(monkeypatch, tmp_path):
         lambda: connections.Connection(id="browser", name="Browser", status="ok", detail="Chromium ready"),
     )
 
-    app = create_app(Settings(dev_auth=True))
+    app = create_app(Settings())
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         res = await c.get("/v1/connections")
     assert res.status_code == 200

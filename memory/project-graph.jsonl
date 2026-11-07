@@ -351,3 +351,5 @@
 {"type": "entity", "name": "D-039", "entityType": "Decision", "observations": ["summary: Drop the call feature entirely (Caller agent, call room, call_tool, demo step 2-3 glue); Rex focuses on browser-based work only", "date: 2026-11-07", "supersedes: D-038"]}
 {"type": "relation", "from": "D-039", "to": "Phase 3", "relationType": "decided_in"}
 {"type": "relation", "from": "D-039", "to": "Telephony", "relationType": "affects"}
+{"type": "entity", "name": "D-040", "entityType": "Decision", "observations": ["summary: Ponytail cut ~930 lines: unused API routes + auth, Postgres/Redis, unused schemas, dead scripts, unconnected specialists", "date: 2026-11-07"]}
+{"type": "relation", "from": "D-040", "to": "Phase 5", "relationType": "decided_in"}

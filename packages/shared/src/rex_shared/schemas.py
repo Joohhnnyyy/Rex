@@ -1,7 +1,6 @@
 """Cross-boundary data contracts for Rex.
 
-This module is the single source of truth: the API, the agent worker, the MCP
-gateway and (via generated TypeScript types) the dashboard all use these shapes.
+The agent worker, the MCP gateway and the MCP servers share these shapes.
 """
 
 from __future__ import annotations
@@ -10,7 +9,7 @@ from datetime import date, datetime
 from typing import Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field
 
 Tier = Literal["R", "W", "A"]
 """Permission tier: R = read, W = write (reversible), A = act (external / irreversible)."""
@@ -39,33 +38,6 @@ class ActionEvent(_Model):
     trace_id: str | None = None
 
 
-class ApprovalRequest(_Model):
-    """A Tier A action waiting for the user's 'yes'."""
-
-    id: UUID
-    tool: str
-    summary: str
-    expires_at: datetime
-
-    def is_expired(self, now: datetime) -> bool:
-        return now > self.expires_at
-
-
-class CallOutcome(_Model):
-    """Structured result of an outbound call placed by the Caller specialist."""
-
-    status: Literal["booked", "declined", "no_answer", "failed", "needs_user"]
-    slot: datetime | None = None
-    notes: str = ""
-    transcript_id: UUID | None = None
-
-    @model_validator(mode="after")
-    def _booked_needs_slot(self) -> CallOutcome:
-        if self.status == "booked" and self.slot is None:
-            raise ValueError("a booked call must include the booked slot")
-        return self
-
-
 class ActionItem(_Model):
     text: str
     owner: str | None = None
@@ -79,48 +51,3 @@ class Minutes(_Model):
     decisions: list[str] = Field(default_factory=list)
     action_items: list[ActionItem] = Field(default_factory=list)
     open_questions: list[str] = Field(default_factory=list)
-
-
-class Turn(_Model):
-    """One spoken turn with latency metrics (ms)."""
-
-    role: Literal["user", "assistant"]
-    text: str
-    lang: str = Field(description="BCP-47, e.g. 'hi-IN'")
-    stt_ms: int | None = None
-    llm_ms: int | None = None
-    tts_ms: int | None = None
-    total_ms: int | None = None
-    fallback_used: bool = False
-
-
-class User(_Model):
-    """User account entity."""
-
-    id: UUID
-    email: str
-    display_name: str = ""
-    preferred_lang: str = "hi-IN"
-    timezone: str = "Asia/Kolkata"
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
-
-class UserUpdate(_Model):
-    """Fields that can be updated on the current user profile."""
-
-    display_name: str | None = None
-    preferred_lang: str | None = None
-    timezone: str | None = None
-
-
-class VoiceSession(_Model):
-    """Voice interaction session."""
-
-    id: UUID
-    user_id: UUID
-    client: Literal["web", "desktop", "phone"] = "web"
-    room: str
-    started_at: datetime
-    ended_at: datetime | None = None
-    lang_first: str | None = None
-    turns: list[Turn] = Field(default_factory=list)

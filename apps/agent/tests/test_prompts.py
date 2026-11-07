@@ -22,7 +22,7 @@ def test_system_prompt_lists_specialists_and_delegate_tool():
     now = datetime(2026, 10, 25, 16, 5, tzinfo=ZoneInfo("Asia/Kolkata"))
     p = system_prompt(user_name="Johny", now=now)
     assert "delegate_task" in p
-    for name in ("calendar", "caller", "coder", "meeting"):
+    for name in ("coder", "meeting"):
         assert name in p
 
 

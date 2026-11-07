@@ -3020,7 +3020,7 @@ dependencies = [
     { name = "httpx" },
     { name = "livekit-api" },
     { name = "pydantic-settings" },
-    { name = "rex-shared" },
+    { name = "rex-mcp-servers" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -3030,7 +3030,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "livekit-api", specifier = ">=1.0" },
     { name = "pydantic-settings", specifier = ">=2.6" },
-    { name = "rex-shared", editable = "packages/shared" },
+    { name = "rex-mcp-servers", editable = "packages/mcp_servers" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.32" },
 ]
 

@@ -22,6 +22,7 @@ In progress: T-53 — language badge + phone layout done; check the in-call view
 Blocked: —
 Decisions made: D-039 (call feature dropped, browser-only; logged)
 Heads-up for Shanky: new `apps/api/src/rex_api/connections.py` (GET /v1/connections) registered in `main.py`, test in `apps/api/tests/test_connections.py`. It refreshes the Google token and asks Playwright for Chromium's path; no new env vars. `scripts/progress.py` now supports `status: dropped` (left out of every count).
+Also (D-040, your track, Shanky): deleted `rex_api` auth/sessions/timeline/tools + their tests, `infra/docker-compose.yml` (+ `make infra-up/down`), schemas CallOutcome/ApprovalRequest/Turn/User/UserUpdate/VoiceSession, `scripts/sip_setup.py` + `seed_graph.py`. Supervisor is now background-only for `coder` and `meeting`. Nothing used them; shout if you had plans for Postgres.
 Tomorrow: G5 run-through of the browser-only demo, then T-60 video
 
 ## 2026-11-06 — Johny (taking T-38 from Shanky)

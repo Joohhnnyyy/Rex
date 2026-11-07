@@ -1,7 +1,7 @@
 """Mint short-lived LiveKit room tokens for the dashboard / desktop companion.
 
-NOTE: until auth (T-16 magic link) lands, the caller supplies its identity in the body.
-Do not expose this endpoint publicly before auth is wired in.
+NOTE: there is no auth; the caller supplies its identity in the body.
+Run the API on localhost only, never expose this endpoint publicly.
 """
 
 import secrets

@@ -37,7 +37,7 @@ rex/
 │   ├── mcp_servers/    # Python: our own MCP servers (call, screen, approval, skills, minutes)
 │   ├── llm_router/     # Python: model routing (Gemini / Mistral / Codestral / OpenRouter)
 │   └── shared/         # Pydantic schemas + generated TS types
-├── infra/              # docker-compose, LiveKit config, Vexa, Caddy
+├── infra/              # MCP server config, sandbox Dockerfile
 ├── scripts/            # progress.py and dev helpers
 ├── memory/     # project knowledge graph (progress tracking)
 └── *.md                # the documentation set (start with PROJECT_CONTEXT.md)
@@ -49,7 +49,6 @@ rex/
 git clone <repo> rex && cd rex
 cp .env.example .env            # fill in keys — see INTEGRATIONS.md
 cp mcp.json.example .mcp.json   # project-graph MCP for Claude Code (see CLAUDE.md)
-docker compose -f infra/docker-compose.yml up -d   # postgres, redis, livekit, vexa
 uv sync                         # python workspace
 pnpm install                    # web + desktop
 make dev                        # agent worker + api + web

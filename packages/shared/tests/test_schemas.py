@@ -1,4 +1,4 @@
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime
 from uuid import uuid4
 
 import pytest
@@ -7,8 +7,6 @@ from pydantic import ValidationError
 from rex_shared.schemas import (
     ActionEvent,
     ActionItem,
-    ApprovalRequest,
-    CallOutcome,
     Minutes,
 )
 
@@ -41,14 +39,6 @@ def test_action_event_round_trips_json_and_defaults():
     assert ev.args_redacted == {}
 
 
-def test_booked_call_outcome_requires_slot():
-    with pytest.raises(ValidationError):
-        CallOutcome(status="booked", notes="ok")
-    ok = CallOutcome(status="booked", slot=datetime(2026, 11, 7, 18, 0, tzinfo=UTC), notes="Saturday 6 PM")
-    assert ok.slot.hour == 18
-    assert CallOutcome(status="no_answer", notes="").slot is None
-
-
 def test_minutes_hold_action_items_with_optional_due():
     m = Minutes(
         summary="Standup",
@@ -60,12 +50,3 @@ def test_minutes_hold_action_items_with_optional_due():
         open_questions=[],
     )
     assert m.action_items[1].due is None
-
-
-def test_approval_request_expiry():
-    now = datetime(2026, 11, 2, 12, 0, tzinfo=UTC)
-    req = ApprovalRequest(
-        id=uuid4(), tool="call_tool.start_call", summary="Call the clinic?", expires_at=now + timedelta(seconds=30)
-    )
-    assert not req.is_expired(now)
-    assert req.is_expired(now + timedelta(seconds=31))

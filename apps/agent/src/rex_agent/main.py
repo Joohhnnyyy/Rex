@@ -104,10 +104,10 @@ class Rex(Agent):
 
     @function_tool()
     async def delegate_task(self, context: RunContext, specialist: str, request: str) -> str:
-        """Hand a long-running task to a specialist (phone calls, meetings, coding) that runs in the background.
+        """Hand a long-running task (joining a meeting, coding) to a specialist that runs in the background.
 
         Args:
-            specialist: one of calendar, comms, location, caller, meeting, coder, screen
+            specialist: meeting or coder
             request: the user's request restated clearly with every detail (who, what, when, where)
         """
         if specialist not in REGISTRY:
