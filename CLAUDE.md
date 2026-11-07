@@ -64,7 +64,7 @@ claude-mem hooks into SessionStart / PostToolUse / Stop etc., stores compressed 
 | `Project` | `Rex` | deadline, goal |
 | `Person` | `Johny`, `Shanky` | role, tracks |
 | `Phase` | `Phase 0` … `Phase 6` | `window: 2026-10-25..2026-10-27`, `gate: …` |
-| `Task` | `T-10` … | `title: …`, `status: todo|in_progress|blocked|done`, `pr: …`, notes |
+| `Task` | `T-10` … | `title: …`, `status: todo|in_progress|blocked|done|dropped`, `pr: …`, notes |
 | `Component` | `Voice loop`, `MCP gateway`, … | path, owner |
 | `Decision` | `D-001` … | summary, date |
 | `Risk` | `R-01` … | mitigation, status |

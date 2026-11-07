@@ -6,7 +6,7 @@ PROGRESS.md with: overall %, per-phase and per-person progress, a Mermaid
 dependency graph coloured by status, blocked tasks and what is ready to start.
 
 Status is the LAST observation on a Task that starts with "status:"
-(todo | in_progress | blocked | done).
+(todo | in_progress | blocked | done | dropped). Dropped tasks are left out of every count.
 
 Usage:  python scripts/progress.py [--today YYYY-MM-DD]
 """
@@ -46,7 +46,7 @@ def obs(entity: dict, key: str, default: str = "") -> str:
 
 def status_of(entity: dict) -> str:
     raw = obs(entity, "status", "todo").lower()
-    for s in ("in_progress", "blocked", "done", "todo"):
+    for s in ("in_progress", "blocked", "done", "todo", "dropped"):
         if raw.startswith(s):
             return s
     return "todo"
@@ -75,6 +75,8 @@ def main() -> None:
         elif r["relationType"] == "depends_on" and r["from"] in tasks:
             deps[r["from"]].append(r["to"])
     st = {t: status_of(e) for t, e in tasks.items()}
+    dropped = sorted(t for t in tasks if st[t] == "dropped")  # cut from scope: not counted anywhere
+    all_tasks, tasks = tasks, {t: e for t, e in tasks.items() if st[t] != "dropped"}
 
     def pct(names):
         names = list(names)
@@ -117,7 +119,7 @@ def main() -> None:
         out.append(f"| {person} | {len(names)} | `{bar(pct(names), 10)}` |")
 
     blocked = [t for t in sorted(tasks) if st[t] == "blocked"]
-    ready = [t for t in sorted(tasks) if st[t] == "todo" and all(st.get(d) == "done" for d in deps[t])]
+    ready = [t for t in sorted(tasks) if st[t] == "todo" and all(st.get(d) in ("done", "dropped") for d in deps[t])]
     doing = [t for t in sorted(tasks) if st[t] == "in_progress"]
 
     def line(t):
@@ -125,6 +127,9 @@ def main() -> None:
 
     out += ["", "## In progress", ""] + ([line(t) for t in doing] or ["- none"])
     out += ["", "## Blocked", ""] + ([line(t) + f" — {obs(tasks[t], 'status')}" for t in blocked] or ["- none"])
+    out += ["", "## Dropped (cut from scope, not counted)", ""] + (
+        [f"- **{t}** {obs(all_tasks[t], 'title')}" for t in dropped] or ["- none"]
+    )
     out += ["", "## Ready to start (all dependencies done)", ""] + ([line(t) for t in ready] or ["- none"])
 
     out += ["", "## Dependency map", "", "```mermaid", "flowchart LR"]

@@ -2,6 +2,10 @@
 
 Chronological record of every decision and change of mind. Never edit old entries — add a new one that supersedes. Format: `YYYY-MM-DD · ID · who · decision · reason`.
 
+## 2026-11-07
+
+- **D-039** · Johny · **Drop the call feature entirely.** No Caller agent, call room or call_tool (T-30, T-31, T-32, T-39 dropped); Rex is browser-based only · Not enough time before the 10 Nov deadline; browser, Gmail, Calendar and screen control are the demo. (supersedes D-038)
+
 ## 2026-11-03
 
 - **D-038** · Johny · **Drop Twilio / phone calls.** Rex runs only as a browser (web app) and app agent. The Caller (demo step 2) talks to the "clinic" in a LiveKit room joined from a web link, labelled as a simulated call · Twilio trial cannot bridge calls into LiveKit (no Elastic SIP, no TwiML Bins, external TwiML won't ring); no time or budget to upgrade before the 10 Nov deadline. (supersedes D-008)
