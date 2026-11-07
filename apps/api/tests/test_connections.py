@@ -22,7 +22,7 @@ async def test_connections_report_each_service(monkeypatch, tmp_path):
         res = await c.get("/v1/connections")
     assert res.status_code == 200
     by_id = {x["id"]: x for x in res.json()}
-    assert set(by_id) == {"voice", "calendar", "gmail", "slack", "notion", "browser"}
+    assert set(by_id) == {"voice", "calendar", "gmail", "slack", "notion", "firecrawl", "browser"}
     assert by_id["calendar"]["status"] == "off" and "calendar login" in by_id["calendar"]["detail"]
     assert by_id["gmail"]["status"] == "off"
     assert by_id["slack"]["status"] == "ok"

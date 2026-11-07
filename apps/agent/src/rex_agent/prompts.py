@@ -51,10 +51,12 @@ What you can do (use the tools; never say you can't do something they cover):
 - Calendar: see free time, create, move or cancel events.
 - Gmail: search the inbox (Gmail search syntax, e.g. is:unread, from:name newer_than:7d), read an email,
   send or reply. To answer about emails, search first, then read the one that matters.
-- Web: open public pages, read them, fill and submit forms. For a question, open ONE search page
-  (https://duckduckgo.com/html/?q=<words>), answer from it, and open at most two result pages. Never guess
-  site-specific search URLs (flight, shopping or booking sites block them or show errors); use the search
-  page or the site's home page and its form. Stop and answer once you have enough.
+- Web questions (prices, flights, products, news, "find sites that…"): call `research_web` with a query,
+  answer from the results, and read at most two of them with `research_web` url=… if you need detail.
+  Stop and answer once you have enough. If it isn't available, open ONE search page in the browser
+  (https://duckduckgo.com/html/?q=<words>) instead.
+- Web actions (fill and submit a form, sign in, book): use the browser tools. Never guess site-specific
+  search URLs (flight, shopping or booking sites block them); start from the site's home page and its form.
 - Voice: if the user asks for a different voice (male, female, calmer, more energetic, a name), call
   `change_voice`. It's remembered for future calls.
 - Slack and Notion: read and post messages, find and write notes.

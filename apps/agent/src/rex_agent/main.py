@@ -50,6 +50,7 @@ from rex_agent.desktop import Desktop
 from rex_agent.lang import detect_language, tts_language
 from rex_agent.models import build_llm, build_stt, build_tts
 from rex_agent.prompts import greeting, system_prompt
+from rex_agent.research import Research
 from rex_agent.screen import NOT_SHARING, ScreenWatcher, control_screen, describe_screen
 from rex_agent.tools_bridge import build_tools, filler_once
 from rex_llm_router.client import LLMClient
@@ -79,6 +80,7 @@ class Rex(Agent):
         self._lang: str | None = "en-IN" if cfg.english_only else None
         self.screen = ScreenWatcher()  # attached to the room in entrypoint
         self.desktop = Desktop(gateway) if gateway else None
+        self.research = Research(gateway) if gateway else None
         self.publish_event = None  # set in entrypoint: sends ActionEvents to the dashboard timeline
         self.supervisor = Supervisor(
             say=self._say_now,
@@ -138,6 +140,23 @@ class Rex(Agent):
             except Exception as e:
                 logger.exception("vision call failed")
                 return f"Couldn't analyse the screen right now ({type(e).__name__}). Tell the user to try again."
+
+    @function_tool()
+    async def research_web(self, context: RunContext, query: str | None = None, url: str | None = None) -> str:
+        """Look things up on the web (read-only): search for current information, prices, places, products
+        or news, or read one page as clean text. Faster and more reliable than the browser for questions.
+        Use the browser only to do things on a site (fill forms, sign in, book).
+
+        Args:
+            query: what to search for, e.g. "cheapest flights Bhopal to Delhi 12 November" or "Naruto t-shirt
+                India shop"; returns the top 5 results with a summary of each
+            url: a page to read (e.g. one of the search results), instead of a query
+        """
+        if self.research is None:
+            return "Web research isn't available in this session."
+        s = lambda v: "" if v is None or str(v).strip().lower() in _EMPTY else str(v).strip()  # noqa: E731
+        async with filler_once(context, "web"):
+            return await self.research.run(query=s(query), url=s(url))
 
     @function_tool()
     async def change_voice(self, context: RunContext, voice: str) -> str:

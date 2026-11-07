@@ -126,6 +126,19 @@ servers:
       desktop_scroll:       {tier: W}
       desktop_clipboard_set: {tier: W}  # pasting multi-line messages
 
+  # Read-only web research (search + read a page as markdown). Rex reaches it through `research_web`
+  # (allowlist "research"); Firecrawl's other 28 tools stay unexposed and default to Tier A.
+  firecrawl:
+    command: ["npx", "-y", "firecrawl-mcp@3.37.0"]
+    env:
+      FIRECRAWL_API_KEY: "${FIRECRAWL_API_KEY}"
+      PATH: "${PATH}"
+      HOME: "${HOME}"
+    default_tier: A
+    tools:
+      firecrawl_search: {tier: R, timeout_s: 30}
+      firecrawl_scrape: {tier: R, timeout_s: 45}
+
   memory:
     command: ["${PYTHON}", "-m", "rex_mcp_servers.memory"]
     env:
@@ -142,6 +155,7 @@ allowlists:
   meeting: [vexa, minutes, notion, slack]
   coder: [sandbox]
   screen: [browser, desktop]
+  research: [firecrawl]
 
 # Optional: the only tools a specialist sees on a server. Every tool schema is sent to the LLM on every
 # turn — Notion alone was ~78k chars (~20k tokens) — so rex keeps a small tool set (T-37: <= 25,

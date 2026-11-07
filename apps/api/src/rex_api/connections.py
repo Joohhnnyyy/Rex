@@ -83,5 +83,6 @@ async def list_connections() -> list[Connection]:
         *google,
         _keyed("slack", "Slack", "Bot token set", "SLACK_BOT_TOKEN"),
         _keyed("notion", "Notion", "Token set", "NOTION_TOKEN"),
+        _keyed("firecrawl", "Web research", "Firecrawl key set", "FIRECRAWL_API_KEY"),
         browser,
     ]
