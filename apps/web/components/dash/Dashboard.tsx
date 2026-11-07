@@ -540,7 +540,10 @@ function CommandBar({
 function Transcript({ identity }: { identity: string }) {
   const transcriptions = useTranscriptions();
   const end = useRef<HTMLDivElement>(null);
-  useEffect(() => end.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), [transcriptions.length]);
+  useEffect(() => {
+    // Braces matter: newer browsers return a Promise from scrollIntoView, and an effect may only return a cleanup.
+    end.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [transcriptions.length]);
   if (!transcriptions.length) return <p className="text-sm text-[var(--text-2)]">Say “Namaste Rex” or type a request.</p>;
   return (
     <ol className="flex max-h-[50vh] flex-col gap-3 overflow-y-auto" aria-live="polite">
