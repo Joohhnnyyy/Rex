@@ -22,11 +22,15 @@ remembers what you tell it, and asks before anything risky.</p>
   <img src="https://img.shields.io/badge/license-MIT-141418" alt="MIT license">
 </p>
 
+
+https://github.com/user-attachments/assets/0ca531b8-fdf7-4939-ac61-f601bd4dc281
+
+
 Rex is a voice-first AI agent built for the **Gnani AI — Great Indian AI Internship Challenge** (submissions close **10 Nov 2026, 11:59 PM IST**). It listens with **Gnani Prisma STT**, speaks with **Gnani Timbre TTS**, plans with a multi-model LLM router (Gemini, Mistral, Codestral), and acts through **MCP** tools: Google Calendar, Gmail, Slack, Notion, Google Maps, GitHub, a code sandbox, Twilio phone calls, a meeting bot, the browser and your screen.
 
 | | |
 |---|---|
-| Team | **Johny** (voice, telephony, desktop, frontend) · **Shanky** (orchestrator, MCP tools, backend, coder) |
+| Team | **Johny** (orchestrator, voice, desktop, frontend) · **Shanky** ( MCP tools, backend, coder) |
 | Award focus | Mixed Vibes (code-mixed speech) · backup: Demo Day Drop |
 | Status | See [PROGRESS.md](docs/team/PROGRESS.md) (generated from the project graph) |
 
