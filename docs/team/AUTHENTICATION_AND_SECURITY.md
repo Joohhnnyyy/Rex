@@ -1,16 +1,15 @@
 # Authentication and Security
 
-Owner: **Shanky** (backend, gateway) · **Johny** (desktop, client storage). An agent that can call people, post messages and see your screen must be safe by construction.
+Owner: **Shanky** (backend, gateway) · **Johny** (desktop, client storage). An agent that can interact with desktop apps, post messages, and access user files must be safe by construction.
 
 ## 1. Identity
 
 | Who | How |
 |---|---|
-| Web user | Magic-link email → short-lived session JWT (15 min) + httpOnly refresh cookie (7 days) |
-| Desktop companion | Device-code pairing from the logged-in dashboard → device token (hashed in DB, revocable) stored in OS keychain |
-| Agent worker / job worker | Service credentials from `.env`; act on behalf of a user only with that user's `user_id` from the LiveKit room metadata (signed by our API) |
-| LiveKit | Room tokens minted by `/v1/livekit/token`, 1-hour TTL, room scoped to the user |
-| Webhooks | Twilio `X-Twilio-Signature` validation; Vexa shared-secret HMAC |
+| Web user | Direct session connection to Next.js dashboard; LiveKit room tokens minted by `/v1/livekit/token` |
+| Native Desktop Automation | Direct macOS accessibility tree API bindings with explicit OS permission |
+| Agent worker | Service credentials from `.env`; operates within LiveKit agent room |
+| Webhooks | Vexa shared-secret HMAC verification |
 
 ## 2. Third-party tokens
 

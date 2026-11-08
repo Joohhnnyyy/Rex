@@ -1,6 +1,6 @@
 # Implementation Roadmap — phase-wise distribution
 
-17 days, 7 phases, 2 people. Every task has an ID (`T-xx`) that also exists as an entity in the project graph (`memory/project-graph.jsonl`) — update status there and run `python scripts/progress.py` to refresh [PROGRESS.md](PROGRESS.md).
+17 days, 7 phases, 2 people. Every task has an ID (`T-xx`) that also exists as an entity in the project graph (`memory/project-graph.jsonl`).
 
 ## Re-plan — 3 Nov 2026: no telephony (D-038)
 
@@ -91,7 +91,7 @@ gantt
 | T-01 | Monorepo scaffold (uv workspace + pnpm), lint, pre-commit, CI | Shanky | `make check` passes in CI |
 | T-02 | Accounts: Gnani credits, LiveKit Cloud, Twilio trial (+ verify both phones), Google Cloud project + OAuth consent (test users), Slack workspace + bot, Notion integration, GitHub PAT, Gemini + Mistral keys | Johny | Every key in the team vault; `.env.example` complete |
 | T-03 | docker-compose: postgres, redis, (vexa), langfuse | Shanky | `docker compose up` healthy |
-| T-04 | Project graph + claude-mem set up on both machines (`cp mcp.json.example .mcp.json`) | Johny | `progress.py` renders PROGRESS.md |
+| T-04 | Project graph + claude-mem set up on both machines (`cp mcp.json.example .mcp.json`) | Johny | Shared graph initialized |
 | T-05 | Read docs pack; agree on interfaces in `packages/shared` | Both | Schemas merged |
 
 **Exit gate G0:** both can run `make dev` and see the empty dashboard.
@@ -178,9 +178,9 @@ gantt
 
 ## Daily rhythm
 
-- 10:00 IST — 10-minute sync: yesterday / today / blocked (read [HANDOFF.md](HANDOFF.md)).
+- 10:00 IST — 10-minute sync: yesterday / today / blocked.
 - Merge to `main` only through PRs with one review; each PR names its `T-xx`.
-- 22:00 IST — update the project graph statuses, run `progress.py`, write HANDOFF.md.
+- 22:00 IST — update task status and record architectural choices in DECISION_LOG.md.
 
 ## Cut list (in order, if behind)
 

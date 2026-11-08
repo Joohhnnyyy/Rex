@@ -1,9 +1,9 @@
-.PHONY: install dev check test lint fmt progress
+.PHONY: install dev check test lint fmt
 
 install:            ## install the Python workspace
 	uv sync
 
-dev:                ## run the API with reload (agent + web added in Phase 01)
+dev:                ## run the API with reload
 	uv run uvicorn rex_api.main:app --reload --port 8000
 
 lint:
@@ -18,6 +18,3 @@ test:
 	uv run pytest
 
 check: lint test    ## what CI runs
-
-progress:           ## regenerate PROGRESS.md from the project graph
-	python3 scripts/progress.py

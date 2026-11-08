@@ -1,103 +1,97 @@
-# API Reference (v1)
+# Rex API Reference (v1)
 
-Base URL: `https://<host>/v1` · JSON · auth via `Authorization: Bearer <session JWT>` (web) or device token (desktop). Errors follow RFC 9457 problem+json. Owner: **Shanky**; frontend consumer: **Johny**.
+Base URL: `http://localhost:8000` · JSON · FastAPI
 
-## Auth
+The Rex API provides session tokens, connection status verification, file library indexing, and persistent memory storage.
 
-| Method | Path | Body / query | Returns |
+---
+
+## Service Endpoints
+
+### Health Check
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/healthz` | Returns service health status and identity (`{"status": "ok", "service": "rex-api"}`). |
+
+---
+
+## Realtime & Session
+
+### Mint LiveKit Room Token
+
+| Method | Path | Request Body | Response |
 |---|---|---|---|
-| POST | `/auth/magic-link` | `{email}` | `202` (email sent) |
-| GET | `/auth/callback` | `?token=` | sets session, redirects to `/` |
-| POST | `/auth/device` | `{device_name}` | `{device_code, user_code}` — desktop pairing |
-| POST | `/auth/device/confirm` | `{user_code}` | `200` (from logged-in web) |
-| POST | `/auth/logout` | — | `204` |
-| GET | `/me` | — | `User` (+ preferences, languages) |
-| PATCH | `/me` | `{display_name?, preferred_lang?, timezone?}` | `User` |
+| `POST` | `/v1/livekit/token` | `{"identity": "user_id", "room": "rex-room"}` | `{"token": "<jwt>", "url": "wss://...", "room": "..."}` |
 
-## Realtime
+Generates a cryptographically signed LiveKit access token with microphone and audio publishing permissions, binding the client session to the LiveKit agent worker room.
 
-| Method | Path | Notes |
-|---|---|---|
-| POST | `/livekit/token` | `{client: "web"|"desktop"}` → `{url, token, room}`; dispatches the agent to the room |
-| GET | `/sessions` | recent voice sessions |
-| GET | `/sessions/{id}/transcript` | turns with `lang`, timings |
+---
 
-## Connections (OAuth + tokens)
+## External Connections
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/connections` | status per provider: `google`, `slack`, `notion`, `github`, `maps` |
-| GET | `/connections/{provider}/start` | redirect to provider OAuth |
-| GET | `/connections/{provider}/callback` | stores encrypted token |
-| DELETE | `/connections/{provider}` | revoke + delete token |
+### List Connection Statuses
 
-## Tools and skills
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `GET` | `/v1/connections` | Evaluates OAuth tokens and credentials for Google, Slack, and Notion. | `{"google": true, "slack": true, "notion": true}` |
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/tools` | namespaced MCP tools with tier, server, enabled |
-| PATCH | `/tools/{server}` | `{enabled: bool}` — skill toggle |
+### Google OAuth Verification
 
-## Jobs, timeline, approvals
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `GET` | `/v1/connections/google/token` | Inspects local Google OAuth token validity in `~/.config/rex/google_token.json`. | `{"valid": true, "scopes": [...]}` |
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/jobs?status=` | list |
-| GET | `/jobs/{id}` | job + events |
-| POST | `/jobs/{id}/cancel` | cancels running job |
-| GET | `/timeline/stream` | **SSE**: `action_event`, `approval_request`, `job_update`, `transcript` |
-| GET | `/timeline?before=&limit=` | paged history |
-| POST | `/approvals/{id}` | `{decision: "approve"|"deny"}` |
-| POST | `/actions/{id}/undo` | runs compensating action (Tier W only) |
+---
 
-## Calls
+## Memory & Personalization
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/calls` | list with outcome |
-| GET | `/calls/{id}` | outcome, transcript, recording flag (recordings off by default) |
-| POST | `/webhooks/twilio/status` | Twilio status callback (signature-checked) |
+### Read Stored Memories
 
-## Meetings
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `GET` | `/v1/memory` | Retrieves persistent user preferences, facts, and routines. | `[{"id": "...", "fact": "...", "created_at": "..."}]` |
 
-| Method | Path | Notes |
-|---|---|---|
-| POST | `/meetings` | `{url, title?}` → bot joins |
-| GET | `/meetings/{id}` | status, minutes JSON, Notion URL |
-| POST | `/webhooks/vexa` | meeting ended / transcript ready |
+### Save Fact
 
-## Key schemas (from `packages/shared`)
+| Method | Path | Request Body | Response |
+|---|---|---|---|
+| `POST` | `/v1/memory` | `{"fact": "Prefers morning standups before 11 AM IST"}` | `{"id": "...", "status": "saved"}` |
 
-```python
-class ActionEvent(BaseModel):
-    id: UUID; job_id: UUID | None; ts: datetime
-    tool: str                 # "calendar.create_event"
-    tier: Literal["R", "W", "A"]
-    status: Literal["started", "succeeded", "failed", "awaiting_approval", "denied", "undone"]
-    summary: str              # human sentence in user's language
-    args_redacted: dict; result_redacted: dict | None
-    undo_available: bool
+### Delete Fact
 
-class ApprovalRequest(BaseModel):
-    id: UUID; tool: str; summary: str; expires_at: datetime
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `DELETE` | `/v1/memory/{fact_id}` | Removes a remembered fact. | `{"status": "deleted"}` |
 
-class CallOutcome(BaseModel):
-    status: Literal["booked", "declined", "no_answer", "failed", "needs_user"]
-    slot: datetime | None; notes: str; transcript_id: UUID | None
+---
 
-class Minutes(BaseModel):
-    summary: str; decisions: list[str]
-    action_items: list[ActionItem]   # {text, owner, due: date | None}
-    open_questions: list[str]
-```
+## Proactive Discoveries
 
-## SSE event example
+### List Discoveries
 
-```
-event: approval_request
-data: {"id":"0192…","tool":"call_tool.start_call","summary":"Dr. Mehta ke clinic ko call karoon?","expires_at":"2026-11-02T12:00:30Z"}
-```
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `GET` | `/v1/discoveries` | Returns background research discoveries and personalized recommendations. | `[{"id": "...", "title": "...", "summary": "...", "url": "..."}]` |
 
-## Rate limits
+### Trigger Discovery Run
 
-60 req/min per user on REST; SSE 2 concurrent streams per user; webhooks unlimited but signature-verified.
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `POST` | `/v1/discoveries/trigger` | Manually triggers the autonomous background research loop. | `{"status": "triggered"}` |
+
+---
+
+## File Library (`~/Documents/Rex`)
+
+### List Files
+
+| Method | Path | Description | Response |
+|---|---|---|---|
+| `GET` | `/v1/files` | Lists categorized documents, downloads, and notes managed by Rex. | `[{"name": "...", "path": "...", "size": 1024, "modified_at": "..."}]` |
+
+### Save Note
+
+| Method | Path | Request Body | Response |
+|---|---|---|---|
+| `POST` | `/v1/files/note` | `{"filename": "project-notes.md", "content": "# Notes..."}` | `{"path": "...", "status": "saved"}` |

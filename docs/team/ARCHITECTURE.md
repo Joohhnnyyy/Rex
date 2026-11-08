@@ -16,43 +16,40 @@ Status: v1 design, 24 Oct 2026. Owners: Johny (realtime + clients), Shanky (orch
 ```mermaid
 flowchart TB
   subgraph Clients
-    WEB[Web dashboard<br/>Next.js]
-    DESK[Desktop companion<br/>Tauri]
-    PHONE[Phone<br/>Twilio PSTN]
+    WEB[Web dashboard<br/>Next.js 15 & Living Mascot]
+    SHARE[LiveKit Screen Share Track]
+    DESK[macOS Native Apps<br/>Accessibility Engine]
     MEET[Meeting bot<br/>Vexa]
   end
   subgraph Realtime["Realtime layer (LiveKit)"]
-    ROOM[LiveKit room]
-    SIP[LiveKit SIP<br/>Twilio trunk]
+    ROOM[LiveKit Room<br/>WebRTC Audio + Video]
   end
   subgraph Agent["apps/agent (Python worker)"]
-    VAD[Silero VAD + turn detector]
-    STT[Gnani Prisma STT<br/>WebSocket]
-    LANG[Language router]
-    SUP[Supervisor agent]
+    VAD[Silero VAD + Turn Detector]
+    STT[Gnani Prisma STT<br/>WebSocket, hi-IN/en-IN]
+    LANG[Language Router]
+    SUP[Supervisor Agent]
     TTS[Gnani Timbre TTS<br/>WebSocket, barge-in]
   end
   subgraph Specialists
-    COMMS[Comms]
+    COMMS[Comms & Email]
     CAL[Calendar]
-    CALLER[Caller]
+    DESK_SPEC[Desktop & Screen]
     MTG[Meeting]
-    CODER[Coder]
-    SCREEN[Screen + Browser]
+    CODER[Coder Sandbox]
+    FILES_SPEC[Files & Memory]
   end
-  GW[MCP Gateway<br/>tiers · audit · retries]
+  GW[MCP Gateway<br/>tiers R/W/A · audit · undo]
   subgraph Tools["MCP servers"]
-    GWS[Google Workspace]
-    SLACK[Slack]
-    NOTION[Notion]
-    MAPS[Google Maps]
-    GH[GitHub]
-    SBX[Docker sandbox]
-    CALLT[call_tool]
-    VEXA[Vexa MCP]
-    PW[Playwright]
-    SCR[screen_tool]
-    MEM[Memory graph]
+    GWS[Google Calendar & Gmail]
+    SLACK[Slack Workspace]
+    NOTION[Notion Docs]
+    MAPS[OpenStreetMap]
+    SBX[Docker Sandbox]
+    VEXA_TOOL[Vexa Meeting Bot]
+    PW[Playwright Browser]
+    FILES_TOOL[Local File Library]
+    MEM[Persistent Memory]
   end
   API[apps/api FastAPI]
   DB[(Postgres + pgvector)]
@@ -122,22 +119,22 @@ sequenceDiagram
 
 Language is locked per turn and stored on the session so replies match.
 
-### 3.4 Supervisor and specialists (Shanky) — `apps/agent/brain/`
+### 3.4 Supervisor and Specialists (Shanky) — `apps/agent/brain/`
 
-- Orchestration: **LangGraph** state machine. Nodes: `understand → route → (specialist subgraph) → confirm? → act → summarise`.
-- Supervisor prompt holds: user profile, current time + timezone (Asia/Kolkata), language, short memory recall, list of specialists with one-line descriptions. It **does not** see raw tool lists.
-- Each specialist is a subgraph with its own model and ≤ 10 tools:
+- Orchestration: LiveKit native function tools with our `Supervisor` class (D-021). The supervisor exposes tools directly with strict JSON schema definitions while enforcing gateway security boundaries.
+- Supervisor prompt holds: user profile, current time + timezone (Asia/Kolkata), language, short memory recall, and specialist instructions.
+- Specialists and execution contexts:
 
-| Specialist | Model (via llm_router) | MCP tools | Tier mix |
+| Specialist | Model (via llm_router) | MCP Tools | Tier Mix |
 |---|---|---|---|
-| Comms | Mistral Small | slack.read/post, gmail.* (stretch) | R, A |
-| Calendar | Gemini Flash | calendar.freebusy/create/update/delete | R, W |
-| Caller | Gemini Flash (planning) + realtime sub-session | call_tool.start/status/hangup, calendar.create | A |
-| Meeting | Mistral (summaries) | vexa.*, minutes.make, notion.create, slack.post | R, W, A |
-| Coder | Codestral | sandbox.*, github.*, fs.*, git.* | R, W, A (merge) |
-| Screen + Browser | Gemini (vision) | screen.capture/describe, playwright.* | R, A |
+| Comms & Email | Gemini Flash Lite / Mistral | slack.*, gmail.* | R, A |
+| Calendar | Gemini Flash Lite | calendar.freebusy/create/update/delete | R, W, A |
+| Desktop & Screen | Gemini Flash Lite | desktop_*, look_at_screen | R, W |
+| Meeting | Mistral Small | vexa.*, minutes.generate_minutes, notion.* | R, W, A |
+| Coder | Codestral | sandbox.* (read/write/run_tests/execute) | R, W |
+| Files & Memory | Gemini Flash Lite | files.*, memory.*, discoveries.* | R, W |
 
-- **Fast ack rule**: if the router predicts > 1 tool call or a specialist marked `slow` (Caller, Meeting, Coder), it emits an ack immediately and enqueues a job.
+- **Fast ack rule**: when executing complex tools, the agent emits an immediate acknowledgement ("On it" / "Ek minute") before running the gateway call to avoid awkward voice silence.
 
 ### 3.5 LLM router (Shanky) — `packages/llm_router/`
 
@@ -155,96 +152,84 @@ route(task_kind, needs_vision, needs_code, lang) -> ModelSpec
 
 Router handles rate-limit (429) backoff and automatic fallback, and logs model + tokens per call.
 
-### 3.6 Caller sub-system (Johny) — `packages/mcp_servers/call_tool/`
+### 3.6 Desktop Automation & Screen Vision (Johny) — `apps/agent/src/rex_agent/`
 
 ```mermaid
 sequenceDiagram
-  participant SUP as Supervisor
-  participant CT as call_tool MCP
-  participant LK as LiveKit API
-  participant TW as Twilio
-  participant CA as Caller agent (new room)
-  participant H as Human (clinic)
-  SUP->>CT: start_call(to, goal, constraints, lang)
-  CT->>LK: create room + dispatch caller agent (metadata: goal)
-  CA->>LK: CreateSIPParticipant(trunk, to, wait_until_answered)
-  LK->>TW: SIP INVITE
-  TW->>H: rings
-  H-->>CA: "Hello?"
-  CA->>H: "Hello, this is Rex, Johny's AI assistant, calling on his behalf…"
-  CA->>H: negotiates slot within constraints
-  CA->>CT: outcome {status, slot, notes, transcript_id}
-  CT-->>SUP: outcome
-  SUP->>SUP: Calendar.create(slot) (Tier W) → speak result
+  participant U as User (Speech)
+  participant STT as Gnani Prisma STT
+  participant SUP as Supervisor Agent
+  participant DESK as Desktop Engine (Accessibility)
+  participant SCR as Screen Vision (WebRTC Frame)
+  participant TTS as Gnani Timbre TTS
+
+  U->>STT: "WhatsApp pe Shanky ko message bhejo ki sync 5 baje hai"
+  STT->>SUP: Transcript (hi-IN / en-IN)
+  SUP->>DESK: desktop_launch("WhatsApp")
+  DESK->>DESK: Inspect Accessibility Tree (Refs & Inputs)
+  DESK->>DESK: desktop_click(ref), desktop_type(text)
+  DESK-->>SUP: Dispatched & Verified
+  SUP->>TTS: Spoken Confirmation ("WhatsApp message sent to Shanky.")
+  TTS-->>U: Synthesized Audio (Timbre)
 ```
 
-- Caller agent = a separate LiveKit agent session (same voice stack at 8 kHz) whose instructions are the goal + constraints + disclosure line.
-- Tools inside the call: `propose_slot`, `confirm_booking`, `end_call` (EndCallTool), `escalate_to_user` (stretch: bridges the user in).
-- Twilio trial: only verified numbers can be called → we verify Johny's and Shanky's phones; the demo uses those. A trial message plays before the call — acceptable and honest.
+- Direct macOS accessibility tree inspection: accesses window elements, buttons, text inputs and lists via structural refs without pixel hallucination or OCR latency.
+- WebRTC screen share vision: grabs live decoded video frames from the browser's screen share track for visual debugging and questions like *"What is this error?"*.
 
-### 3.7 Meeting pipeline (Shanky, STT by Johny)
+### 3.7 Meeting Pipeline (Shanky, STT by Johny)
 
 1. `meeting.join(url)` → Vexa bot joins; announces recording.
-2. On end: fetch audio → **Gnani batch STT** (bilingual `en-IN,hi-IN` where useful) → diarised transcript.
+2. Diarised transcript extracted from audio stream.
 3. Mistral produces minutes: summary, decisions, action items (owner, due date), open questions — strict JSON schema.
 4. Notion page created from template; Slack post with link; action items optionally become calendar holds (Tier W).
 
-Vexa transcripts are polled (no WebSocket yet), so minutes are produced after the meeting.
+### 3.8 Coder Sandbox (Shanky)
 
-### 3.8 Coder sandbox (Shanky)
+- One Docker container per job from `infra/sandbox.Dockerfile` (git, python, node, test runners), workspace boundary enforced, network isolated.
+- Loop: read file → patch → run pytest suite → retry up to 3 times.
 
-- One Docker container per job from `infra/sandbox.Dockerfile` (git, python, node, test runners), no host mounts, network limited to GitHub + package registries, 10-minute wall clock.
-- Loop: clone → locate (ripgrep + LLM) → patch → run tests → retry ≤ 3 → push branch → open **draft** PR (Tier W). Merging is Tier A.
+### 3.9 Browser Automation (Shanky) — `rex_mcp_servers.browser`
 
-### 3.9 Screen + browser (Johny: capture; Shanky: browser)
-
-- Desktop companion captures the active window/region **only when asked** ("ye kya hai?") or while "watch mode" is visibly on.
-- Text first: OS accessibility text where available, OCR fallback, screenshot only if needed (cheaper and more private — pattern from screenpipe).
-- Exposed as local MCP `screen_tool` over a secure WebSocket bridge to the gateway.
-- Browser: Playwright MCP in a dedicated browser profile; every submit/purchase/login is Tier A.
+- Headless Playwright engine with strict permission tier separation: page navigation (`navigate`) and reading (`read_page`) are Tier R; form typing (`fill_form`) is Tier W; form submission (`submit_form`) is Tier A requiring explicit user confirmation.
 
 ### 3.10 MCP Gateway (Shanky) — `packages/mcp_gateway/`
 
-Responsibilities: connect to all servers (stdio / streamable HTTP), namespace tools (`slack.post_message`), enforce tiers, inject per-user OAuth tokens, timeouts + retry, write `action_events`, emit approval requests, support **undo** where a compensating action exists. Detail: [MCP_CONNECTION.md](MCP_CONNECTION.md).
+Responsibilities: connect to all servers (stdio / streamable HTTP), namespace tools, enforce tiers (R/W/A), inject OAuth tokens, timeouts + retry, write `action_events`, emit approval requests, support **undo** on Tier W actions where a compensating action exists. Detail: [MCP_CONNECTION.md](MCP_CONNECTION.md).
 
 ### 3.11 Backend API (Shanky) — `apps/api/`
 
-FastAPI + SQLAlchemy + Alembic. Auth, users, OAuth connections, sessions, jobs, timeline (SSE), approvals, webhooks (Twilio status, Vexa), LiveKit token minting. Detail: [API.md](API.md), [DATABASE.md](DATABASE.md), [BACKEND_CONTEXT.md](BACKEND_CONTEXT.md).
+FastAPI async service providing LiveKit room token minting, user connection credentials, file library indexing, and cross-session memory endpoints. Detail: [API.md](API.md).
 
-## 4. Data flow of one request (the dentist example)
+## 4. Data Flow of One Request (Calendar & Travel Example)
 
-1. Johny: "Dentist ko call karke Saturday shaam ka slot book karo." (web, 16 kHz)
-2. Prisma STT → `hi-IN` transcript; language locked to Hindi/Hinglish.
-3. Supervisor → intent `book_appointment_by_phone`, specialist **Caller** (slow) → fast ack "Theek hai, dentist ko call kar raha hoon."
-4. Job enqueued; gateway checks Tier A for `call_tool.start_call` → approval prompt "Dr. Mehta's clinic ko call karoon?" → "haan".
-5. Caller agent dials via Twilio, books "Saturday 6 PM".
-6. Outcome → Calendar specialist creates event (Tier W, announced, undo available) → Maps adds ETA.
-7. Supervisor speaks: "Saturday shaam 6 baje ka appointment ho gaya, calendar mein daal diya. Wahan pahunchne mein 25 minute lagenge."
-8. Timeline shows 4 events: approval, call, calendar.create, maps.eta.
+1. Johny: "Rex, kal subah 10 baje Indiranagar mein client meeting schedule karo." (WebRTC, 16 kHz)
+2. Prisma STT → `hi-IN` streaming transcript; language locked to Hinglish.
+3. Supervisor → acknowledges immediately ("Ek minute, schedule karta hoon"), calls `calendar.create_event` (Tier W, registered on undo stack).
+4. Supervisor calls `location.travel_time` (Tier R) to calculate driving time from current coordinates.
+5. Supervisor speaks via Timbre TTS: "Kal subah 10 baje meeting schedule ho gayi. Indiranagar pahunchne mein lagbhag 35 minute lagenge."
+6. Undo safety: if the user says "Rex, undo karo", the gateway pops the compensating action (`calendar.delete_event`) and reverts the change.
 
 ## 5. Deployment
 
 ```mermaid
 flowchart LR
-  subgraph VM["Cloud VM (Mumbai region) — docker compose"]
-    AG[agent worker ×2]
-    AP[api]
-    WB[web]
-    PG[(postgres)]
-    RD[(redis)]
-    VX[vexa]
-    SB[sandbox runner]
-    CD[caddy TLS]
+  subgraph Services ["Rex Application Services"]
+    AG[LiveKit Agent Worker<br/>apps/agent]
+    AP[FastAPI Backend<br/>apps/api]
+    WB[Next.js Dashboard<br/>apps/web]
+    GW[MCP Gateway<br/>packages/mcp_gateway]
   end
-  LKC[LiveKit Cloud free tier]
-  TWC[Twilio]
-  GN[Gnani APIs]
-  LLM[Gemini · Mistral · OpenRouter]
-  CD --> WB & AP
+  LKC[LiveKit Cloud WebRTC]
+  GN[Gnani Prisma & Timbre]
+  LLM[Gemini · Groq · Mistral · Codestral]
+  EXT[Google Workspace · Slack · Notion]
+
+  WB <--> AP
+  WB <--> LKC
   AG <--> LKC
-  LKC <--> TWC
   AG --> GN & LLM
-  DESKTOP[Desktop companion] -->|wss| AP
+  AG --> GW
+  GW --> EXT
 ```
 
 - Dev: everything local via `docker compose` + LiveKit Cloud project.

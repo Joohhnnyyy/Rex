@@ -1,65 +1,67 @@
 # Debugging Guide
 
-## First 60 seconds
+## First 60 Seconds
 
-1. `make status` — are postgres, redis, api, agent, web, vexa up?
-2. Dashboard → Timeline: did the action start? what status?
-3. Langfuse: open the trace for the `turn_id` (link on each timeline card) — which span failed or was slow?
-4. Logs: `docker compose logs -f agent | jq 'select(.session_id=="…")'`.
-5. Search claude-mem (`search "<error text>"`) — has this happened before? Then check DECISION_LOG.md.
+1. **API Backend**: Verify FastAPI is healthy on port 8000:
+   ```bash
+   curl http://localhost:8000/healthz
+   # Expected: {"status": "ok", "service": "rex-api"}
+   ```
+2. **LiveKit Agent Worker**: Ensure `uv run python -m rex_agent dev` is running without worker pool timeouts.
+3. **Web Dashboard**: Confirm Next.js dashboard is reachable at `http://localhost:3000`.
+4. **Google OAuth Token**: Verify token exists and is valid:
+   ```bash
+   uv run python -m rex_mcp_servers.calendar login
+   ```
+5. **Decisions & Context**: Check [DECISION_LOG.md](DECISION_LOG.md) to see if an architectural change affects the behavior.
 
-## Tracing IDs
+---
 
-Every log line carries `session_id`, `turn_id`, optional `job_id`, `tool`, `trace_id`. The timeline card shows them under "details".
+## Tracing & Logs
 
-## Voice problems
+Every log line in the agent worker uses `structlog` with context variables: `session_id`, `turn_id`, and `tool`.
 
-| Symptom | Likely cause | Fix |
+```bash
+# Monitor live agent worker logs
+uv run --env-file .env python -m rex_agent dev
+```
+
+---
+
+## Voice Loop Troubleshooting
+
+| Symptom | Likely Cause | Solution |
 |---|---|---|
-| No transcript | Wrong audio format to Prisma WS | Must be PCM16 LE mono, 512-sample frames, real-time pace; check `sample_rate` matches the source (8 k phone / 16 k web) |
-| Transcript arrives late | Gnani sends finals only; VAD end-of-speech too long | Lower `min_silence_duration` (try 350–450 ms); check `stt_ms` metric |
-| Agent talks over user | Barge-in disabled or echo | Use interruptible WS TTS; enable echo cancellation in browser (`echoCancellation: true`) |
-| Wrong language reply | Lang lock not set / TTS voice map missing | Check `turn.lang`, `voices.py` map |
-| Numbers garbled ("chaar" vs 4) | `format=verbatim` | Use `format=transcribe` |
-| Robotic pauses | TTS REST instead of WS | Use WebSocket/SSE streaming TTS |
+| **No transcript** | Mismatched audio format to Gnani Prisma WS | Must be PCM16 LE mono, 16 kHz for WebRTC, 512-sample frames. |
+| **Transcript arrives late** | VAD silence duration too long | Adjust `min_silence_duration` in agent config (350–450 ms). |
+| **Agent speaks over user** | Barge-in cancellation not firing | Ensure Silero VAD turn detector is active and client audio echo cancellation is enabled. |
+| **Wrong language reply** | Language lock not set / TTS voice map missing | Check detected `turn.lang` in worker logs; ensure matching Timbre voice is mapped. |
+| **Numbers garbled ("chaar" vs 4)** | STT format mode set to verbatim | Configure Prisma with `format="transcribe"` for inverse text normalization. |
+| **Robotic voice pauses** | REST TTS used instead of WebSocket streaming | Ensure Gnani Timbre WebSocket streaming client is active. |
 
-## Telephony problems
+---
 
-| Symptom | Fix |
-|---|---|
-| `SipCallError` 403/21219 | Trial account calling an unverified number → verify it in Twilio |
-| Call connects, silence | Codec/sample rate: phone leg is 8 kHz; set STT 8000; check LiveKit trunk media settings |
-| Trial message plays first | Expected on Twilio trial; mention in demo or upgrade |
-| Agent never joins room | Dispatch failed — check agent worker registration name matches dispatch |
+## Tool & MCP Gateway Issues
 
-## Tool / MCP problems
+| Symptom | Likely Cause | Solution |
+|---|---|---|
+| **Tool not discovered** | MCP server failed to start or crashed on init | Run the server directly (e.g. `uv run python -m rex_mcp_servers.calendar`) to verify JSON-RPC stdio. |
+| **ToolTimeout** | Network or external API latency exceeded timeout | Raise `timeout_s` in `infra/mcp_servers.yaml`. |
+| **401/403 from Google / Slack / Notion** | Expired or missing OAuth token | Re-authenticate via `uv run python -m rex_mcp_servers.calendar login` or refresh tokens in `.env`. |
+| **Approval never resolves** | LiveKit RPC client disconnected | Confirm the web client is connected and listening to the `rex.decide` RPC method. |
+| **Model picks wrong tool** | Overcrowded tool prompt | Check tool subset allow-list in `infra/mcp_servers.yaml`; rex supervisor limits active tools to ≤ 25. |
 
-| Symptom | Fix |
-|---|---|
-| Tool not listed | Server crashed at start; run its command manually; stdout must be JSON-RPC only |
-| `ToolTimeout` | Raise per-tool timeout in yaml or move to job queue |
-| 401/403 from provider | Reconnect in Connections; check scopes |
-| Approval never resolves | SSE disconnected; check `approval:{id}` key in Redis |
-| LLM picks wrong specialist | Add eval case; tighten specialist descriptions; check router model fallback didn't kick in |
+---
 
-## LLM problems
+## LLM Router & Provider Failover
 
-- 429s → router should fall back; check `llm_router` logs for `fallback_to`.
-- JSON parse errors in minutes → use structured output / schema mode; retry once with error message.
-- Hallucinated tool args → validate with Pydantic before gateway call; return the validation error to the model.
+- **Rate Limits (429s)**: The router automatically cascades from Gemini 3.1 Flash Lite &rarr; Groq Llama 3.3 &rarr; Mistral Small. Check `llm_router` logs for `fallback_to` events.
+- **Provider History Incompatibility**: If failover between Gemini and Groq/Mistral occurs, `PortableLLM` automatically strips Gemini-specific `thought_signature` fields to prevent HTTP 422 errors.
+- **Malformed Tool Call Arguments**: Gateway Pydantic schemas validate all arguments before dispatch and return structured error messages back to the LLM for self-correction.
 
-## Coder sandbox
+---
 
-`docker logs rex-sbx-<job_id>`; containers are kept 15 min after failure for inspection (`make sbx-shell JOB=<id>`).
+## Desktop Accessibility & Screen Vision
 
-## Desktop companion
-
-Tauri dev tools: `pnpm --filter desktop tauri dev`, right-click → Inspect. macOS screen capture needs *System Settings → Privacy → Screen Recording* permission for the app (and the terminal in dev).
-
-## Reproducing a bug
-
-Save the turn audio (`DEBUG_SAVE_AUDIO=1`, synthetic sessions only) → replay with `python scripts/replay_turn.py <file.wav>` → add it to `evals/regressions/`.
-
-## Logging a fix
-
-Add a line to DECISION_LOG.md if the fix changed a design choice; add an observation `note: fixed …` to the task in the project graph.
+- **Accessibility Permissions**: macOS requires explicit permission under *System Settings &rarr; Privacy & Security &rarr; Accessibility* for the terminal or agent runner process.
+- **Screen Recording Permissions**: WebRTC screen share vision requires *System Settings &rarr; Privacy & Security &rarr; Screen Recording* permission granted to the browser (Chrome / Safari).

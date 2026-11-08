@@ -6,14 +6,13 @@ How a feature goes from idea to merged, for humans and AI agents alike.
 
 ```mermaid
 flowchart LR
-  A[Idea / T-xx in roadmap] --> B[Spec in PR description]
+  A[Idea / Roadmap Task] --> B[Spec in PR description]
   B --> C[Schemas in packages/shared]
   C --> D[Build + unit tests]
   D --> E[Eval cases]
   E --> F[PR review by teammate]
   F --> G[Merge to main]
-  G --> H[Graph: status done + progress.py]
-  H --> I[HANDOFF.md note]
+  G --> H[Update DECISION_LOG.md]
 ```
 
 ## 2. Branches and PRs
@@ -31,8 +30,7 @@ flowchart LR
 - [ ] make check green
 - [ ] new tool has tier in mcp_servers.yaml
 - [ ] eval cases added (≥3) if prompts/routing changed
-- [ ] docs updated (which?)
-- [ ] graph updated + PROGRESS.md regenerated
+- [ ] docs and decision log updated
 ```
 
 - One reviewer (the other teammate). Review within 4 hours during the build window.
