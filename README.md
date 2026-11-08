@@ -5,124 +5,41 @@
   </picture>
 </h1>
 
-<p align="center"><strong>Your personal AI sidekick.</strong><br>
-Just talk. Rex searches the web, texts on WhatsApp and checks it landed, handles your inbox, calendar and Mac apps,<br>
-remembers what you tell it, and asks before anything risky.</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Rex-your%20AI%20sidekick-FF4055?style=for-the-badge&labelColor=141418&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDYyIDIxNiAxMzIiIHJvbGU9ImltZyI+PHRpdGxlPlJleCAvIGNvbmZ1c2VkIC8gcmVkPC90aXRsZT48cGF0aCBmaWxsPSIjRkY0MDU1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04Ni4wMDAgNjYuMDAwTDE3MC4wMDAgNjYuMDAwQzIwNC4yNDIgNjYuMDAwIDIzMi4wMDAgOTMuNzU4IDIzMi4wMDAgMTI4LjAwMEwyMzIuMDAwIDEyOC4wMDBDMjMyLjAwMCAxNjIuMjQyIDIwNC4yNDIgMTkwLjAwMCAxNzAuMDAwIDE5MC4wMDBMODYuMDAwIDE5MC4wMDBDNTEuNzU4IDE5MC4wMDAgMjQuMDAwIDE2Mi4yNDIgMjQuMDAwIDEyOC4wMDBMMjQuMDAwIDEyOC4wMDBDMjQuMDAwIDkzLjc1OCA1MS43NTggNjYuMDAwIDg2LjAwMCA2Ni4wMDBaTTk0LjMwNiA5NC43NTBMOTQuMzA2IDk0Ljc1MEM5OS42NDEgOTMuMzIwIDEwNS4xMjQgOTYuNDg2IDEwNi41NTMgMTAxLjgyMUwxMTIuNzY1IDEyNS4wMDNDMTE0LjE5NSAxMzAuMzM4IDExMS4wMjkgMTM1LjgyMSAxMDUuNjk0IDEzNy4yNTBMMTA1LjY5NCAxMzcuMjUwQzEwMC4zNTkgMTM4LjY4MCA5NC44NzYgMTM1LjUxNCA5My40NDcgMTMwLjE3OUw4Ny4yMzUgMTA2Ljk5N0M4NS44MDUgMTAxLjY2MiA4OC45NzEgOTYuMTc5IDk0LjMwNiA5NC43NTBaTTE1Ni4xNzAgMTEzLjcwNkwxNjQuODMwIDExOC43MDZDMTY5LjEzNSAxMjEuMTkxIDE3MC42MTAgMTI2LjY5NSAxNjguMTI0IDEzMS4wMDBMMTY4LjEyNCAxMzEuMDAwQzE2NS42MzkgMTM1LjMwNSAxNjAuMTM1IDEzNi43ODAgMTU1LjgzMCAxMzQuMjk0TDE0Ny4xNzAgMTI5LjI5NEMxNDIuODY1IDEyNi44MDkgMTQxLjM5MCAxMjEuMzA1IDE0My44NzYgMTE3LjAwMEwxNDMuODc2IDExNy4wMDBDMTQ2LjM2MSAxMTIuNjk1IDE1MS44NjUgMTExLjIyMCAxNTYuMTcwIDExMy43MDZaIi8+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOTQuMzA2IDk0Ljc1MEw5NC4zMDYgOTQuNzUwQzk5LjY0MSA5My4zMjAgMTA1LjEyNCA5Ni40ODYgMTA2LjU1MyAxMDEuODIxTDExMi43NjUgMTI1LjAwM0MxMTQuMTk1IDEzMC4zMzggMTExLjAyOSAxMzUuODIxIDEwNS42OTQgMTM3LjI1MEwxMDUuNjk0IDEzNy4yNTBDMTAwLjM1OSAxMzguNjgwIDk0Ljg3NiAxMzUuNTE0IDkzLjQ0NyAxMzAuMTc5TDg3LjIzNSAxMDYuOTk3Qzg1LjgwNSAxMDEuNjYyIDg4Ljk3MSA5Ni4xNzkgOTQuMzA2IDk0Ljc1MFpNMTU2LjE3MCAxMTMuNzA2TDE2NC44MzAgMTE4LjcwNkMxNjkuMTM1IDEyMS4xOTEgMTcwLjYxMCAxMjYuNjk1IDE2OC4xMjQgMTMxLjAwMEwxNjguMTI0IDEzMS4wMDBDMTY1LjYzOSAxMzUuMzA1IDE2MC4xMzUgMTM2Ljc4MCAxNTUuODMwIDEzNC4yOTRMMTQ3LjE3MCAxMjkuMjk0QzE0Mi44NjUgMTI2LjgwOSAxNDEuMzkwIDEyMS4zMDUgMTQzLjg3NiAxMTcuMDAwTDE0My44NzYgMTE3LjAwMEMxNDYuMzYxIDExMi42OTUgMTUxLjg2NSAxMTEuMjIwIDE1Ni4xNzAgMTEzLjcwNloiLz48L3N2Zz4K" alt="Rex: your AI sidekick">
-  <a href="https://www.gnani.ai/internship"><img src="https://img.shields.io/badge/Gnani.ai-Great%20Indian%20AI%20Internship%20Challenge-141418?style=for-the-badge&labelColor=FF4055" alt="Built for the Gnani.ai Great Indian AI Internship Challenge"></a>
-  <br>
-  <img src="https://img.shields.io/badge/voice%20powered%20by-Gnani%20Prisma%20STT%20%2B%20Timbre%20TTS-FF4055?labelColor=141418" alt="Voice powered by Gnani">
-  <a href="https://github.com/Joohhnnyyy/Rex/actions/workflows/ci.yml"><img src="https://github.com/Joohhnnyyy/Rex/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <img src="https://img.shields.io/badge/Python-3.12-141418?logo=python&logoColor=white" alt="Python 3.12">
-  <img src="https://img.shields.io/badge/Next.js-15-141418?logo=nextdotjs&logoColor=white" alt="Next.js 15">
-  <img src="https://img.shields.io/badge/LiveKit-Agents-141418" alt="LiveKit Agents">
-  <img src="https://img.shields.io/badge/tools-MCP-141418" alt="MCP tools">
-  <img src="https://img.shields.io/badge/license-MIT-141418" alt="MIT license">
-</p>
-
+Rex is a personal AI assistant you can speak to or type to. It uses the browser and your Mac apps to carry out tasks, reports what happened, and remembers useful details between conversations. Gnani Prisma and Timbre power the voice experience, including conversations in Hinglish when multilingual mode is enabled.
 
 https://github.com/user-attachments/assets/0ca531b8-fdf7-4939-ac61-f601bd4dc281
 
+## What Rex does
 
-Rex is a voice-first AI agent built for the **Gnani AI — Great Indian AI Internship Challenge** (submissions close **10 Nov 2026, 11:59 PM IST**). It listens with **Gnani Prisma STT**, speaks with **Gnani Timbre TTS**, plans with a multi-model LLM router (Gemini, Mistral, Codestral), and acts through **MCP** tools: Google Calendar, Gmail, Slack, Notion, Google Maps, GitHub, a code sandbox, Twilio phone calls, a meeting bot, the browser and your screen.
+- **Research and share.** Find information on the web, summarize it with source links, and share it through WhatsApp on macOS or Gmail. For WhatsApp, Rex checks the intended chat before sending and looks for the new message afterward.
+- **Work across apps.** Read Gmail and Slack, manage Google Calendar events, create or update Notion pages, and navigate and fill forms with Playwright. Rex can also answer questions about a screen you choose to share and interact with Mac apps through their accessibility controls.
+- **Save and reuse work.** Keep notes and downloads in Files, remember facts and session summaries, and run reusable routines such as a daily briefing from your calendar and unread mail. Discover looks for new links related to your saved interests when background research is configured.
+- **Show its actions.** The Control Center displays the transcript, activity, and approval requests. Actions such as sending email or submitting a browser form require confirmation by voice or in the dashboard. Some changes, such as creating a calendar event, support undo.
 
-| | |
-|---|---|
-| Team | **Johny** (orchestrator, voice, desktop, frontend) · **Shanky** ( MCP tools, backend, coder) |
-| Award focus | Mixed Vibes (code-mixed speech) · backup: Demo Day Drop |
-| Status | See [PROGRESS.md](docs/team/PROGRESS.md) (generated from the project graph) |
+## Architecture
 
-## What it does (MVP)
-
-1. Full-duplex voice in Hinglish, English and 10 Indian languages, with barge-in.
-2. Calendar: find free slots, create and move events, send invites.
-3. Caller: phones a clinic or shop over Twilio, books a slot, reports back.
-4. Meeting: a bot joins Meet/Zoom, records, and files minutes + action items to Notion and Slack.
-5. Comms: read, summarise and post Slack messages.
-6. Notes: create and search Notion pages.
-7. Location: place search, ETA, share a pin.
-8. Coder: reads a repo, fixes a bug in a Docker sandbox, runs tests, opens a PR.
-9. Screen + browser: "What's this error?" reads the screen; browser control fills forms with approval.
-10. Safety: approval gate for risky actions, live action timeline, undo.
-
-## Meet Rex
-
-<p align="center"><img src="docs/brand/rex-expressions.svg" alt="Rex's expressions: confused, curious, listening, excited, proud, laughing" width="760"></p>
-
-Rex is a red capsule with two eyes and no mouth: every mood is in the eyes. **Confused** is the logo (curious by default),
-**Excited** is for wins. In the dashboard the same face is alive: it follows your pointer, blinks, listens while you
-talk and reacts to what Rex is doing ([apps/web/lib/bloub](apps/web/lib/bloub), [lib/mascot.ts](apps/web/lib/mascot.ts)).
-
-| | |
-|---|---|
-| Colours | ![Rex Red](https://img.shields.io/badge/Rex%20Red-%23FF4055-FF4055) ![Ink](https://img.shields.io/badge/Ink-%23141418-141418) ![Paper](https://img.shields.io/badge/Paper-%23F6F3EE-F6F3EE) |
-| Type | Inter (interface); the wordmark is drawn, never retyped |
-| Logo kit | [design/logo/rex-mascot-kit](design/logo/rex-mascot-kit): masters, mono and reversed cuts, app and web icons, usage guide |
-| Launch video | [launches/rex-v2](launches/rex-v2): 50 s, Pop kinetic × Neon night city, voice powered by Gnani |
-
-## Repository layout
-
-```
-rex/
-├── apps/
-│   ├── agent/          # Python: LiveKit agent worker (voice loop, supervisor, sub-agents)
-│   ├── api/            # Python: FastAPI backend (auth, tasks, timeline, approvals, webhooks)
-│   ├── web/            # TypeScript: Next.js dashboard (live transcript, timeline, approvals)
-│   └── desktop/        # TypeScript/Rust: Tauri companion (push-to-talk, screen capture, tray)
-├── packages/
-│   ├── mcp_gateway/    # Python: MCP client hub, permission tiers, audit log
-│   ├── mcp_servers/    # Python: our own MCP servers (call, screen, approval, skills, minutes)
-│   ├── llm_router/     # Python: model routing (Gemini / Mistral / Codestral / OpenRouter)
-│   └── shared/         # Pydantic schemas + generated TS types
-├── infra/              # MCP server config, sandbox Dockerfile
-├── scripts/            # progress.py and dev helpers
-├── memory/     # project knowledge graph (progress tracking)
-├── design/             # logo kits and mascot expressions
-├── launches/           # launch videos (plan, script, assets; renders are gitignored)
-└── docs/team/          # the documentation set (start with PROJECT_CONTEXT.md)
+```mermaid
+flowchart TD
+    Web["Next.js Control Center"] -->|Room token| API["Local FastAPI service"]
+    Web <-->|Audio, chat, and activity| Room["LiveKit room"]
+    Room -->|Microphone audio| STT["Gnani Prisma STT"]
+    STT -->|Transcript| Worker["Rex worker · LiveKit Agents"]
+    Room -->|Typed requests| Worker
+    Worker <-->|Planning and tool selection| Models["LLM router with fallback"]
+    Worker <-->|Tool calls and results| MCP["MCP gateway and tool servers"]
+    Worker -->|Reply text| TTS["Gnani Timbre TTS"]
+    TTS -->|Spoken reply| Room
+    Worker -->|Action events| Room
 ```
 
-## Quick start (target state)
+The agent worker runs the conversation, calls tools, and sends results back to the room. Reusable routines check each result before moving to the next step. The MCP gateway uses its registry to determine which tools are available and which require approval. [Agent worker](apps/agent/src/rex_agent/main.py) · [Built-in routines](infra/pipelines.yaml) · [MCP registry](infra/mcp_servers.yaml)
 
-```bash
-git clone <repo> rex && cd rex
-cp .env.example .env            # fill in keys — see INTEGRATIONS.md
-cp mcp.json.example .mcp.json   # project-graph MCP for Claude Code (see CLAUDE.md)
-uv sync                         # python workspace
-pnpm install                    # web + desktop
-make dev                        # agent worker + api + web
-```
+The local FastAPI service issues LiveKit room tokens and serves the dashboard's connections, memory, Files, and Discover views. The dashboard receives live activity and sends approval decisions through LiveKit. [API](apps/api/src/rex_api/main.py) · [Dashboard](apps/web/README.md)
 
-Open `http://localhost:3000`, press and hold the mic, and say: *"Kal 4 baje Shanky ke saath meeting rakho."*
+## How Rex uses Gnani
 
-## Documentation map
+1. **Prisma handles incoming speech.** Rex plugs Gnani speech-to-text into its LiveKit agent session and streams microphone audio at 16 kHz. It requests transcription mode so values such as dates, numbers, and currency are normalized before the model handles the request.
+2. **Timbre speaks the response.** The same session sends reply text to Gnani Timbre v3.0 and streams the audio back to the room. Rex defaults to the Lakshmi voice and streams synthesis over SSE. LiveKit handles turn detection and lets the user interrupt a spoken reply.
+3. **Rex adapts the reply language.** English is the default. With `REX_ENGLISH_ONLY=0`, Prisma defaults to `hi-IN` for Hinglish input. Rex uses the transcript to detect the turn's language and updates Timbre's language for the reply.
 
-| Read this | When |
-|---|---|
-| [PROJECT_CONTEXT.md](docs/team/PROJECT_CONTEXT.md) | First. One-page context for humans and agents |
-| [PRD.md](docs/team/PRD.md) | What we are building and why |
-| [ARCHITECTURE.md](docs/team/ARCHITECTURE.md) | How the system fits together |
-| [IMPLEMENTATION_ROADMAP.md](docs/team/IMPLEMENTATION_ROADMAP.md) | Phase-wise plan and who owns what |
-| [FEATURE_DEVELOPMENT.md](docs/team/FEATURE_DEVELOPMENT.md) | How to build and ship a feature |
-| [BACKEND_CONTEXT.md](docs/team/BACKEND_CONTEXT.md) · [API.md](docs/team/API.md) · [DATABASE.md](docs/team/DATABASE.md) | Backend work |
-| [MCP_CONNECTION.md](docs/team/MCP_CONNECTION.md) · [INTEGRATIONS.md](docs/team/INTEGRATIONS.md) | Adding tools and third-party services |
-| [AUTHENTICATION_AND_SECURITY.md](docs/team/AUTHENTICATION_AND_SECURITY.md) | Auth, secrets, permission tiers |
-| [DESIGN.md](docs/team/DESIGN.md) | UI and voice design |
-| [DEBUGGING.md](docs/team/DEBUGGING.md) | When something breaks |
-| [DECISIONS.md](docs/team/DECISIONS.md) · [DECISION_LOG.md](docs/team/DECISION_LOG.md) | Why things are the way they are |
-| [HANDOFF.md](docs/team/HANDOFF.md) | End-of-day handoff between Johny and Shanky |
-| [docs/team/SHANKY_PHASE2.md](docs/team/SHANKY_PHASE2.md) | Shanky's Phase 2 work package (MCPs + workflow tests) and its checker |
-| [AGENTS.md](AGENTS.md) · [CLAUDE.md](CLAUDE.md) | Instructions for AI coding agents |
-
-## Contest rules we must respect
-
-- At least one Gnani model in every demo path (we use Prisma STT and Timbre TTS everywhere).
-- **Synthetic data only**: no real phone numbers, Aadhaar, PAN or recorded calls. Calls go to the team's own verified numbers.
-- Demo video posted publicly on LinkedIn or X with `#GnaniAI` and `#GreatIndianAIInternshipChallenge`, tagging Gnani AI, **before** submission.
-- No misleading demos: anything mocked is labelled as mocked.
-
-## License
-
-MIT (code). Third-party components keep their own licenses — see [INTEGRATIONS.md](docs/team/INTEGRATIONS.md).
+[Gnani speech adapters](apps/agent/src/rex_agent/models.py) · [Voice settings](apps/agent/src/rex_agent/config.py)
