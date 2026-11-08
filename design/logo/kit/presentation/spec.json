@@ -1,0 +1,42 @@
+{
+  "brand": "Rex",
+  "tagline": "Your voice operator. Unimpressed, then on it.",
+  "brief": "Rex is a multilingual voice operator for Indian users: it actually does things (WhatsApp, email, calendar, the web, Mac apps) instead of just answering. It should feel warm, quick and a little witty, and look nothing like the blue orbs, sparkles and sound waves of other AI assistants.",
+  "adjectives": ["warm", "quick", "witty", "capable"],
+  "criteria": "Success: unmistakably Rex (the existing mascot's personality), distinct from AI-assistant clichés, readable at 16 px, works in one colour and reversed on the dark dashboard.",
+  "industry": "consumer-app",
+  "nav": ["What Rex does", "Languages", "Try it"],
+  "brand_color": "#FF4055",
+  "tile_color": "#FF4055",
+  "greyscale": false,
+  "final": true,
+  "designer": "Rex team",
+  "round": 2,
+  "concepts": [
+    {
+      "name": "Deadpan",
+      "symbol": "../masters/rex-symbol-color.svg",
+      "lockup": "../masters/rex-horizontal-color.svg",
+      "stacked": "../masters/rex-stacked-color.svg",
+      "avatar": "../masters/rex-symbol-small-color.svg",
+      "symbol_on_tile": "../exports/symbol-small/rex-symbol-small-white.svg",
+      "stacked_on_tile": "../exports/stacked/rex-stacked-white.svg",
+      "symbol_on_dark": "../masters/rex-symbol-color.svg",
+      "lockup_on_dark": "../masters/rex-horizontal-color-dark.svg",
+      "stacked_on_dark": "../masters/rex-stacked-color-dark.svg",
+      "idea": "Rex's face cut to its essence: heavy lids and a sideways glance. Unimpressed, then it gets it done.",
+      "rationale": [
+        "The product's mascot as the mark: the dashboard, app icon and calls all show one face",
+        "No AI clichés: no orb, sparkle, wave or robot; faces with eyes exist, lids don't",
+        "One rounded rectangle and two eyes: strong at 16 px, in one colour and reversed",
+        "Seeds a system: blinks, glances and moods animate the same two lids"
+      ]
+    }
+  ],
+  "recommendation": "Deadpan in Rex Red with the custom 'rex' wordmark. Use the small cut (no pupils) below 32 px.",
+  "next_steps": [
+    "Trademark search before public launch",
+    "Swap the dashboard favicon and app icon for the new set",
+    "Animate the lids for loading and listening states"
+  ]
+}

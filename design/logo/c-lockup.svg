@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 399 256" role="img"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>

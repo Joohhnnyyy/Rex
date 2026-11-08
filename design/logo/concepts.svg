@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1034" viewBox="0 0 1600 1034"><defs><filter id="grey"><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="1600" height="1034" fill="#f7f7f4"/><text x="60" y="78" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#161616">Rex — logo concepts (round 1)</text><text x="60" y="116" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" fill="#6b6b6b">Black first: judge the shape, not the colour</text><rect x="60" y="150" width="474.667" height="824" rx="18" fill="#fff" stroke="#161616" stroke-width="2"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="90" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet"><title>Rex: lidded squircle</title>
+  <path fill="#000" fill-rule="evenodd" d="M92 36H164A72 72 0 0 1 236 108V148A72 72 0 0 1 164 220H92A72 72 0 0 1 20 148V108A72 72 0 0 1 92 36ZM52.53 134L119.47 134A34 34 0 0 1 52.53 134ZM136.53 134L203.47 134A34 34 0 0 1 136.53 134Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M84 146A12 12 0 1 0 108 146A12 12 0 1 0 84 146ZM168 146A12 12 0 1 0 192 146A12 12 0 1 0 168 146Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 687 256" x="90" y="514" width="414.667" height="170" preserveAspectRatio="xMidYMid meet"><title>Rex lockup a</title>
+  <path fill="#000" fill-rule="evenodd" d="M92 36H164A72 72 0 0 1 236 108V148A72 72 0 0 1 164 220H92A72 72 0 0 1 20 148V108A72 72 0 0 1 92 36ZM52.53 134L119.47 134A34 34 0 0 1 52.53 134ZM136.53 134L203.47 134A34 34 0 0 1 136.53 134Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M84 146A12 12 0 1 0 108 146A12 12 0 1 0 84 146ZM168 146A12 12 0 1 0 192 146A12 12 0 1 0 168 146Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M304 64H334V192H304Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M319 128A64 64 0 0 1 383 64H398V94H383A34 34 0 0 0 349 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M531.03 169.14A64 64 0 1 1 546 128L516 128A34 34 0 1 0 508.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M432 127.4L538.92 98.75A64 64 0 0 1 545.92 124.87L432 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M562 64H596.64L670.54 192H635.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M635.9 64H670.54L596.64 192H562Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="90" y="710" width="64" height="64" preserveAspectRatio="xMidYMid meet"><title>Rex: lidded squircle</title>
+  <path fill="#000" fill-rule="evenodd" d="M92 36H164A72 72 0 0 1 236 108V148A72 72 0 0 1 164 220H92A72 72 0 0 1 20 148V108A72 72 0 0 1 92 36ZM52.53 134L119.47 134A34 34 0 0 1 52.53 134ZM136.53 134L203.47 134A34 34 0 0 1 136.53 134Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M84 146A12 12 0 1 0 108 146A12 12 0 1 0 84 146ZM168 146A12 12 0 1 0 192 146A12 12 0 1 0 168 146Z"/>
+</svg>
+</g><text x="122" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="180" y="742" width="32" height="32" preserveAspectRatio="xMidYMid meet"><title>Rex: lidded squircle</title>
+  <path fill="#000" fill-rule="evenodd" d="M92 36H164A72 72 0 0 1 236 108V148A72 72 0 0 1 164 220H92A72 72 0 0 1 20 148V108A72 72 0 0 1 92 36ZM52.53 134L119.47 134A34 34 0 0 1 52.53 134ZM136.53 134L203.47 134A34 34 0 0 1 136.53 134Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M84 146A12 12 0 1 0 108 146A12 12 0 1 0 84 146ZM168 146A12 12 0 1 0 192 146A12 12 0 1 0 168 146Z"/>
+</svg>
+</g><text x="196" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="238" y="758" width="16" height="16" preserveAspectRatio="xMidYMid meet"><title>Rex: lidded squircle</title>
+  <path fill="#000" fill-rule="evenodd" d="M92 36H164A72 72 0 0 1 236 108V148A72 72 0 0 1 164 220H92A72 72 0 0 1 20 148V108A72 72 0 0 1 92 36ZM52.53 134L119.47 134A34 34 0 0 1 52.53 134ZM136.53 134L203.47 134A34 34 0 0 1 136.53 134Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M84 146A12 12 0 1 0 108 146A12 12 0 1 0 84 146ZM168 146A12 12 0 1 0 192 146A12 12 0 1 0 168 146Z"/>
+</svg>
+</g><text x="246" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="830" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">A · Deadpan</text><text x="90.0" y="858" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#161616" letter-spacing="1.5">RECOMMENDED</text><text x="90.0" y="892" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Rex&#x27;s face cut to its essence: heavy lids,</text><text x="90.0" y="918" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">a sideways glance. Unimpressed, then it</text><text x="90.0" y="944" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">gets it done.</text><rect x="562.667" y="150" width="474.667" height="824" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="592.667" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet"><title>Rex: lid-eye R</title>
+  <path fill="#000" fill-rule="evenodd" d="M48 36H80V220H48Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M64 36H140A64 64 0 0 1 140 164H64ZM80 87.96L169.67 111.99A32 32 0 0 1 140 132H80Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M96 148H141L213 220H168Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M117 118A9 9 0 1 0 135 118A9 9 0 1 0 117 118Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 687 256" x="592.667" y="514" width="414.667" height="170" preserveAspectRatio="xMidYMid meet"><title>Rex lockup b</title>
+  <path fill="#000" fill-rule="evenodd" d="M48 36H80V220H48Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M64 36H140A64 64 0 0 1 140 164H64ZM80 87.96L169.67 111.99A32 32 0 0 1 140 132H80Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M96 148H141L213 220H168Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M117 118A9 9 0 1 0 135 118A9 9 0 1 0 117 118Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M304 64H334V192H304Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M319 128A64 64 0 0 1 383 64H398V94H383A34 34 0 0 0 349 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M531.03 169.14A64 64 0 1 1 546 128L516 128A34 34 0 1 0 508.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M432 127.4L538.92 98.75A64 64 0 0 1 545.92 124.87L432 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M562 64H596.64L670.54 192H635.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M635.9 64H670.54L596.64 192H562Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="592.667" y="710" width="64" height="64" preserveAspectRatio="xMidYMid meet"><title>Rex: lid-eye R</title>
+  <path fill="#000" fill-rule="evenodd" d="M48 36H80V220H48Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M64 36H140A64 64 0 0 1 140 164H64ZM80 87.96L169.67 111.99A32 32 0 0 1 140 132H80Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M96 148H141L213 220H168Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M117 118A9 9 0 1 0 135 118A9 9 0 1 0 117 118Z"/>
+</svg>
+</g><text x="624.667" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="682.667" y="742" width="32" height="32" preserveAspectRatio="xMidYMid meet"><title>Rex: lid-eye R</title>
+  <path fill="#000" fill-rule="evenodd" d="M48 36H80V220H48Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M64 36H140A64 64 0 0 1 140 164H64ZM80 87.96L169.67 111.99A32 32 0 0 1 140 132H80Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M96 148H141L213 220H168Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M117 118A9 9 0 1 0 135 118A9 9 0 1 0 117 118Z"/>
+</svg>
+</g><text x="698.667" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 256 256" x="740.667" y="758" width="16" height="16" preserveAspectRatio="xMidYMid meet"><title>Rex: lid-eye R</title>
+  <path fill="#000" fill-rule="evenodd" d="M48 36H80V220H48Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M64 36H140A64 64 0 0 1 140 164H64ZM80 87.96L169.67 111.99A32 32 0 0 1 140 132H80Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M96 148H141L213 220H168Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M117 118A9 9 0 1 0 135 118A9 9 0 1 0 117 118Z"/>
+</svg>
+</g><text x="748.667" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="830" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">B · Side-eye R</text><text x="592.6666666666667" y="864" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">An R whose counter is a half-closed eye:</text><text x="592.6666666666667" y="890" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">the letter is watching.</text><rect x="1065.33" y="150" width="474.667" height="824" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 399 256" x="1095.33" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 399 256" x="1095.33" y="514" width="414.667" height="170" preserveAspectRatio="xMidYMid meet"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 399 256" x="1095.33" y="710" width="64" height="64" preserveAspectRatio="xMidYMid meet"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>
+</g><text x="1127.33" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 399 256" x="1185.33" y="742" width="32" height="32" preserveAspectRatio="xMidYMid meet"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>
+</g><text x="1201.33" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 399 256" x="1243.33" y="758" width="16" height="16" preserveAspectRatio="xMidYMid meet"><title>Rex wordmark</title>
+  <path fill="#000" fill-rule="evenodd" d="M16 64H46V192H16Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M31 128A64 64 0 0 1 95 64H110V94H95A34 34 0 0 0 61 128Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M243.03 169.14A64 64 0 1 1 258 128L228 128A34 34 0 1 0 220.05 149.85Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M144 127.4L250.92 98.75A64 64 0 0 1 257.92 124.87L144 155.4Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M274 64H308.64L382.54 192H347.9Z"/>
+  <path fill="#000" fill-rule="evenodd" d="M347.9 64H382.54L308.64 192H274Z"/>
+</svg>
+</g><text x="1251.33" y="794" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="1095.3333333333335" y="830" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">C · Lidded rex</text><text x="1095.3333333333335" y="864" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">A custom lowercase wordmark; the e&#x27;s bar is</text><text x="1095.3333333333335" y="890" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">tilted like a lid.</text></svg>
