@@ -16,9 +16,9 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import Image from "next/image";
 
-import { MascotFace } from "@/components/dash/Mascot";
 import type { View } from "@/lib/dashboard";
 
 export const TABS: [View, string, LucideIcon][] = [
@@ -63,18 +63,6 @@ export function TopBar({
 }) {
   const [open, setOpen] = useState<"bell" | "me" | null>(null);
   const ref = useRef<HTMLDivElement>(null);
-  // The active-tab highlight is one element that slides between tabs.
-  const tabRefs = useRef<Partial<Record<View, HTMLButtonElement | null>>>({});
-  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
-  useLayoutEffect(() => {
-    const place = () => {
-      const el = tabRefs.current[view];
-      setPill(el ? { left: el.offsetLeft, width: el.offsetWidth } : null);
-    };
-    place();
-    addEventListener("resize", place);
-    return () => removeEventListener("resize", place);
-  }, [view]);
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent | KeyboardEvent) => {
@@ -89,48 +77,20 @@ export function TopBar({
   }, [open]);
 
   return (
-    <header className="flex items-center gap-4 px-4 py-3 lg:px-6">
+    <header className="dashboard-topbar flex items-center gap-2 px-4 py-4 lg:px-6">
       <a href="#" onClick={(e) => (e.preventDefault(), onView("overview"))} className="flex shrink-0 items-center gap-3">
-        <MascotFace size={40} animate={false} className="drop-shadow-[0_0_10px_rgba(255,64,85,0.5)]" />
+        <Image src="/rex-logo.svg" alt="Rex logo" width={40} height={40} priority />
         <span className="hidden leading-tight sm:block">
           <span className="block text-[22px] font-semibold tracking-[0.42em] text-[var(--text)]">REX</span>
-          <span className="block text-[9px] tracking-[0.32em] text-[var(--text-2)]">INTELLIGENT CONTROL CENTER</span>
+          <span className="block text-[9px] tracking-[0.32em] text-[var(--text-2)]">YOUR AI WORKSPACE</span>
         </span>
       </a>
 
-      <nav aria-label="Main" className="mx-auto min-w-0 overflow-x-auto">
-        <ul className="relative flex items-center gap-1 rounded-[14px] border border-[var(--line)] bg-white/[0.02] p-1">
-          {pill && (
-            <li
-              aria-hidden
-              className="pointer-events-none absolute top-1 bottom-1 rounded-[10px] border border-[var(--line-active)] bg-[var(--red-glow)] shadow-[0_0_18px_rgba(255,64,85,0.18)] transition-[left,width] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
-              style={{ left: pill.left, width: pill.width }}
-            />
-          )}
-          {TABS.map(([v, label, Icon]) => (
-            <li key={v}>
-              <button
-                ref={(el) => {
-                  tabRefs.current[v] = el;
-                }}
-                onClick={() => onView(v)}
-                aria-current={view === v ? "page" : undefined}
-                className={`relative flex items-center gap-2 whitespace-nowrap rounded-[10px] border border-transparent px-3.5 py-2 text-sm transition-colors ${
-                  view === v ? "text-[var(--text)]" : "text-[var(--text-2)] hover:text-[var(--text)]"
-                }`}
-              >
-                <Icon className="size-4" aria-hidden />
-                <span className="hidden md:inline">{label}</span>
-                {!!badges[v] && (
-                  <span className="grid min-w-5 place-items-center rounded-full bg-[var(--red)] px-1.5 text-[10px] font-semibold text-white" aria-label={`${badges[v]} new`}>
-                    {badges[v]}
-                  </span>
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="min-w-0 flex-1 px-2 text-sm text-[var(--text-2)] sm:px-5">
+        <span className="hidden sm:inline">Workspace / </span>
+        <span className="font-medium text-[var(--text)]">{[...RAIL].find(([v]) => v === view)?.[1]}</span>
+        {!!badges[view] && <span className="ml-2 text-xs text-[var(--red-hi)]">{badges[view]} new</span>}
+      </div>
 
       <div ref={ref} className="flex shrink-0 items-center gap-3">
         <button
@@ -189,21 +149,21 @@ export function TopBar({
 
 export function Rail({ view, onView }: { view: View; onView: (v: View) => void }) {
   return (
-    <nav aria-label="Sections" className="panel sticky top-4 hidden w-[68px] shrink-0 flex-col items-center gap-3 self-start py-4 lg:flex">
+    <nav aria-label="Sections" className="workspace-rail flex w-full shrink-0 items-center gap-2 overflow-x-auto p-2 md:sticky md:top-5 md:w-[68px] md:flex-col md:overflow-visible md:gap-3 md:self-start md:py-5">
       {RAIL.map(([v, label, Icon]) => (
         <button
           key={v}
           onClick={() => onView(v)}
           aria-label={label}
           aria-current={view === v ? "page" : undefined}
-          className={`group relative grid size-11 place-items-center rounded-[12px] border transition-colors ${
+          className={`rail-item group relative grid size-11 shrink-0 place-items-center rounded-[14px] border transition-colors ${
             view === v
               ? "border-[var(--line-active)] bg-[var(--red-glow)] text-[var(--red-hi)] shadow-[0_0_18px_rgba(255,64,85,0.25)]"
               : "border-transparent text-[var(--text-2)] hover:text-[var(--text)]"
           }`}
         >
           <Icon className="size-5" aria-hidden />
-          <span className="pointer-events-none absolute left-14 z-30 whitespace-nowrap rounded-md bg-[var(--elevated)] px-2 py-1 text-xs text-[var(--text)] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+          <span className="pointer-events-none absolute left-14 z-30 hidden md:block whitespace-nowrap rounded-md bg-[var(--elevated)] px-2 py-1 text-xs text-[var(--text)] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
             {label}
           </span>
         </button>

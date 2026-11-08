@@ -1,0 +1,320 @@
+{
+  "name": "rex-launch",
+  "format": "16:9",
+  "brand": {
+    "name": "Rex",
+    "mark": "assets/rex-mark.png"
+  },
+  "theme": {
+    "accent": "#FF4055",
+    "dark": "#090A0D",
+    "light": "#F4F1EC",
+    "ink": "#141418",
+    "paper": "#ECEDF1",
+    "font": "Inter Tight"
+  },
+  "music": {
+    "synth": true,
+    "bpm": 108
+  },
+  "vo": {
+    "post": 0.2,
+    "hold": 2.2
+  },
+  "scenes": [
+    {
+      "type": "text",
+      "photo": "assets/photos/hook-marine-drive.jpg",
+      "tone": "dark",
+      "size": "l",
+      "vo": "You asked for one thing."
+    },
+    {
+      "type": "text",
+      "photo": "assets/photos/hook-marine-drive.jpg",
+      "tone": "dark",
+      "mode": "type",
+      "size": "m",
+      "photoFrom": 1.12,
+      "photoTo": 1.18,
+      "vo": "Send Shanky the cheapest flights to Bhopal.",
+      "text": "“Send Shanky the cheapest flights to Bhopal.”",
+      "dur": 3.0
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/mascot-confused.mp4",
+      "frame": "none",
+      "width": 0.42,
+      "side": "left",
+      "vo": "Your assistant sent back a paragraph.",
+      "text": "Your assistant sent back… [a paragraph.]",
+      "dur": 2.8
+    },
+    {
+      "type": "hero",
+      "vo": "Meet"
+    },
+    {
+      "type": "logo",
+      "vo": "Rex. Unimpressed, then on it.",
+      "tagline": "Unimpressed,|then on it."
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-overview.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex Control Center",
+      "cam": "tilt",
+      "side": "top",
+      "width": 0.78,
+      "vo": "A voice operator that actually does it.",
+      "text": "A voice operator that *actually does it.*",
+      "dur": 3.0
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-immersive.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex",
+      "side": "top",
+      "width": 0.78,
+      "typing": [
+        {
+          "at": 0.7,
+          "x": 0.4,
+          "y": 0.949,
+          "text": "Bhopal ki sabse sasti flight dhundo",
+          "size": 0.013,
+          "cps": 20
+        }
+      ],
+      "vo": "Talk in Hindi, Hinglish or English.",
+      "text": "Talk in [Hindi,] Hinglish or English.",
+      "dur": 3.0,
+      "cam": "push"
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-discover.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex · Discover",
+      "side": "top",
+      "width": 0.78,
+      "cursor": [
+        {
+          "at": 0.3,
+          "x": 0.7,
+          "y": 0.4
+        },
+        {
+          "at": 1.0,
+          "x": 0.925,
+          "y": 0.129,
+          "click": true
+        }
+      ],
+      "focus": [
+        {
+          "at": 1.4,
+          "rect": [
+            0.07,
+            0.365,
+            0.915,
+            0.219
+          ],
+          "s": 1.06
+        }
+      ],
+      "vo": "It searches the web in seconds,",
+      "text": "It searches the web in [seconds,]",
+      "dur": 3.0
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-immersive.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex",
+      "side": "top",
+      "width": 0.78,
+      "join": true,
+      "toasts": [
+        {
+          "at": 0.5,
+          "title": "WhatsApp · Shankyy",
+          "body": "Top 5 cheapest Delhi → Bhopal flights",
+          "icon": "💬"
+        }
+      ],
+      "toastY": 0.3,
+      "blurBehind": true,
+      "vo": "then texts Shanky on WhatsApp",
+      "text": "then texts Shanky on [WhatsApp]",
+      "dur": 2.6
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/mascot-success.mp4",
+      "frame": "none",
+      "width": 0.42,
+      "side": "right",
+      "vo": "and checks it actually landed.",
+      "text": "and checks it *actually landed.*",
+      "sfx": [
+        {
+          "name": "ding",
+          "at": 0.5
+        }
+      ],
+      "dur": 2.6
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-agents-crop.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex · Agents",
+      "side": "top",
+      "width": 0.84,
+      "vo": "Your inbox. Your calendar. Your Mac apps.",
+      "text": "Your inbox. Your calendar. Your [Mac apps.]",
+      "dur": 2.8,
+      "cam": "push"
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-immersive.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex",
+      "side": "top",
+      "width": 0.78,
+      "toasts": [
+        {
+          "at": 0.6,
+          "title": "Needs your OK",
+          "body": "Email the flight list to Shanky?",
+          "icon": "⏳"
+        }
+      ],
+      "toastY": 0.3,
+      "blurBehind": true,
+      "vo": "Anything risky? It asks first.",
+      "text": "Anything risky? It [asks first.]",
+      "dur": 2.8
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-memory-crop.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex · Memory",
+      "side": "top",
+      "width": 0.84,
+      "vo": "It remembers what you like,",
+      "text": "It remembers *what you like,*",
+      "dur": 2.8,
+      "cam": "push"
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-discover-crop.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex · Discover",
+      "side": "top",
+      "width": 0.84,
+      "join": true,
+      "vo": "and goes looking for things you'd love.",
+      "text": "and goes looking for [things you'd love.]",
+      "dur": 2.8,
+      "cam": "push"
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/ui-files-crop.png",
+      "frame": "browser",
+      "dark": true,
+      "title": "Rex · Files",
+      "side": "top",
+      "width": 0.84,
+      "vo": "Every download, sorted.",
+      "text": "Every download, *sorted.*",
+      "dur": 2.8,
+      "cam": "push"
+    },
+    {
+      "type": "cards",
+      "photo": "assets/photos/india-varanasi-market.jpg",
+      "tone": "duo",
+      "layout": "coverflow",
+      "stagger": 0.18,
+      "items": [
+        {
+          "src": "assets/photos/india-bangalore-traffic.jpg",
+          "label": "Bengaluru"
+        },
+        {
+          "src": "assets/photos/india-jodhpur-market.jpg",
+          "label": "Jodhpur"
+        },
+        {
+          "src": "assets/photos/india-delhi-metro.jpg",
+          "label": "Delhi"
+        },
+        {
+          "src": "assets/photos/india-pushkar-market.jpg",
+          "label": "Pushkar"
+        },
+        {
+          "src": "assets/photos/india-mysore-lights.jpg",
+          "label": "Mysuru"
+        }
+      ],
+      "vo": "Built for India. Ten languages.",
+      "text": "Built for India. [Ten languages.]",
+      "dur": 3.4
+    },
+    {
+      "type": "ui",
+      "bg": "dark",
+      "src": "assets/mascot-idle.mp4",
+      "frame": "none",
+      "width": 0.5,
+      "side": "left",
+      "vo": "One deadpan face.",
+      "text": "One _deadpan_ face.",
+      "dur": 2.6
+    },
+    {
+      "type": "text",
+      "photo": "assets/photos/india-mysore-lights.jpg",
+      "tone": "duo",
+      "size": "xl",
+      "vo": "Rex. Your voice operator.",
+      "text": "@brand|*Your voice operator.*"
+    },
+    {
+      "type": "text",
+      "bg": "glow",
+      "vo": "Just say hey Rex.",
+      "text": "Just say [hey Rex.]",
+      "sub": "Built for the Gnani.ai challenge · gnani.ai/internship"
+    }
+  ]
+}

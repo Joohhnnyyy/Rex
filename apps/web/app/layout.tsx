@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "Rex Control Center",
   description: "Multilingual voice operator built on Gnani Prisma STT and Timbre TTS",
-  // favicon.ico, icon.svg and apple-icon.png in app/ are picked up automatically (design/logo/kit).
+  // App Router picks up the Confused mascot icons from design/logo/rex-mascot-kit.
   manifest: "/site.webmanifest",
 };
 

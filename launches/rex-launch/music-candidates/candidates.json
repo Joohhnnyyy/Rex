@@ -1,0 +1,52 @@
+{
+ "night-walk": {
+  "title": "Night Walk Sequence",
+  "creator": "Social Bot 73XT",
+  "license": "by",
+  "license_version": "3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "landing": "https://www.jamendo.com/track/690200",
+  "bpm": 99,
+  "dur": 183
+ },
+ "going-forward": {
+  "title": "Going Forward",
+  "creator": "Cardiocard",
+  "license": "by",
+  "license_version": "3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "landing": "https://www.jamendo.com/track/949856",
+  "bpm": 129,
+  "dur": 211
+ },
+ "groovy-day": {
+  "title": "Groovy Day",
+  "creator": "Alexander Blu",
+  "license": "by",
+  "license_version": "3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "landing": "https://www.jamendo.com/track/1476518",
+  "bpm": 108,
+  "dur": 183
+ },
+ "bring-back-tha-funk": {
+  "title": "Bring back tha funk",
+  "creator": "Oilboy's Aftersun",
+  "license": "by",
+  "license_version": "3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "landing": "https://www.jamendo.com/track/1540296",
+  "bpm": 123,
+  "dur": 277
+ },
+ "hip-hop-turn": {
+  "title": "Hip Hop Turn",
+  "creator": "Kobito",
+  "license": "by",
+  "license_version": "3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "landing": "https://www.jamendo.com/track/1368707",
+  "bpm": 99,
+  "dur": 187
+ }
+}

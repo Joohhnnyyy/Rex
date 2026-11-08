@@ -6,7 +6,7 @@
 | Window | **25 Oct → 31 Oct 2026** (31 Oct = scope freeze, gate G2) |
 | Graph tasks | T-22 Calendar · T-23 Slack + Notion · T-27 Eval set · T-28 Live workflow tests · T-29 Completion check |
 | Done when | `uv run --env-file .env python scripts/check_phase2.py --live` passes **every** check |
-| Live status | [`docs/team/PHASE2_STATUS.md`](PHASE2_STATUS.md) (generated) · [`PROGRESS.md`](../../PROGRESS.md) |
+| Live status | [`docs/team/PHASE2_STATUS.md`](PHASE2_STATUS.md) (generated) · [`PROGRESS.md`](PROGRESS.md) |
 
 Rex can already listen, think, speak, look up places (OpenStreetMap) and ask for approval before risky actions. Your job is to give it **Google Calendar, Slack and Notion**, prove the end-to-end workflows with automated tests, and leave a measurable trail of progress.
 

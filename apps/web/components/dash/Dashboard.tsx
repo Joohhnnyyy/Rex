@@ -20,7 +20,8 @@ import { Connections } from "@/components/Connections";
 import { Discover } from "@/components/dash/Discover";
 import { Files } from "@/components/dash/Files";
 import { Immersive } from "@/components/dash/Immersive";
-import { MascotFace, MascotStage } from "@/components/dash/Mascot";
+import { MascotStage } from "@/components/dash/Mascot";
+import { ANIMATIONS, EXPRESSIONS_LIST, type MascotAnimation, type MascotExpression } from "@/lib/mascot";
 import { RichText } from "@/components/dash/RichText";
 import {
   ActiveAgents,
@@ -136,6 +137,10 @@ export function Dashboard({
   const [drawer, setDrawer] = useState<{ kind: "assistant" } | { kind: "agent"; id: string } | { kind: "project"; p: Project } | { kind: "activity" } | null>(null);
   const [deciding, setDeciding] = useState<string | null>(null);
   const [labState, setLabState] = useState<MascotState | null>(null);
+  const [labAnimation, setLabAnimation] = useState<MascotAnimation | undefined>();
+  const [labExpression, setLabExpression] = useState<MascotExpression | undefined>();
+  const [labCycle, setLabCycle] = useState(false);
+  const [labReplay, setLabReplay] = useState(0);
   const [flash, setFlash] = useState<MascotState | null>(null);
   const [draft, setDraft] = useState("");
   const [immersive, setImmersive] = useState(false);
@@ -144,14 +149,6 @@ export function Dashboard({
   useEffect(() => {
     setImmersive(connected);
   }, [connected]);
-  useEffect(() => {
-    if (!immersive) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !document.querySelector("[aria-modal=true]")) setImmersive(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [immersive]);
   const pending = useRef<string | null>(null);
 
   const name = identity ? identity[0].toUpperCase() + identity.slice(1) : "there";
@@ -184,12 +181,13 @@ export function Dashboard({
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setPalette((p) => !p);
+        if (immersive) document.querySelector<HTMLTextAreaElement>(".immersive-scene textarea")?.focus();
+        else setPalette((p) => !p);
       }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, []);
+  }, [immersive]);
 
   // A brief reaction when an action finishes, fails or needs approval.
   const latest = events[0];
@@ -321,9 +319,9 @@ export function Dashboard({
   ];
 
   const stage = (
-    <div className="flex flex-col items-center gap-4">
-      <MascotStage state={mascot} level={level} micLevel={micLevel} animate={!reduced} />
-      <p className="flex items-center gap-2 text-sm text-[var(--text-2)]" aria-live="polite">
+    <div className="workspace-assistant relative flex h-full flex-col items-center justify-center gap-3 px-4 py-4 sm:px-7">
+      <MascotStage state={mascot} level={level} micLevel={micLevel} animate={!reduced && !immersive} className="max-w-[270px]" />
+      <p className="flex max-w-full items-center justify-center gap-2 text-center text-xs text-[var(--text-2)] sm:text-sm" aria-live="polite">
         {connected && <span className="live-dot size-2 rounded-full bg-[var(--red)]" aria-hidden />}
         {connected ? (agent ? STATE_LABEL[agentState] ?? agentState : "Waiting for Rex to join…") : "Rex is offline: press the mic or type to start"}
         {heard && <span className="rounded-full bg-[var(--red-glow)] px-2 py-0.5 text-xs text-[var(--red-hi)]">{LANG_NAME[heard] ?? heard}</span>}
@@ -331,7 +329,7 @@ export function Dashboard({
           onClick={() => setImmersive(true)}
           aria-label="Immersive view"
           title="Immersive view"
-          className="lift grid size-7 place-items-center rounded-full border border-[var(--line)] text-[var(--text-2)] hover:text-[var(--text)]"
+          className="lift grid size-7 shrink-0 place-items-center rounded-full border border-[var(--line)] text-[var(--text-2)] hover:text-[var(--text)]"
         >
           <Maximize2 className="size-3.5" />
         </button>
@@ -365,7 +363,7 @@ export function Dashboard({
   );
 
   const greetingBlock = (
-    <div className="px-1 pt-1">
+    <div className="workspace-heading px-1 pb-4 pt-1">
       <h1 className="text-[30px] font-semibold leading-tight tracking-tight">
         {greeting(new Date(now || Date.now()))}, <span className="text-[var(--red)]">{name}</span>
       </h1>
@@ -385,7 +383,7 @@ export function Dashboard({
   );
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[1720px] flex-col">
+    <div className="dashboard-shell mx-auto flex min-h-screen max-w-[1600px] flex-col">
       <TopBar
         view={view}
         onView={setView}
@@ -406,40 +404,35 @@ export function Dashboard({
         }
       />
 
-      <div className="flex flex-1 gap-5 px-4 pb-6 lg:px-6">
+      <div className="flex flex-1 flex-col gap-5 px-3 pb-5 md:flex-row lg:px-5">
         <Rail view={view} onView={setView} />
-        <main className="min-w-0 flex-1">
+        <main className="min-w-0 flex-1" data-view={view}>
           {view === "overview" && (
-            <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)_minmax(0,1fr)]">
-                <div
-                  className="stagger order-first flex flex-col justify-center md:col-span-2 xl:order-none xl:col-span-1 xl:col-start-2 xl:row-start-1"
-                  style={{ "--base": "60ms" } as React.CSSProperties}
-                >
-                  {stage}
-                </div>
-                <div className="stagger flex min-w-0 flex-col gap-4 xl:col-start-1 xl:row-start-1">
-                  {greetingBlock}
-                  <SystemHealth />
-                  <TaskProgress live={connected ? summarise(events) : null} />
-                </div>
-                <div
-                  className="stagger flex min-w-0 flex-col gap-4 xl:col-start-3 xl:row-start-1"
-                  style={{ "--base": "140ms" } as React.CSSProperties}
-                >
+            <div className="workspace-overview">
+              {greetingBlock}
+              <div className="workspace-grid grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(260px,0.82fr)_minmax(0,1.8fr)]">
+                <div className="workspace-stack workspace-support flex min-w-0 flex-col gap-4">
                   <ActiveAgents rows={agentRows} onSelect={(id) => setDrawer({ kind: "agent", id })} />
-                  <GlobalActivity animate={!reduced} />
+                  <TaskProgress live={connected ? summarise(events) : null} />
+                  <RecentActivity events={events} onDecide={decide} deciding={deciding} onViewAll={() => setDrawer({ kind: "activity" })} />
+                </div>
+                <div className="workspace-stack workspace-primary flex min-w-0 flex-col gap-4">
+                  <section className="workspace-stage relative overflow-hidden rounded-[24px] border border-[var(--line)]" aria-label="Rex workspace">
+                    <div className="relative z-10 flex items-center justify-between border-b border-[var(--line)] px-5 py-3 text-xs text-[var(--text-2)]">
+                      <span className="flex items-center gap-2"><span className={`size-1.5 rounded-full ${connected ? "live-dot bg-[var(--ok)]" : "bg-[var(--faint)]"}`} />Rex workspace</span>
+                      <button onClick={() => setDrawer({ kind: "assistant" })} className="rounded-lg px-2 py-1 hover:bg-white/5 hover:text-white">Open conversation ↗</button>
+                    </div>
+                    {stage}
+                  </section>
+                  <div className="workspace-metrics grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-2">
+                    <SystemHealth />
+                    <GlobalActivity animate={!reduced && !immersive} />
+                  </div>
                 </div>
               </div>
-              <div
-                className="stagger grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)]"
-                style={{ "--base": "260ms" } as React.CSSProperties}
-              >
+              <div className="workspace-footer mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
                 <Projects onSelect={(p) => setDrawer({ kind: "project", p })} onViewAll={() => setView("projects")} />
-                <RecentActivity events={events} onDecide={decide} deciding={deciding} onViewAll={() => setDrawer({ kind: "activity" })} />
-                <div className="flex lg:col-span-2 xl:col-span-1 [&>section]:flex-1">
-                  <ResourceChart />
-                </div>
+                <ResourceChart />
               </div>
             </div>
           )}
@@ -465,20 +458,26 @@ export function Dashboard({
 
           {view === "lab" && (
             <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-              <Panel title="Mascot states" right={labState && <button onClick={() => setLabState(null)} className="text-xs text-[var(--text-2)]">Follow Rex</button>}>
-                <MascotStage state={mascot} level={level} micLevel={micLevel} animate={!reduced} />
-                <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Preview a mascot state">
+              <Panel title="Mascot studio" right={<button onClick={() => { setLabState(null); setLabAnimation(undefined); setLabExpression(undefined); setLabCycle(false); }} className="text-xs text-[var(--text-2)]">Follow Rex</button>}>
+                <MascotStage key={labReplay} state={mascot} level={level} micLevel={micLevel} animate={!reduced && !immersive} animation={labAnimation} expression={labExpression} cycle={labCycle} />
+                <div className="mb-5 flex flex-wrap gap-2">
+                  <button onClick={() => { setLabCycle((v) => !v); setLabReplay((v) => v + 1); }} disabled={reduced} aria-pressed={labCycle} className="rounded-lg bg-[var(--red)] px-3 py-2 text-xs disabled:opacity-40">{labCycle ? "Stop sequence" : "Play all animations"}</button>
+                  <button onClick={() => setLabReplay((v) => v + 1)} disabled={reduced} className="rounded-lg border border-[var(--line)] px-3 py-2 text-xs disabled:opacity-40">Replay</button>
+                </div>
+                {reduced && <p className="mb-4 text-xs text-[var(--text-2)]">Reduced motion is on. Previews show a still frame.</p>}
+                <h3 className="mb-2 text-sm font-medium">Live reactions</h3>
+                <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label="Preview a mascot state">
                   {MASCOT_STATES.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setLabState(s)}
-                      aria-pressed={mascot === s}
-                      className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs capitalize ${mascot === s ? "border-[var(--line-active)] bg-[var(--red-glow)]" : "border-[var(--line)] text-[var(--text-2)]"}`}
-                    >
-                      <MascotFace state={s} size={20} animate={false} />
-                      {s}
-                    </button>
+                    <button key={s} onClick={() => { setLabState(s); setLabAnimation(undefined); setLabExpression(undefined); setLabCycle(false); }} aria-pressed={!labAnimation && !labExpression && mascot === s} className="rounded-lg border border-[var(--line)] px-2.5 py-1.5 text-xs capitalize aria-pressed:border-[var(--red)] aria-pressed:bg-[var(--red-glow)]">{s}</button>
                   ))}
+                </div>
+                <h3 className="mb-2 text-sm font-medium">Animations <span className="text-[var(--text-2)]">15</span></h3>
+                <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label="Preview an animation">
+                  {ANIMATIONS.map((id) => <button key={id} onClick={() => { setLabAnimation(id); setLabCycle(false); }} aria-pressed={!labCycle && labAnimation === id} className="rounded-lg border border-[var(--line)] px-2.5 py-1.5 text-xs capitalize aria-pressed:border-[var(--red)] aria-pressed:bg-[var(--red-glow)]">{id}</button>)}
+                </div>
+                <h3 className="mb-2 text-sm font-medium">Expressions <span className="text-[var(--text-2)]">16</span></h3>
+                <div className="flex flex-wrap gap-2" role="group" aria-label="Preview an expression">
+                  {EXPRESSIONS_LIST.map(([id, label]) => <button key={id} onClick={() => { setLabExpression(id); setLabAnimation("idle"); setLabCycle(false); }} aria-pressed={labExpression === id} className="rounded-lg border border-[var(--line)] px-2.5 py-1.5 text-xs aria-pressed:border-[var(--red)] aria-pressed:bg-[var(--red-glow)]">{label}</button>)}
                 </div>
               </Panel>
               <div className="flex flex-col gap-5">
@@ -659,7 +658,7 @@ function CommandBar({
               onSubmit();
             }
           }}
-          placeholder="Ask Rex anything or run a task…"
+          placeholder="Ask Rex anything…"
           className="max-h-28 min-w-0 flex-1 resize-none bg-transparent py-2 text-sm outline-none placeholder:text-[var(--faint)]"
         />
         <button type="submit" disabled={!draft.trim()} aria-label="Send" className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-[var(--red)] text-white transition-opacity disabled:opacity-40">

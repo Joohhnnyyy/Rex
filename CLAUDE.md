@@ -44,7 +44,7 @@ claude-mem hooks into SessionStart / PostToolUse / Stop etc., stores compressed 
 
 **At session start**
 1. `open_nodes(["Rex"])` and `search_nodes("<your T-xx>")` to load current state.
-2. Read the top entry of HANDOFF.md.
+2. Read the top entry of docs/team/HANDOFF.md.
 3. Use claude-mem `search` for the task ID to recall earlier attempts.
 
 **When you start a task**
@@ -54,8 +54,8 @@ claude-mem hooks into SessionStart / PostToolUse / Stop etc., stores compressed 
 - Replace the status: `delete_observations` old `status: …` → `add_observations` `"status: done"` (or `"status: blocked — <reason>"`).
 - Add evidence: `"pr: #12"`, `"note: p50 latency 1.4 s"`.
 - New dependency discovered? `create_relations` `{from: "T-31", to: "T-30", relationType: "depends_on"}`.
-- New decision? `create_entities` type `Decision` + relation `decided_in` → phase, and add a line to DECISION_LOG.md.
-- Run `python scripts/progress.py` and commit `memory/project-graph.jsonl` + `PROGRESS.md` together.
+- New decision? `create_entities` type `Decision` + relation `decided_in` → phase, and add a line to docs/team/DECISION_LOG.md.
+- Run `python scripts/progress.py` and commit `memory/project-graph.jsonl` + `docs/team/PROGRESS.md` together.
 
 ### Graph schema
 
@@ -93,6 +93,6 @@ Phase numbering: GSD phase `NN` = roadmap "Phase N". After each GSD execute/veri
 ## Claude-specific tips
 
 - Use subagents for broad codebase searches; keep the main context for the task.
-- Before editing a file owned by the other teammate's track, add a note to HANDOFF.md.
+- Before editing a file owned by the other teammate's track, add a note to docs/team/HANDOFF.md.
 - Prefer `make check` over running individual linters.
 - Never paste API keys into chat or files; reference `settings.*`.

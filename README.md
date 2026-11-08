@@ -8,7 +8,7 @@ Rex is a voice-first AI agent built for the **Gnani AI — Great Indian AI Inter
 |---|---|
 | Team | **Johny** (voice, telephony, desktop, frontend) · **Shanky** (orchestrator, MCP tools, backend, coder) |
 | Award focus | Mixed Vibes (code-mixed speech) · backup: Demo Day Drop |
-| Status | See [PROGRESS.md](PROGRESS.md) (generated from the project graph) |
+| Status | See [PROGRESS.md](docs/team/PROGRESS.md) (generated from the project graph) |
 
 ## What it does (MVP)
 
@@ -60,18 +60,18 @@ Open `http://localhost:3000`, press and hold the mic, and say: *"Kal 4 baje Shan
 
 | Read this | When |
 |---|---|
-| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) | First. One-page context for humans and agents |
-| [PRD.md](PRD.md) | What we are building and why |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | How the system fits together |
-| [IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md) | Phase-wise plan and who owns what |
-| [FEATURE_DEVELOPMENT.md](FEATURE_DEVELOPMENT.md) | How to build and ship a feature |
-| [BACKEND_CONTEXT.md](BACKEND_CONTEXT.md) · [API.md](API.md) · [DATABASE.md](DATABASE.md) | Backend work |
-| [MCP_CONNECTION.md](MCP_CONNECTION.md) · [INTEGRATIONS.md](INTEGRATIONS.md) | Adding tools and third-party services |
-| [AUTHENTICATION_AND_SECURITY.md](AUTHENTICATION_AND_SECURITY.md) | Auth, secrets, permission tiers |
-| [DESIGN.md](DESIGN.md) | UI and voice design |
-| [DEBUGGING.md](DEBUGGING.md) | When something breaks |
-| [DECISIONS.md](DECISIONS.md) · [DECISION_LOG.md](DECISION_LOG.md) | Why things are the way they are |
-| [HANDOFF.md](HANDOFF.md) | End-of-day handoff between Johny and Shanky |
+| [PROJECT_CONTEXT.md](docs/team/PROJECT_CONTEXT.md) | First. One-page context for humans and agents |
+| [PRD.md](docs/team/PRD.md) | What we are building and why |
+| [ARCHITECTURE.md](docs/team/ARCHITECTURE.md) | How the system fits together |
+| [IMPLEMENTATION_ROADMAP.md](docs/team/IMPLEMENTATION_ROADMAP.md) | Phase-wise plan and who owns what |
+| [FEATURE_DEVELOPMENT.md](docs/team/FEATURE_DEVELOPMENT.md) | How to build and ship a feature |
+| [BACKEND_CONTEXT.md](docs/team/BACKEND_CONTEXT.md) · [API.md](docs/team/API.md) · [DATABASE.md](docs/team/DATABASE.md) | Backend work |
+| [MCP_CONNECTION.md](docs/team/MCP_CONNECTION.md) · [INTEGRATIONS.md](docs/team/INTEGRATIONS.md) | Adding tools and third-party services |
+| [AUTHENTICATION_AND_SECURITY.md](docs/team/AUTHENTICATION_AND_SECURITY.md) | Auth, secrets, permission tiers |
+| [DESIGN.md](docs/team/DESIGN.md) | UI and voice design |
+| [DEBUGGING.md](docs/team/DEBUGGING.md) | When something breaks |
+| [DECISIONS.md](docs/team/DECISIONS.md) · [DECISION_LOG.md](docs/team/DECISION_LOG.md) | Why things are the way they are |
+| [HANDOFF.md](docs/team/HANDOFF.md) | End-of-day handoff between Johny and Shanky |
 | [docs/team/SHANKY_PHASE2.md](docs/team/SHANKY_PHASE2.md) | Shanky's Phase 2 work package (MCPs + workflow tests) and its checker |
 | [AGENTS.md](AGENTS.md) · [CLAUDE.md](CLAUDE.md) | Instructions for AI coding agents |
 
@@ -84,4 +84,4 @@ Open `http://localhost:3000`, press and hold the mic, and say: *"Kal 4 baje Shan
 
 ## License
 
-MIT (code). Third-party components keep their own licenses — see [INTEGRATIONS.md](INTEGRATIONS.md).
+MIT (code). Third-party components keep their own licenses — see [INTEGRATIONS.md](docs/team/INTEGRATIONS.md).

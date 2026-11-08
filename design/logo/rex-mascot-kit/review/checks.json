@@ -1,0 +1,18 @@
+{
+  "svg_masters_parsed": 21,
+  "png_dimensions": "passed",
+  "ico_header": "passed",
+  "manifest_icon_paths": "passed",
+  "finite_geometry": "build assertions passed",
+  "visual_review": [
+    "identity board",
+    "reversed master",
+    "app icon",
+    "browser presentation"
+  ],
+  "audit_note": "Colour files deliberately retain white eyes; use true-hole mono masters for single-ink output.",
+  "not_checked": [
+    "trademark clearance",
+    "print proofing"
+  ]
+}

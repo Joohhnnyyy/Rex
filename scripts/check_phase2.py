@@ -178,7 +178,7 @@ def checks(live: bool, run_tests: bool) -> list[Check]:
     st = graph_status()
     for t in PHASE2_TASKS:
         add("E. Tracking", f"{t} marked done in project graph", st.get(t) == "done", st.get(t, "missing"))
-    handoff = (ROOT / "HANDOFF.md").read_text()
+    handoff = (ROOT / "docs" / "team" / "HANDOFF.md").read_text()
     add(
         "E. Tracking",
         "HANDOFF.md has a Shanky Phase 2 entry",

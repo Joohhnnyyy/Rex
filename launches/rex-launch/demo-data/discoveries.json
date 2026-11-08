@@ -1,0 +1,37 @@
+{
+ "interests": [
+  "Naruto",
+  "IPL",
+  "AI agents"
+ ],
+ "items": [
+  {
+   "id": "254b08c182",
+   "topic": "Naruto",
+   "title": "Destin Daniel Cretton to direct Naruto movie",
+   "url": "https://www.hollywoodreporter.com/movies/movie-news/naruto-movie-lionsgate-sony-destin-daniel-cretton-1236746650/",
+   "why": "Significant update confirming the director for the live-action Naruto adaptation currently in development.",
+   "found_at": "2026-11-08T06:34:20+00:00",
+   "seen": false
+  },
+  {
+   "id": "adf840a2ad",
+   "topic": "AI agents",
+   "title": "Three AI Agents Trip Planning Experiment",
+   "url": "https://www.youtube.com/watch?v=dSiTwPl0t1U&vl=en",
+   "why": "This recent test provides a practical, comparative look at how different agent frameworks handle complex multi-step tasks in real-world scenarios.",
+   "found_at": "2026-11-08T06:34:29+00:00",
+   "seen": false
+  },
+  {
+   "id": "1ae45f62cc",
+   "topic": "AI agents",
+   "title": "Practical guide to starting with AI agents",
+   "url": "https://www.reddit.com/r/AI_Agents/comments/1xohihp/how_do_i_get_started_with_ai_agents/",
+   "why": "A timely, community-driven thread from this week offering specific, actionable advice on scoping and building your first functional AI agent.",
+   "found_at": "2026-11-08T06:34:29+00:00",
+   "seen": false
+  }
+ ],
+ "last_run": "2026-11-08T06:34:29+00:00"
+}

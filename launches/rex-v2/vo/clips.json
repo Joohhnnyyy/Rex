@@ -1,0 +1,477 @@
+{
+ "0": {
+  "text": "Your day moves fast.",
+  "file": "vo/clips/u00.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Your",
+    "s": 0.0,
+    "e": 0.221
+   },
+   {
+    "w": "day",
+    "s": 0.279,
+    "e": 0.406
+   },
+   {
+    "w": "moves",
+    "s": 0.476,
+    "e": 0.731
+   },
+   {
+    "w": "fast.",
+    "s": 0.801,
+    "e": 1.533
+   }
+  ]
+ },
+ "1": {
+  "text": "Hand some of it to Rex.",
+  "file": "vo/clips/u01.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Hand",
+    "s": 0.0,
+    "e": 0.221
+   },
+   {
+    "w": "some",
+    "s": 0.279,
+    "e": 0.43
+   },
+   {
+    "w": "of",
+    "s": 0.464,
+    "e": 0.511
+   },
+   {
+    "w": "it",
+    "s": 0.546,
+    "e": 0.615
+   },
+   {
+    "w": "to",
+    "s": 0.65,
+    "e": 0.72
+   },
+   {
+    "w": "Rex.",
+    "s": 0.801,
+    "e": 1.486
+   }
+  ]
+ },
+ "2": {
+  "text": "Your AI sidekick.",
+  "file": "vo/clips/u02.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Your",
+    "s": 0.0,
+    "e": 0.232
+   },
+   {
+    "w": "AI",
+    "s": 0.29,
+    "e": 0.522
+   },
+   {
+    "w": "sidekick.",
+    "s": 0.604,
+    "e": 1.718
+   }
+  ]
+ },
+ "3": {
+  "text": "Find Delhi to Bhopal flights for Friday, and WhatsApp Shanky.",
+  "file": "vo/clips/u03.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Find",
+    "s": 0.0,
+    "e": 0.302
+   },
+   {
+    "w": "Delhi",
+    "s": 0.36,
+    "e": 0.604
+   },
+   {
+    "w": "to",
+    "s": 0.65,
+    "e": 0.708
+   },
+   {
+    "w": "Bhopal",
+    "s": 0.766,
+    "e": 1.08
+   },
+   {
+    "w": "flights",
+    "s": 1.149,
+    "e": 1.451
+   },
+   {
+    "w": "for",
+    "s": 1.486,
+    "e": 1.602
+   },
+   {
+    "w": "Friday,",
+    "s": 1.649,
+    "e": 2.032
+   },
+   {
+    "w": "and",
+    "s": 2.055,
+    "e": 2.148
+   },
+   {
+    "w": "WhatsApp",
+    "s": 2.206,
+    "e": 2.612
+   },
+   {
+    "w": "Shanky.",
+    "s": 2.67,
+    "e": 3.204
+   }
+  ]
+ },
+ "4": {
+  "text": "On it.",
+  "file": "vo/clips/u04.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "On",
+    "s": 0.0,
+    "e": 0.267
+   },
+   {
+    "w": "it.",
+    "s": 0.325,
+    "e": 1.115
+   }
+  ]
+ },
+ "5": {
+  "text": "It searches the web,",
+  "file": "vo/clips/u05.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "It",
+    "s": 0.0,
+    "e": 0.163
+   },
+   {
+    "w": "searches",
+    "s": 0.209,
+    "e": 0.534
+   },
+   {
+    "w": "the",
+    "s": 0.58,
+    "e": 0.65
+   },
+   {
+    "w": "web,",
+    "s": 0.708,
+    "e": 1.347
+   }
+  ]
+ },
+ "6": {
+  "text": "opens WhatsApp,",
+  "file": "vo/clips/u06.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "opens",
+    "s": 0.0,
+    "e": 0.395
+   },
+   {
+    "w": "WhatsApp,",
+    "s": 0.464,
+    "e": 1.022
+   }
+  ]
+ },
+ "7": {
+  "text": "and checks it landed.",
+  "file": "vo/clips/u07.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "and",
+    "s": 0.0,
+    "e": 0.174
+   },
+   {
+    "w": "checks",
+    "s": 0.232,
+    "e": 0.499
+   },
+   {
+    "w": "it",
+    "s": 0.534,
+    "e": 0.604
+   },
+   {
+    "w": "landed.",
+    "s": 0.65,
+    "e": 1.811
+   }
+  ]
+ },
+ "8": {
+  "text": "It remembers what you tell it,",
+  "file": "vo/clips/u08.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "It",
+    "s": 0.0,
+    "e": 0.174
+   },
+   {
+    "w": "remembers",
+    "s": 0.232,
+    "e": 0.627
+   },
+   {
+    "w": "what",
+    "s": 0.673,
+    "e": 0.813
+   },
+   {
+    "w": "you",
+    "s": 0.882,
+    "e": 0.998
+   },
+   {
+    "w": "tell",
+    "s": 1.08,
+    "e": 1.277
+   },
+   {
+    "w": "it,",
+    "s": 1.335,
+    "e": 1.625
+   }
+  ]
+ },
+ "9": {
+  "text": "and hunts down stuff you'll love.",
+  "file": "vo/clips/u09.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "and",
+    "s": 0.0,
+    "e": 0.139
+   },
+   {
+    "w": "hunts",
+    "s": 0.197,
+    "e": 0.406
+   },
+   {
+    "w": "down",
+    "s": 0.453,
+    "e": 0.627
+   },
+   {
+    "w": "stuff",
+    "s": 0.697,
+    "e": 0.94
+   },
+   {
+    "w": "you'll",
+    "s": 0.975,
+    "e": 1.149
+   },
+   {
+    "w": "love.",
+    "s": 1.196,
+    "e": 1.95
+   }
+  ]
+ },
+ "10": {
+  "text": "Inbox. Calendar. Mac apps.",
+  "file": "vo/clips/u10.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Inbox.",
+    "s": 0.0,
+    "e": 0.639
+   },
+   {
+    "w": "Calendar.",
+    "s": 0.685,
+    "e": 1.277
+   },
+   {
+    "w": "Mac",
+    "s": 1.358,
+    "e": 1.625
+   },
+   {
+    "w": "apps.",
+    "s": 1.695,
+    "e": 2.601
+   }
+  ]
+ },
+ "11": {
+  "text": "Anything risky? You decide.",
+  "file": "vo/clips/u11.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Anything",
+    "s": 0.0,
+    "e": 0.43
+   },
+   {
+    "w": "risky?",
+    "s": 0.488,
+    "e": 1.033
+   },
+   {
+    "w": "You",
+    "s": 1.474,
+    "e": 1.637
+   },
+   {
+    "w": "decide.",
+    "s": 1.707,
+    "e": 2.926
+   }
+  ]
+ },
+ "12": {
+  "text": "Routines for the stuff you do daily.",
+  "file": "vo/clips/u12.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Routines",
+    "s": 0.0,
+    "e": 0.43
+   },
+   {
+    "w": "for",
+    "s": 0.453,
+    "e": 0.534
+   },
+   {
+    "w": "the",
+    "s": 0.569,
+    "e": 0.639
+   },
+   {
+    "w": "stuff",
+    "s": 0.662,
+    "e": 0.882
+   },
+   {
+    "w": "you",
+    "s": 0.929,
+    "e": 1.01
+   },
+   {
+    "w": "do",
+    "s": 1.091,
+    "e": 1.196
+   },
+   {
+    "w": "daily.",
+    "s": 1.277,
+    "e": 2.508
+   }
+  ]
+ },
+ "13": {
+  "text": "Rex. Your personal AI sidekick.",
+  "file": "vo/clips/u13.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Rex.",
+    "s": 0.0,
+    "e": 0.534
+   },
+   {
+    "w": "Your",
+    "s": 0.778,
+    "e": 0.998
+   },
+   {
+    "w": "personal",
+    "s": 1.068,
+    "e": 1.533
+   },
+   {
+    "w": "AI",
+    "s": 1.625,
+    "e": 1.892
+   },
+   {
+    "w": "sidekick.",
+    "s": 2.009,
+    "e": 2.926
+   }
+  ]
+ },
+ "14": {
+  "text": "Voice powered by Gnani.",
+  "file": "vo/clips/u14.wav",
+  "provider": "eleven",
+  "voice": "TX3LPaxmHKxFdv7VOQHJ",
+  "words": [
+   {
+    "w": "Voice",
+    "s": 0.0,
+    "e": 0.372
+   },
+   {
+    "w": "powered",
+    "s": 0.418,
+    "e": 0.731
+   },
+   {
+    "w": "by",
+    "s": 0.766,
+    "e": 0.871
+   },
+   {
+    "w": "Gnani.",
+    "s": 0.929,
+    "e": 1.579
+   }
+  ]
+ }
+}

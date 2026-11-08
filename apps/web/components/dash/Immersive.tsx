@@ -3,7 +3,9 @@
 import { TrackToggle, type useTranscriptions } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { Clock, Minimize2, MonitorUp, PhoneOff, Sparkles } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import Image from "next/image";
 
 import { MascotStage } from "@/components/dash/Mascot";
 import { openApprovals } from "@/components/dash/Panels";
@@ -61,10 +63,11 @@ function ParticleField({ level, animate }: { level: number; animate: boolean }) 
     };
     resize();
     draw();
-    addEventListener("resize", resize);
+    const onResize = () => { resize(); if (!animate) draw(); };
+    addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(raf);
-      removeEventListener("resize", resize);
+      removeEventListener("resize", onResize);
     };
   }, [animate]);
 
@@ -105,6 +108,39 @@ export function Immersive({
   animate: boolean;
 }) {
   const scene = useRef<HTMLDivElement>(null);
+  const exit = useRef(onExit);
+  exit.current = onExit;
+  useEffect(() => {
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    const dashboard = document.querySelector<HTMLElement>(".dashboard-shell");
+    const wasInert = dashboard?.inert ?? false;
+    document.body.style.overflow = "hidden";
+    if (dashboard) dashboard.inert = true;
+    const controls = () => Array.from(scene.current?.querySelectorAll<HTMLElement>('button:not(:disabled), textarea, input, a[href], [tabindex="0"]') ?? []).filter((el) => el.getClientRects().length > 0);
+    controls()[0]?.focus();
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        exit.current();
+      }
+      if (event.key !== "Tab") return;
+      const items = controls();
+      const first = items[0], last = items[items.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !scene.current?.contains(document.activeElement))) {
+        event.preventDefault(); last?.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !scene.current?.contains(document.activeElement))) {
+        event.preventDefault(); first?.focus();
+      }
+    };
+    document.addEventListener("keydown", keydown);
+    return () => {
+      document.removeEventListener("keydown", keydown);
+      document.body.style.overflow = overflow;
+      if (dashboard) dashboard.inert = wasInert;
+      previousFocus?.focus();
+    };
+  }, []);
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
@@ -114,8 +150,14 @@ export function Immersive({
   // Depth: the mouse tilts the mascot one way and drifts the particles the other (CSS vars, no re-render).
   useEffect(() => {
     const el = scene.current;
-    if (!el || !animate) return;
+    if (!el) return;
+    if (!animate) {
+      el.style.setProperty("--mx", "0");
+      el.style.setProperty("--my", "0");
+      return;
+    }
     const move = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       el.style.setProperty("--mx", ((e.clientX / innerWidth) * 2 - 1).toFixed(3));
       el.style.setProperty("--my", ((e.clientY / innerHeight) * 2 - 1).toFixed(3));
     };
@@ -125,33 +167,42 @@ export function Immersive({
 
   const lastRex = [...transcriptions].reverse().find((t) => t.participantInfo.identity !== identity);
   const lastMe = [...transcriptions].reverse().find((t) => t.participantInfo.identity === identity);
+  const energy = connected && animate ? Math.max(0, Math.min(1, mascot === "listening" ? micLevel : level)) : 0;
+  const presence = !connected ? "Your space to think out loud" : mascot === "listening" ? "Listening to you" : mascot === "thinking" ? "Working on it" : mascot === "speaking" ? "Rex is speaking" : status;
   const open = openApprovals(events);
   const toasts = events.filter((e) => open.has(e.id) || now - new Date(e.ts).getTime() < 9000).slice(0, 3);
 
-  return (
+  return createPortal(
     <div
       ref={scene}
-      className="fixed inset-0 z-40 overflow-hidden bg-[radial-gradient(ellipse_at_50%_40%,#2a0d14_0%,#0d0a0d_55%,#060607_100%)] [--mx:0] [--my:0]"
-      role="region"
+      className="immersive-scene fixed inset-0 z-50 bg-[radial-gradient(ellipse_at_50%_40%,#2a0d14_0%,#0d0a0d_55%,#060607_100%)] [--mx:0] [--my:0]"
+      data-mode={connected ? mascot : "offline"}
+      data-motion={animate}
+      style={{ "--voice-energy": energy } as CSSProperties}
+      role="dialog"
+      aria-modal="true"
       aria-label="Immersive call with Rex"
     >
       <div className="absolute inset-0 transition-transform duration-300 ease-out [transform:translate(calc(var(--mx)*-14px),calc(var(--my)*-10px))]">
-        <ParticleField level={level} animate={animate} />
+        <ParticleField level={energy} animate={animate} />
       </div>
-      {/* faint grid floor for depth */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] [background:linear-gradient(transparent,rgba(255,64,85,0.1)),repeating-linear-gradient(90deg,rgba(255,64,85,0.12)_0_1px,transparent_1px_64px)] [mask-image:linear-gradient(transparent,black)] [transform:perspective(600px)_rotateX(58deg)] [transform-origin:bottom]" />
+      <div className="immersive-horizon pointer-events-none absolute inset-0" aria-hidden />
 
       {/* top: status and controls */}
-      <header className="relative z-10 flex items-center justify-between px-5 py-4 sm:px-8">
-        <span className="flex items-center gap-3">
-          <span className="text-lg font-semibold tracking-[0.4em]">REX</span>
+      <header className="immersive-header relative z-10 flex items-center justify-between gap-3 px-4 py-4 sm:px-8">
+        <span className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
+          <Image src="/rex-logo.svg" alt="Rex logo" width={40} height={40} className="shrink-0" />
+          <span className="flex flex-col gap-0.5">
+            <span className="text-lg font-semibold tracking-[0.4em]">REX</span>
+            <span className="text-[10px] tracking-wide text-[var(--text-2)]">Focus mode</span>
+          </span>
           <span className="flex items-center gap-2 rounded-full border border-[var(--line)] bg-black/30 px-3 py-1 text-xs text-[var(--text-2)] backdrop-blur" aria-live="polite">
             <span className={`size-1.5 rounded-full ${connected ? "live-dot bg-[var(--red)]" : "bg-[var(--faint)]"}`} aria-hidden />
             {status}
             {language && <span className="text-[var(--red-hi)]">· {language}</span>}
           </span>
         </span>
-        <span className="flex items-center gap-2">
+        <span className="flex shrink-0 items-center gap-2">
           {connected && (
             <TrackToggle
               source={Track.Source.ScreenShare}
@@ -163,8 +214,10 @@ export function Immersive({
               <MonitorUp className="size-4" />
             </TrackToggle>
           )}
-          <button onClick={onExit} aria-label="Leave immersive view (Esc)" title="Leave immersive view (Esc)" className="grid size-10 place-items-center rounded-full border border-[var(--line)] bg-black/30 text-[var(--text-2)] backdrop-blur hover:text-[var(--text)]">
+          <button onClick={onExit} aria-label="Leave immersive view (Esc)" title="Leave immersive view (Esc)" className="flex h-10 items-center gap-2 rounded-full border border-[var(--line)] bg-white/[0.03] px-3 text-[var(--text-2)] backdrop-blur hover:border-[var(--line-active)] hover:text-[var(--text)]">
             <Minimize2 className="size-4" />
+            <span className="hidden text-xs sm:inline">Back to workspace</span>
+            <kbd className="hidden rounded border border-white/10 px-1 text-[10px] lg:inline">Esc</kbd>
           </button>
           {connected && (
             <button onClick={onEnd} aria-label="End call" className="grid size-10 place-items-center rounded-full bg-[var(--red)] text-white hover:bg-[var(--red-hi)]">
@@ -175,14 +228,26 @@ export function Immersive({
       </header>
 
       {/* the mascot, tilting with the mouse */}
-      <div className="absolute inset-x-0 top-[9%] flex justify-center sm:top-[4%]">
-        <div className="w-[min(92vw,68vh,640px)] transition-transform duration-300 ease-out [transform:perspective(900px)_rotateY(calc(var(--mx)*7deg))_rotateX(calc(var(--my)*-5deg))_translate(calc(var(--mx)*10px),calc(var(--my)*6px))]">
+      <div className="immersive-mascot relative flex min-h-0 items-center justify-center">
+        <div className="immersive-atmosphere pointer-events-none absolute" aria-hidden>
+          <div className="immersive-aura" />
+          <div className="immersive-orbit immersive-orbit-one" />
+          <div className="immersive-orbit immersive-orbit-two" />
+          <div className="immersive-ground" />
+        </div>
+        <div className="immersive-avatar transition-transform duration-300 ease-out [transform:perspective(900px)_rotateY(calc(var(--mx)*4deg))_rotateX(calc(var(--my)*-3deg))]">
           <MascotStage state={mascot} level={level} micLevel={micLevel} animate={animate} className="max-w-none" />
+        </div>
+        <div className="immersive-presence absolute bottom-2 flex flex-col items-center gap-3">
+          <div className="immersive-signal flex h-6 items-center gap-1" aria-hidden>
+            {[0.45, 0.75, 1, 0.6, 0.9, 0.65, 0.4].map((weight, i) => <span key={i} className="w-[3px] rounded-full bg-[var(--red-hi)]" style={{ height: 3 + energy * weight * 21, opacity: connected ? 0.8 : 0.3 }} />)}
+          </div>
+          <p className="text-xs tracking-wide text-[var(--text-2)]" aria-live="polite">{presence}</p>
         </div>
       </div>
 
       {/* actions as toasts */}
-      <ol className="absolute right-4 top-20 z-10 flex w-[min(340px,calc(100vw-2rem))] flex-col gap-2 sm:right-8" aria-label="Rex's actions">
+      <ol className="immersive-actions relative z-10 mx-auto flex max-h-[25dvh] w-full max-w-3xl flex-col gap-2 overflow-y-auto px-4" aria-label="Rex's actions">
         {toasts.map((e) => (
           <li key={e.id} className="rise rounded-[14px] border border-[var(--line)] bg-black/45 p-3 text-sm backdrop-blur-md">
             <p className="flex items-center gap-2">
@@ -204,24 +269,30 @@ export function Immersive({
       </ol>
 
       {/* captions and the command bar */}
-      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent px-4 pb-6 pt-16">
-        <div className="flex min-h-[4.5rem] w-full max-w-3xl flex-col items-center gap-1.5 text-center" aria-live="polite">
+      <div className="immersive-footer relative z-10 flex min-w-0 flex-col items-center gap-3 bg-gradient-to-t from-black/70 to-transparent px-4 pb-6 pt-3">
+        <div className="immersive-captions flex w-full max-w-3xl flex-col items-center gap-2 text-center" aria-live="polite">
           {lastMe && (
             <p key={`me-${lastMe.streamInfo.id}`} className="rise line-clamp-1 text-sm text-[var(--text-2)]">
               You: {lastMe.text}
             </p>
           )}
           {lastRex ? (
-            <div key={`rex-${lastRex.streamInfo.id}`} className="rise max-h-[22vh] overflow-y-auto text-lg leading-relaxed text-[var(--text)] [text-shadow:0_2px_18px_rgba(0,0,0,0.8)] sm:text-xl">
+            <div key={`rex-${lastRex.streamInfo.id}`} className="rise max-h-[18dvh] overflow-y-auto text-lg leading-relaxed text-[var(--text)] [text-shadow:0_2px_18px_rgba(0,0,0,0.8)] sm:text-xl">
               <RichText text={lastRex.text} />
             </div>
           ) : (
-            <p className="text-lg text-[var(--text-2)]">{connected ? "Say something, or type below." : "Press the mic or type to talk to Rex."}</p>
+            <div className="space-y-2">
+              <p className="text-xl font-medium tracking-tight text-[var(--text)] sm:text-2xl">{connected ? "Whenever you're ready." : "What's on your mind?"}</p>
+              <p className="text-sm text-[var(--text-2)]">{connected ? "Talk naturally, or type a thought below." : "Tap the mic to talk, or type below."}</p>
+            </div>
           )}
         </div>
-        {bar}
+        <div className="immersive-dock flex w-full max-w-[600px] justify-center">{bar}</div>
+        <p className="immersive-shortcuts hidden items-center gap-4 text-[11px] text-[var(--text-2)] sm:flex" aria-hidden>
+          <span><kbd>Enter</kbd> to send</span><span><kbd>⌘ / Ctrl K</kbd> to type</span><span><kbd>Esc</kbd> to leave</span>
+        </p>
       </div>
-    </div>
+    </div>, document.body
   );
 }
 

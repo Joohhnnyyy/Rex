@@ -336,7 +336,7 @@ export function ActiveAgents({ rows, onSelect }: { rows: AgentRow[]; onSelect: (
                   <span className="block truncate text-xs text-[var(--text-2)]">{a.role}</span>
                 </span>
                 <StatusPill status={a.status} />
-                <span className="hidden sm:block">
+                <span className="hidden 2xl:block">
                   <Sparkline data={a.spark} />
                 </span>
               </button>

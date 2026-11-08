@@ -1,0 +1,179 @@
+{
+  "duration_seconds": 56,
+  "spoken_words": 115,
+  "status": "planning_only",
+  "format_assumption": "16:9",
+  "beats": [
+    {
+      "start": 0,
+      "end": 3,
+      "beat": "hook",
+      "voice": "Your day has too many open tabs.",
+      "visual": "One line of kinetic type; three cropped browser cards gather.",
+      "background": "Openverse city-at-dusk photo, darkened; image subject on right, text on left.",
+      "sound": "One soft recorded tab/click; voice starts immediately."
+    },
+    {
+      "start": 3,
+      "end": 6,
+      "beat": "problem",
+      "voice": "And every little task takes another detour.",
+      "visual": "Cards briefly spread; Confused Rex glances between them.",
+      "background": "Same photo, then a clean charcoal field.",
+      "sound": "One short paper/air move; leave the rest quiet."
+    },
+    {
+      "start": 6,
+      "end": 8,
+      "beat": "reveal",
+      "voice": "Meet Rex.",
+      "visual": "Confused logo settles beside the name.",
+      "background": "Charcoal; restrained red halo behind the mark.",
+      "sound": "Short recorded riser arriving into one soft impact."
+    },
+    {
+      "start": 8,
+      "end": 11,
+      "beat": "positioning",
+      "voice": "Your voice operator, ready to get things moving.",
+      "visual": "Match-cut logo into the actual dashboard mascot.",
+      "background": "Paper-white outer field; real dark dashboard inside.",
+      "sound": "Music establishes its beat; no extra impact."
+    },
+    {
+      "start": 11,
+      "end": 15,
+      "beat": "user command",
+      "voice": "Rex, desk lamps dhoondo. Links save karo.",
+      "visual": "Real microphone interaction and Hinglish transcript. English subtitle: Find desk lamps. Save the links.",
+      "background": "Product UI; isolate the transcript and mic.",
+      "sound": "User voice replaces narration here; duck music and SFX."
+    },
+    {
+      "start": 15,
+      "end": 18,
+      "beat": "acknowledgement",
+      "voice": "On it. I’ll find a few options.",
+      "visual": "Rex listening → thinking; short acknowledgement in captions.",
+      "background": "Same UI, no decorative background motion.",
+      "sound": "Rex voice; one very quiet UI confirmation if needed."
+    },
+    {
+      "start": 18,
+      "end": 21,
+      "beat": "research",
+      "voice": "It searches the web for your request.",
+      "visual": "Real search action and readable source links.",
+      "background": "Real UI lifted on paper-white.",
+      "sound": "Soft recorded keyboard run only where actual typing appears."
+    },
+    {
+      "start": 21,
+      "end": 24,
+      "beat": "results",
+      "voice": "Brings useful links into one place.",
+      "visual": "Two or three genuine source results come into focus.",
+      "background": "Same UI; source names remain visible.",
+      "sound": "One family of light card settles, not one hit per result."
+    },
+    {
+      "start": 24,
+      "end": 27,
+      "beat": "files",
+      "voice": "And saves the shortlist in Files.",
+      "visual": "Files view opens a saved Desk lamp shortlist note.",
+      "background": "Paper field; close crop on the real saved note.",
+      "sound": "Single short save sound on the visible save/completion event."
+    },
+    {
+      "start": 27,
+      "end": 30,
+      "beat": "follow-up",
+      "voice": "Email this shortlist to Arjun.",
+      "visual": "Second user request appears in the conversation. Arjun is a synthetic demo persona.",
+      "background": "Return to dashboard/Focus conversation.",
+      "sound": "User voice; no typing noise under spoken request."
+    },
+    {
+      "start": 30,
+      "end": 33,
+      "beat": "compose",
+      "voice": "Rex prepares the message for your review.",
+      "visual": "Show the proposed recipient, subject and shortlist links.",
+      "background": "Real action preview, isolated from demo metric cards.",
+      "sound": "A quiet UI reveal only; no sent notification."
+    },
+    {
+      "start": 33,
+      "end": 36,
+      "beat": "approval",
+      "voice": "You check the details before it sends.",
+      "visual": "Hold the actual Approve / Deny controls, readable.",
+      "background": "Product UI; surrounding area dims.",
+      "sound": "Music thins; allow a deliberate pause."
+    },
+    {
+      "start": 36,
+      "end": 39,
+      "beat": "control",
+      "voice": "Your approval. Your next move.",
+      "visual": "Show the decision control. A send/result appears only if actually captured in an authorized test.",
+      "background": "Same UI; avoid a fabricated success toast.",
+      "sound": "Click only if pressed in the captured footage; chime only on a genuine confirmation."
+    },
+    {
+      "start": 39,
+      "end": 42,
+      "beat": "memory",
+      "voice": "It can remember the details you choose.",
+      "visual": "Memory view with a deliberately saved synthetic desk-setup preference.",
+      "background": "Paper field, one genuine memory item.",
+      "sound": "One understated page/card movement."
+    },
+    {
+      "start": 42,
+      "end": 45,
+      "beat": "reach",
+      "voice": "Your inbox. Your calendar. Your workspace.",
+      "visual": "Three simple real connection cards; no separate feature claims beyond visible integrations.",
+      "background": "Clean paper field; no made-up live counters.",
+      "sound": "Two gentle transition gestures from the same family."
+    },
+    {
+      "start": 45,
+      "end": 48,
+      "beat": "language",
+      "voice": "Speak naturally. Even when you mix languages.",
+      "visual": "Hinglish transcript remains the proof; English subtitles persist.",
+      "background": "Brief Openverse India photo crop behind a large transcript card.",
+      "sound": "Music carries this beat; skip street noise under the words."
+    },
+    {
+      "start": 48,
+      "end": 50,
+      "beat": "voice technology",
+      "voice": "Voice powered by Gnani.",
+      "visual": "Small factual caption: Gnani Prisma STT + Timbre TTS.",
+      "background": "Return to charcoal; flat red/white typography.",
+      "sound": "No additional logo boom."
+    },
+    {
+      "start": 50,
+      "end": 53,
+      "beat": "lockup",
+      "voice": "Rex. Your voice, in action.",
+      "visual": "Confused logo and name; one brief Excited eye reaction, returning to Confused.",
+      "background": "Charcoal/night; ample clear space.",
+      "sound": "One soft recorded logo settle; music begins to resolve."
+    },
+    {
+      "start": 53,
+      "end": 56,
+      "beat": "cta",
+      "voice": "Meet your new voice operator.",
+      "visual": "Confused logo, Try Rex. Final verified demo/repo URL to be supplied.",
+      "background": "Same dark end card, held long enough to read.",
+      "sound": "Music resolves; no wake-word implication and no extra UI clicks."
+    }
+  ]
+}

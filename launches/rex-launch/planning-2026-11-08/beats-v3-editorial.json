@@ -1,0 +1,147 @@
+{
+  "status": "planning_only",
+  "duration_seconds": 58,
+  "spoken_words": 105,
+  "beats": [
+    {
+      "start": 0,
+      "end": 2,
+      "speaker": "Narrator",
+      "voice": "Your day moves fast.",
+      "visual": "A real Openverse city/workday crop; one short line of type."
+    },
+    {
+      "start": 2,
+      "end": 4,
+      "speaker": "Narrator",
+      "voice": "Give a little of it to Rex.",
+      "visual": "The Confused mascot notices the task cards; restrained eye movement."
+    },
+    {
+      "start": 4,
+      "end": 7,
+      "speaker": "Narrator",
+      "voice": "Your personal AI sidekick.",
+      "visual": "Confused logo and Rex name; match-cut into the actual dashboard."
+    },
+    {
+      "start": 7,
+      "end": 10,
+      "speaker": "Narrator",
+      "voice": "Talk naturally. Tell it what needs doing.",
+      "visual": "Mic interaction; clear live transcript. No claim of always-on wake-word listening."
+    },
+    {
+      "start": 10,
+      "end": 13,
+      "speaker": "User",
+      "voice": "Find Delhi-to-Bhopal flights for Friday.",
+      "visual": "Start one real spoken request. Exact date and route visible in transcript."
+    },
+    {
+      "start": 13,
+      "end": 16,
+      "speaker": "User",
+      "voice": "And WhatsApp Shanky the options.",
+      "visual": "Same request, same breath. Shanky is shown using a controlled demo chat in a controlled test."
+    },
+    {
+      "start": 16,
+      "end": 18,
+      "speaker": "Rex",
+      "voice": "On it.",
+      "visual": "Use Rex\u2019s actual recorded acknowledgement, or keep this beat silent if none is spoken. Listening \u2192 thinking eyes."
+    },
+    {
+      "start": 18,
+      "end": 21,
+      "speaker": "Narrator",
+      "voice": "Rex searches the web.",
+      "visual": "Actual research action, source pages and flight-option links; no invented prices or confirmed booking."
+    },
+    {
+      "start": 21,
+      "end": 24,
+      "speaker": "Narrator",
+      "voice": "Opens WhatsApp.",
+      "visual": "Actual Mac app, correct controlled chat selected. Show the real desktop workflow."
+    },
+    {
+      "start": 24,
+      "end": 27,
+      "speaker": "Narrator",
+      "voice": "And checks the message is in the right chat.",
+      "visual": "Show message content and the successful local chat verification. Excited eye reaction only after success."
+    },
+    {
+      "start": 27,
+      "end": 30,
+      "speaker": "User",
+      "voice": "Save those links too.",
+      "visual": "Follow-up spoken in the same conversation; no full request repeated."
+    },
+    {
+      "start": 30,
+      "end": 33,
+      "speaker": "Rex",
+      "voice": "Saved in your travel folder.",
+      "visual": "Actual saved note in Files. Use the real response after files.save_note succeeds; do not dub success over a failed action."
+    },
+    {
+      "start": 33,
+      "end": 36,
+      "speaker": "Narrator",
+      "voice": "It remembers what you tell it.",
+      "visual": "One explicit synthetic preference in Memory. Do not infer a preference from a single search."
+    },
+    {
+      "start": 36,
+      "end": 39,
+      "speaker": "Narrator",
+      "voice": "Across conversations.",
+      "visual": "A separately captured later session uses that persisted context; label Next conversation."
+    },
+    {
+      "start": 39,
+      "end": 42,
+      "speaker": "Narrator",
+      "voice": "And finds new things around your interests.",
+      "visual": "Real Discover result from a configured interest and an actual completed research pass. Label Later; no instant discovery implication."
+    },
+    {
+      "start": 42,
+      "end": 45,
+      "speaker": "Narrator",
+      "voice": "Your inbox. Your calendar. The screen you share.",
+      "visual": "Brief real connected-service cards and a user-initiated shared-screen crop. No phone-calling or meeting/coder outcome promises."
+    },
+    {
+      "start": 45,
+      "end": 48,
+      "speaker": "Narrator",
+      "voice": "For actions that need approval, you decide.",
+      "visual": "Actual Tier-A pending action with Approve / Deny. Supporting capability insert, not a second approval for the earlier explicitly requested WhatsApp send."
+    },
+    {
+      "start": 48,
+      "end": 51,
+      "speaker": "Narrator",
+      "voice": "Save routines for the things you do often.",
+      "visual": "The actual share_research routine/timeline; a small editorial Search \u2192 write \u2192 send diagram. No invented visual workflow-builder UI."
+    },
+    {
+      "start": 51,
+      "end": 54,
+      "speaker": "Narrator",
+      "voice": "Voice powered by Gnani.",
+      "visual": "Prisma STT + Timbre TTS credit; actual waveform/voice UI."
+    },
+    {
+      "start": 54,
+      "end": 58,
+      "speaker": "Narrator",
+      "voice": "Rex. Your personal AI sidekick.",
+      "visual": "Confused logo as the final mark, brief Excited reaction then return to Confused. Try Rex + verified URL once supplied; hold to 58s."
+    }
+  ]
+}

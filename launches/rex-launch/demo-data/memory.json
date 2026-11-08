@@ -1,0 +1,15 @@
+{
+ "facts": {
+  "manager": {"value": "Shanky", "updated": "2026-11-07"},
+  "home_city": {"value": "Bhopal", "updated": "2026-11-07"},
+  "interest_anime": {"value": "Naruto", "updated": "2026-11-07"},
+  "interest_cricket": {"value": "IPL", "updated": "2026-11-07"},
+  "coffee_order": {"value": "cold brew, no sugar", "updated": "2026-11-07"},
+  "rex_voice": {"value": "Lakshmi", "updated": "2026-11-07"}
+ },
+ "episodes": [
+  {"date": "2026-11-07", "summary": "Found Naruto t-shirt shops and sent the list to Shanky on WhatsApp."},
+  {"date": "2026-11-07", "summary": "Compared the cheapest Delhi to Bhopal flights for 12 November and shared the top five."},
+  {"date": "2026-11-08", "summary": "Read out today's calendar and the important unread emails."}
+ ]
+}

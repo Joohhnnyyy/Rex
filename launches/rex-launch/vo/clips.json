@@ -1,0 +1,618 @@
+{
+ "0": {
+  "text": "You asked for one thing.",
+  "file": "vo/clips/u00.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "You",
+    "s": 0.0,
+    "e": 0.174
+   },
+   {
+    "w": "asked",
+    "s": 0.244,
+    "e": 0.441
+   },
+   {
+    "w": "for",
+    "s": 0.476,
+    "e": 0.58
+   },
+   {
+    "w": "one",
+    "s": 0.65,
+    "e": 0.813
+   },
+   {
+    "w": "thing.",
+    "s": 0.848,
+    "e": 1.672
+   }
+  ]
+ },
+ "1": {
+  "text": "Send Shanky the cheapest flights to Bhopal.",
+  "file": "vo/clips/u01.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Send",
+    "s": 0.0,
+    "e": 0.244
+   },
+   {
+    "w": "Shanky",
+    "s": 0.29,
+    "e": 0.615
+   },
+   {
+    "w": "the",
+    "s": 0.673,
+    "e": 0.743
+   },
+   {
+    "w": "cheapest",
+    "s": 0.789,
+    "e": 1.138
+   },
+   {
+    "w": "flights",
+    "s": 1.184,
+    "e": 1.463
+   },
+   {
+    "w": "to",
+    "s": 1.498,
+    "e": 1.556
+   },
+   {
+    "w": "Bhopal.",
+    "s": 1.614,
+    "e": 2.647
+   }
+  ]
+ },
+ "2": {
+  "text": "Your assistant sent back a paragraph.",
+  "file": "vo/clips/u02.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Your",
+    "s": 0.0,
+    "e": 0.186
+   },
+   {
+    "w": "assistant",
+    "s": 0.232,
+    "e": 0.662
+   },
+   {
+    "w": "sent",
+    "s": 0.708,
+    "e": 0.871
+   },
+   {
+    "w": "back",
+    "s": 0.906,
+    "e": 1.057
+   },
+   {
+    "w": "a",
+    "s": 1.103,
+    "e": 1.126
+   },
+   {
+    "w": "paragraph.",
+    "s": 1.161,
+    "e": 2.276
+   }
+  ]
+ },
+ "3": {
+  "text": "Meet",
+  "file": "vo/clips/u03.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Meet",
+    "s": 0.0,
+    "e": 0.325
+   }
+  ]
+ },
+ "4": {
+  "text": "Rex. Unimpressed, then on it.",
+  "file": "vo/clips/u04.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Rex.",
+    "s": 0.0,
+    "e": 0.65
+   },
+   {
+    "w": "Unimpressed,",
+    "s": 1.161,
+    "e": 2.067
+   },
+   {
+    "w": "then",
+    "s": 2.125,
+    "e": 2.345
+   },
+   {
+    "w": "on",
+    "s": 2.426,
+    "e": 2.601
+   },
+   {
+    "w": "it.",
+    "s": 2.659,
+    "e": 3.622
+   }
+  ]
+ },
+ "5": {
+  "text": "A voice operator that actually does it.",
+  "file": "vo/clips/u05.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "A",
+    "s": 0.0,
+    "e": 0.128
+   },
+   {
+    "w": "voice",
+    "s": 0.197,
+    "e": 0.43
+   },
+   {
+    "w": "operator",
+    "s": 0.476,
+    "e": 0.894
+   },
+   {
+    "w": "that",
+    "s": 0.94,
+    "e": 1.057
+   },
+   {
+    "w": "actually",
+    "s": 1.115,
+    "e": 1.567
+   },
+   {
+    "w": "does",
+    "s": 1.614,
+    "e": 1.8
+   },
+   {
+    "w": "it.",
+    "s": 1.858,
+    "e": 2.508
+   }
+  ]
+ },
+ "6": {
+  "text": "Talk in Hindi, Hinglish or English.",
+  "file": "vo/clips/u06.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Talk",
+    "s": 0.0,
+    "e": 0.36
+   },
+   {
+    "w": "in",
+    "s": 0.453,
+    "e": 0.557
+   },
+   {
+    "w": "Hindi,",
+    "s": 0.639,
+    "e": 1.277
+   },
+   {
+    "w": "Hinglish",
+    "s": 1.521,
+    "e": 2.136
+   },
+   {
+    "w": "or",
+    "s": 2.252,
+    "e": 2.485
+   },
+   {
+    "w": "English.",
+    "s": 2.577,
+    "e": 3.901
+   }
+  ]
+ },
+ "7": {
+  "text": "It searches the web in seconds, then texts Shanky on WhatsApp",
+  "file": "vo/clips/u07.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "It",
+    "s": 0.0,
+    "e": 0.186
+   },
+   {
+    "w": "searches",
+    "s": 0.244,
+    "e": 0.604
+   },
+   {
+    "w": "the",
+    "s": 0.65,
+    "e": 0.72
+   },
+   {
+    "w": "web",
+    "s": 0.766,
+    "e": 0.952
+   },
+   {
+    "w": "in",
+    "s": 1.01,
+    "e": 1.068
+   },
+   {
+    "w": "seconds,",
+    "s": 1.149,
+    "e": 1.846
+   },
+   {
+    "w": "then",
+    "s": 1.916,
+    "e": 2.101
+   },
+   {
+    "w": "texts",
+    "s": 2.159,
+    "e": 2.45
+   },
+   {
+    "w": "Shanky",
+    "s": 2.485,
+    "e": 2.821
+   },
+   {
+    "w": "on",
+    "s": 2.879,
+    "e": 2.949
+   },
+   {
+    "w": "WhatsApp",
+    "s": 2.995,
+    "e": 3.576
+   }
+  ]
+ },
+ "8": {
+  "text": "and checks it actually landed.",
+  "file": "vo/clips/u08.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "and",
+    "s": 0.0,
+    "e": 0.104
+   },
+   {
+    "w": "checks",
+    "s": 0.163,
+    "e": 0.418
+   },
+   {
+    "w": "it",
+    "s": 0.464,
+    "e": 0.522
+   },
+   {
+    "w": "actually",
+    "s": 0.557,
+    "e": 0.882
+   },
+   {
+    "w": "landed.",
+    "s": 0.94,
+    "e": 1.858
+   }
+  ]
+ },
+ "9": {
+  "text": "Your inbox. Your calendar. Your Mac apps.",
+  "file": "vo/clips/u09.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Your",
+    "s": 0.0,
+    "e": 0.221
+   },
+   {
+    "w": "inbox.",
+    "s": 0.267,
+    "e": 0.917
+   },
+   {
+    "w": "Your",
+    "s": 1.161,
+    "e": 1.312
+   },
+   {
+    "w": "calendar.",
+    "s": 1.358,
+    "e": 2.043
+   },
+   {
+    "w": "Your",
+    "s": 2.368,
+    "e": 2.519
+   },
+   {
+    "w": "Mac",
+    "s": 2.566,
+    "e": 2.775
+   },
+   {
+    "w": "apps.",
+    "s": 2.833,
+    "e": 3.808
+   }
+  ]
+ },
+ "10": {
+  "text": "Anything risky? It asks first.",
+  "file": "vo/clips/u10.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Anything",
+    "s": 0.0,
+    "e": 0.36
+   },
+   {
+    "w": "risky?",
+    "s": 0.406,
+    "e": 1.022
+   },
+   {
+    "w": "It",
+    "s": 1.834,
+    "e": 1.985
+   },
+   {
+    "w": "asks",
+    "s": 2.032,
+    "e": 2.368
+   },
+   {
+    "w": "first.",
+    "s": 2.426,
+    "e": 3.994
+   }
+  ]
+ },
+ "11": {
+  "text": "It remembers what you like, and goes looking for things you'd love.",
+  "file": "vo/clips/u11.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "It",
+    "s": 0.0,
+    "e": 0.197
+   },
+   {
+    "w": "remembers",
+    "s": 0.255,
+    "e": 0.685
+   },
+   {
+    "w": "what",
+    "s": 0.72,
+    "e": 0.824
+   },
+   {
+    "w": "you",
+    "s": 0.859,
+    "e": 0.94
+   },
+   {
+    "w": "like,",
+    "s": 1.022,
+    "e": 1.3
+   },
+   {
+    "w": "and",
+    "s": 1.324,
+    "e": 1.393
+   },
+   {
+    "w": "goes",
+    "s": 1.451,
+    "e": 1.625
+   },
+   {
+    "w": "looking",
+    "s": 1.66,
+    "e": 1.904
+   },
+   {
+    "w": "for",
+    "s": 1.962,
+    "e": 2.055
+   },
+   {
+    "w": "things",
+    "s": 2.101,
+    "e": 2.299
+   },
+   {
+    "w": "you'd",
+    "s": 2.334,
+    "e": 2.473
+   },
+   {
+    "w": "love.",
+    "s": 2.508,
+    "e": 3.855
+   }
+  ]
+ },
+ "12": {
+  "text": "Every download, sorted.",
+  "file": "vo/clips/u12.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Every",
+    "s": 0.0,
+    "e": 0.313
+   },
+   {
+    "w": "download,",
+    "s": 0.372,
+    "e": 0.987
+   },
+   {
+    "w": "sorted.",
+    "s": 1.231,
+    "e": 2.276
+   }
+  ]
+ },
+ "13": {
+  "text": "Built for India. Ten languages.",
+  "file": "vo/clips/u13.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Built",
+    "s": 0.0,
+    "e": 0.267
+   },
+   {
+    "w": "for",
+    "s": 0.302,
+    "e": 0.406
+   },
+   {
+    "w": "India.",
+    "s": 0.464,
+    "e": 1.01
+   },
+   {
+    "w": "Ten",
+    "s": 1.184,
+    "e": 1.44
+   },
+   {
+    "w": "languages.",
+    "s": 1.521,
+    "e": 2.647
+   }
+  ]
+ },
+ "14": {
+  "text": "One deadpan face.",
+  "file": "vo/clips/u14.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "One",
+    "s": 0.0,
+    "e": 0.267
+   },
+   {
+    "w": "deadpan",
+    "s": 0.302,
+    "e": 0.627
+   },
+   {
+    "w": "face.",
+    "s": 0.697,
+    "e": 1.672
+   }
+  ]
+ },
+ "15": {
+  "text": "Rex. Your voice operator.",
+  "file": "vo/clips/u15.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Rex.",
+    "s": 0.0,
+    "e": 0.708
+   },
+   {
+    "w": "Your",
+    "s": 1.091,
+    "e": 1.254
+   },
+   {
+    "w": "voice",
+    "s": 1.3,
+    "e": 1.533
+   },
+   {
+    "w": "operator.",
+    "s": 1.579,
+    "e": 2.647
+   }
+  ]
+ },
+ "16": {
+  "text": "Just say hey Rex.",
+  "file": "vo/clips/u16.wav",
+  "provider": "eleven",
+  "voice": "cgSgspJ2msm6clMCkdW9",
+  "words": [
+   {
+    "w": "Just",
+    "s": 0.0,
+    "e": 0.267
+   },
+   {
+    "w": "say",
+    "s": 0.313,
+    "e": 0.662
+   },
+   {
+    "w": "hey",
+    "s": 1.173,
+    "e": 1.37
+   },
+   {
+    "w": "Rex.",
+    "s": 1.451,
+    "e": 2.229
+   }
+  ]
+ }
+}

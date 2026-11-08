@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GRAPH = ROOT / "memory" / "project-graph.jsonl"
-OUT = ROOT / "PROGRESS.md"
+OUT = ROOT / "docs" / "team" / "PROGRESS.md"
 WEIGHT = {"todo": 0.0, "blocked": 0.0, "in_progress": 0.5, "done": 1.0}
 ICON = {"todo": "⬜", "in_progress": "🟨", "blocked": "🟥", "done": "✅"}
 

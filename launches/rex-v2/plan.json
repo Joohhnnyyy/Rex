@@ -1,0 +1,622 @@
+{
+ "name": "rex-v2",
+ "format": "16:9",
+ "brand": {
+  "name": "Rex",
+  "mark": "assets/rex-mark.png"
+ },
+ "theme": {
+  "accent": "#FF4055",
+  "dark": "#090A0D",
+  "light": "#FFFFFF",
+  "ink": "#141418",
+  "paper": "#F6F3EE",
+  "font": "Inter Tight"
+ },
+ "music": {
+  "file": "assets/music-night-walk.mp3",
+  "start": 54,
+  "gain": 0.4
+ },
+ "mix": {
+  "vo": 1.0,
+  "duck": 0.45,
+  "sfx": 0.55
+ },
+ "vo": {
+  "post": 0.2,
+  "hold": 3.6
+ },
+ "scenes": [
+  {
+   "type": "text",
+   "photo": "assets/photos/delhi-traffic-motion.jpg",
+   "tone": "neon",
+   "halftone": false,
+   "size": "xl",
+   "glitchIn": true,
+   "out": "glitch",
+   "vo": "Your day moves fast.",
+   "dur": 3.6,
+   "textFx": [
+    "neon",
+    "rgb",
+    "scan"
+   ],
+   "rex": {
+    "x": 0.86,
+    "y": 0.76,
+    "w": 0.22,
+    "in": 0.4,
+    "tilt": -8,
+    "white": false,
+    "script": [
+     {
+      "at": 0,
+      "expr": "neutre",
+      "look": [
+       0.5,
+       0.5
+      ]
+     },
+     {
+      "word": "fast",
+      "expr": "effraye",
+      "state": "wide",
+      "look": [
+       0.86,
+       0.6
+      ]
+     },
+     {
+      "word": "fast",
+      "offset": 0.9,
+      "expr": "surpris",
+      "look": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "bg": "accent",
+   "size": "xl",
+   "out": "blink",
+   "vo": "Hand some of it to Rex.",
+   "dur": 2.4,
+   "textFx": [
+    "punch"
+   ],
+   "rex": {
+    "x": 0.5,
+    "y": 0.8,
+    "w": 0.2,
+    "in": 0.25,
+    "tilt": -8,
+    "white": true,
+    "script": [
+     {
+      "at": 0,
+      "expr": "curieux",
+      "look": [
+       0.5,
+       0.5
+      ]
+     },
+     {
+      "word": "Rex",
+      "expr": "excite",
+      "state": "wink",
+      "look": null
+     },
+     {
+      "word": "Rex",
+      "offset": 0.8,
+      "expr": "heureux"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ui",
+   "bg": "light",
+   "src": "assets/logo-reveal.mp4",
+   "frame": "none",
+   "width": 0.8,
+   "side": "top",
+   "cam": "still",
+   "vo": "Your AI sidekick.",
+   "text": "Your [AI sidekick.]",
+   "dur": 3.0,
+   "sfx": [
+    {
+     "name": "boom",
+     "at": 0.9,
+     "gain": 0.5
+    }
+   ],
+   "out": "whip"
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/ui-immersive.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex",
+   "side": "top",
+   "width": 0.8,
+   "cam": "push",
+   "voice": "bIHbv24MWmeRgasZH58o",
+   "vo": "Find Delhi to Bhopal flights for Friday, and WhatsApp Shanky.",
+   "text": "“Find Delhi to Bhopal flights for Friday, and *WhatsApp Shanky.*”",
+   "typing": [
+    {
+     "at": 0.3,
+     "x": 0.373,
+     "y": 0.919,
+     "text": "Find Delhi to Bhopal flights for Friday, and WhatsApp Shanky",
+     "size": 0.012,
+     "cps": 24
+    }
+   ],
+   "dur": 4.8,
+   "out": "iris",
+   "irisAt": [
+    0.36,
+    0.5
+   ]
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/mascot-confused-dark.mp4",
+   "frame": "none",
+   "width": 0.42,
+   "side": "right",
+   "voice": "bIHbv24MWmeRgasZH58o",
+   "vo": "On it.",
+   "text": "[On it.]",
+   "dur": 1.8,
+   "out": "whip"
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/ui-discover.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex · Research",
+   "side": "top",
+   "width": 0.8,
+   "cursor": [
+    {
+     "at": 0.2,
+     "x": 0.7,
+     "y": 0.4
+    },
+    {
+     "at": 0.8,
+     "x": 0.925,
+     "y": 0.13,
+     "click": true
+    }
+   ],
+   "focus": [
+    {
+     "at": 1.2,
+     "rect": [
+      0.07,
+      0.42,
+      0.91,
+      0.2
+     ],
+     "s": 1.06
+    }
+   ],
+   "vo": "It searches the web,",
+   "text": "It searches [the web,]",
+   "dur": 3.0,
+   "out": "shutter",
+   "rex": {
+    "x": 0.08,
+    "y": 0.84,
+    "w": 0.16,
+    "in": 0.2,
+    "tilt": 8,
+    "white": false,
+    "script": [
+     {
+      "at": 0,
+      "expr": "attentif",
+      "look": [
+       0.6,
+       0.5
+      ]
+     },
+     {
+      "word": "searches",
+      "expr": "curieux",
+      "look": [
+       0.9,
+       0.15
+      ]
+     },
+     {
+      "word": "web",
+      "expr": "excite",
+      "look": [
+       0.5,
+       0.55
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/ui-immersive-confused.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex",
+   "side": "top",
+   "width": 0.8,
+   "toasts": [
+    {
+     "at": 0.3,
+     "title": "WhatsApp · Shanky",
+     "body": "Delhi → Bhopal, Friday: 5 flight options",
+     "icon": "💬"
+    }
+   ],
+   "toastY": 0.32,
+   "blurBehind": true,
+   "vo": "opens WhatsApp,",
+   "text": "opens [WhatsApp,]",
+   "dur": 3.0,
+   "out": "wipe"
+  },
+  {
+   "type": "text",
+   "bg": "accent",
+   "size": "xl",
+   "out": "zoomthru",
+   "vo": "and checks it landed.",
+   "text": "and checks it landed. ✓",
+   "dur": 2.4,
+   "sfx": [
+    {
+     "name": "ding",
+     "at": 0.6
+    }
+   ],
+   "textFx": [
+    "punch"
+   ],
+   "rex": {
+    "x": 0.5,
+    "y": 0.8,
+    "w": 0.2,
+    "in": 0.15,
+    "tilt": -8,
+    "white": true,
+    "script": [
+     {
+      "at": 0,
+      "expr": "curieux",
+      "look": [
+       0.5,
+       0.5
+      ]
+     },
+     {
+      "word": "landed",
+      "expr": "fier",
+      "state": "wink",
+      "look": null
+     },
+     {
+      "word": "landed",
+      "offset": 0.7,
+      "expr": "heureux"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/ui-memory.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex · Memory",
+   "side": "top",
+   "width": 0.8,
+   "cam": [
+    {
+     "at": 0,
+     "s": 1
+    },
+    {
+     "at": 2.2,
+     "to": [
+      0.07,
+      0.07,
+      0.47,
+      0.35
+     ],
+     "fill": 0.62
+    }
+   ],
+   "vo": "It remembers what you tell it,",
+   "text": "It remembers *what you tell it,*",
+   "dur": 3.6,
+   "out": "blink",
+   "rex": {
+    "x": 0.92,
+    "y": 0.84,
+    "w": 0.16,
+    "in": 0.3,
+    "tilt": -8,
+    "white": false,
+    "script": [
+     {
+      "at": 0,
+      "expr": "attentif",
+      "look": [
+       0.3,
+       0.55
+      ]
+     },
+     {
+      "word": "remembers",
+      "look": [
+       0.3,
+       0.35
+      ]
+     },
+     {
+      "word": "tell",
+      "expr": "heureux",
+      "look": null,
+      "state": "wink"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ui",
+   "photo": "assets/photos/mumbai-city-lights.jpg",
+   "tone": "neon",
+   "halftone": false,
+   "src": "assets/ui-discover.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex · Discover",
+   "side": "top",
+   "width": 0.72,
+   "glitchIn": true,
+   "vo": "and hunts down stuff you'll love.",
+   "text": "and hunts down [stuff you'll love.]",
+   "dur": 3.6,
+   "out": "glitch",
+   "textFx": [
+    "neon",
+    "scan"
+   ],
+   "rex": {
+    "x": 0.9,
+    "y": 0.82,
+    "w": 0.18,
+    "in": 0.25,
+    "tilt": -8,
+    "white": false,
+    "script": [
+     {
+      "at": 0,
+      "expr": "curieux",
+      "look": [
+       0.5,
+       0.5
+      ]
+     },
+     {
+      "word": "hunts",
+      "look": [
+       0.3,
+       0.6
+      ],
+      "expr": "curieux"
+     },
+     {
+      "word": "love",
+      "expr": "excite",
+      "state": "wide",
+      "look": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "bg": "dark",
+   "size": "xl",
+   "out": "zoomthru",
+   "vo": "Inbox. Calendar. Mac apps.",
+   "text": "Inbox. Calendar. *Mac apps.*",
+   "dur": 3.0,
+   "textFx": [
+    "punch"
+   ],
+   "rex": {
+    "x": 0.5,
+    "y": 0.84,
+    "w": 0.17,
+    "in": 0.05,
+    "tilt": 0,
+    "white": false,
+    "script": [
+     {
+      "at": 0,
+      "expr": "attentif",
+      "look": [
+       0.2,
+       0.5
+      ]
+     },
+     {
+      "word": "Inbox",
+      "expr": "surpris",
+      "look": [
+       0.22,
+       0.5
+      ]
+     },
+     {
+      "word": "Calendar",
+      "expr": "curieux",
+      "look": [
+       0.5,
+       0.5
+      ]
+     },
+     {
+      "word": "Mac",
+      "expr": "excite",
+      "look": [
+       0.8,
+       0.5
+      ],
+      "state": "wide"
+     },
+     {
+      "word": "apps",
+      "offset": 0.5,
+      "expr": "hilare",
+      "look": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "ui",
+   "bg": "dark",
+   "src": "assets/ui-immersive-confused.png",
+   "frame": "browser",
+   "dark": true,
+   "title": "Rex",
+   "side": "top",
+   "width": 0.8,
+   "toasts": [
+    {
+     "at": 0.4,
+     "title": "Needs your OK",
+     "body": "Email the flight list to Shanky?",
+     "icon": "⏳"
+    }
+   ],
+   "toastY": 0.32,
+   "blurBehind": true,
+   "vo": "Anything risky? You decide.",
+   "text": "Anything risky? [You decide.]",
+   "dur": 3.6,
+   "out": "wipe"
+  },
+  {
+   "type": "chips",
+   "bg": "accent",
+   "items": [
+    "Search",
+    "→",
+    "Write",
+    "→",
+    "Send"
+   ],
+   "vo": "Routines for the stuff you do daily.",
+   "text": "Routines for the stuff you do daily.",
+   "dur": 3.0,
+   "out": "glitch",
+   "rex": {
+    "x": 0.5,
+    "y": 0.24,
+    "w": 0.18,
+    "in": 0.15,
+    "tilt": -8,
+    "white": true,
+    "script": [
+     {
+      "at": 0,
+      "expr": "attentif",
+      "look": [
+       0.2,
+       0.55
+      ]
+     },
+     {
+      "word": "Routines",
+      "look": [
+       0.2,
+       0.6
+      ]
+     },
+     {
+      "word": "stuff",
+      "look": [
+       0.5,
+       0.6
+      ]
+     },
+     {
+      "word": "do",
+      "look": [
+       0.8,
+       0.6
+      ]
+     },
+     {
+      "word": "daily",
+      "expr": "fier",
+      "state": "wink",
+      "look": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "logo",
+   "photo": "assets/photos/mumbai-festive-night.jpg",
+   "tone": "neon",
+   "halftone": false,
+   "glitchIn": true,
+   "vo": "Rex. Your personal AI sidekick.",
+   "tagline": "Your personal|AI sidekick.",
+   "dur": 3.6,
+   "textFx": [
+    "neon",
+    "scan"
+   ],
+   "out": "iris",
+   "irisAt": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "type": "text",
+   "photo": "assets/logo-final.png",
+   "tone": "color",
+   "halftone": false,
+   "vignette": false,
+   "photoFrom": 1.0,
+   "photoTo": 1.04,
+   "pos": "bottom",
+   "size": "m",
+   "color": "#141418",
+   "vo": "Voice powered by Gnani.",
+   "text": "Voice powered by [Gnani.]",
+   "sub": "Built for the Gnani.ai challenge · gnani.ai/internship",
+   "bg": "light"
+  }
+ ]
+}

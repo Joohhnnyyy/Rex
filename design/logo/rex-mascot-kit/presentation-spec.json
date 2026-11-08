@@ -1,0 +1,32 @@
+{
+  "brand": "Rex",
+  "brief": "Multilingual AI voice operator with a playful, expressive personality. Use the established mascot as the identity.",
+  "adjectives": [
+    "curious",
+    "capable",
+    "playful"
+  ],
+  "industry": "consumer-app",
+  "brand_color": "#FF4055",
+  "tile_color": "#090A0D",
+  "greyscale": false,
+  "final": true,
+  "concepts": [
+    {
+      "name": "Curious Rex",
+      "symbol": "masters/rex-confused-red.svg",
+      "lockup": "masters/rex-confused-horizontal-red.svg",
+      "stacked": "masters/rex-confused-stacked-red.svg",
+      "symbol_on_tile": "masters/rex-confused-red.svg",
+      "symbol_on_dark": "masters/rex-confused-red.svg",
+      "lockup_on_dark": "masters/rex-confused-horizontal-white.svg",
+      "idea": "A curious face for a capable companion.",
+      "rationale": [
+        "Confused is the primary expression; Excited supports greetings and success.",
+        "Exact capsule and transparent eye counters.",
+        "Enlarged small-size eyes retain the expression."
+      ]
+    }
+  ],
+  "recommendation": "Use Confused consistently for recognition; use Excited for celebratory moments."
+}
