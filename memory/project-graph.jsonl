@@ -299,7 +299,7 @@
 {"type": "relation", "from": "Shanky", "to": "T-28", "relationType": "owns"}
 {"type": "relation", "from": "T-28", "to": "T-22", "relationType": "depends_on"}
 {"type": "relation", "from": "T-28", "to": "T-23", "relationType": "depends_on"}
-{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "check: 27/28 on 2026-10-28", "note: 2026-10-28 offline 27/28; --live 26/30 — every live test passed at least once; re-run after Gemini quota reset or billing"]}
+{"type": "entity", "name": "T-29", "entityType": "Task", "observations": ["title: Phase 2 completion check passes with --live (S2-7)", "status: todo", "note: assigned to Shanky 2026-10-25", "due: 2026-10-28", "note: 2026-10-28 offline 27/28; --live 26/30 — every live test passed at least once; re-run after Gemini quota reset or billing", "check: 27/30 live on 2026-11-09"]}
 {"type": "relation", "from": "T-29", "to": "Phase 2", "relationType": "part_of"}
 {"type": "relation", "from": "T-29", "to": "Evals", "relationType": "builds"}
 {"type": "relation", "from": "Shanky", "to": "T-29", "relationType": "owns"}

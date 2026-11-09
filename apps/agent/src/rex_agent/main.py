@@ -429,9 +429,14 @@ def prewarm(proc: JobProcess) -> None:
     proc.userdata["vad"] = silero.VAD.load()
     if sys.platform == "darwin":
         import pyautogui  # noqa: F401  # loads CoreFoundation/Quartz (~350 ms) before the first click
+    import livekit.agents.llm.async_toolset  # noqa: F401
 
 
-server = AgentServer(setup_fnc=prewarm)
+server = AgentServer(
+    setup_fnc=prewarm,
+    num_idle_processes=1,
+    initialize_process_timeout=30.0,
+)
 
 
 def _turn_detection():
